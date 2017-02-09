@@ -61,7 +61,7 @@ namespace JG_Prospect.Sr_App
             Common.modal.UserAuditTrail objUserAudit = new Common.modal.UserAuditTrail();
 
             objUserAudit.LogOutTime = DateTime.Now;
-            objUserAudit.LogInGuID = Session[SessionKey.Key.GuIdAtLogin.ToString()].ToString();
+            objUserAudit.LogInGuID = Session[SessionKey.Key.GuIdAtLogin.ToString()] == null ? string.Empty : Session[SessionKey.Key.GuIdAtLogin.ToString()].ToString();
             
             UserAuditTrailBLL.Instance.UpdateUserLogOutTime(objUserAudit);
 
