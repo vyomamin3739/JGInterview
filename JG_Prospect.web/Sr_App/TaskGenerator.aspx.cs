@@ -1259,7 +1259,11 @@ namespace JG_Prospect.Sr_App
             try
             {
                 string strHTMLTemplateName = "Task Generator Auto Email";
+                DataSet dsTaskDetails = TaskGeneratorBLL.Instance.GetTaskDetails(Convert.ToInt32(hdnTaskId.Value));
+                DataTable dtTaskMasterDetails = dsTaskDetails.Tables[0];              
+               String Title= dtTaskMasterDetails.Rows[0]["Title"].ToString();
                 DataSet dsEmailTemplate = AdminBLL.Instance.GetEmailTemplate(strHTMLTemplateName, 108);
+              
                 foreach (string userID in strInstallUserIDs.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     DataSet dsUser = TaskGeneratorBLL.Instance.GetInstallUserDetails(Convert.ToInt32(userID));
@@ -1272,10 +1276,11 @@ namespace JG_Prospect.Sr_App
                     string strHeader = dsEmailTemplate.Tables[0].Rows[0]["HTMLHeader"].ToString();
                     string strBody = dsEmailTemplate.Tables[0].Rows[0]["HTMLBody"].ToString();
                     string strFooter = dsEmailTemplate.Tables[0].Rows[0]["HTMLFooter"].ToString();
-                    string strsubject = dsEmailTemplate.Tables[0].Rows[0]["HTMLSubject"].ToString();
+                    string strsubject = dsEmailTemplate.Tables[0].Rows[0]["htmlsubject"].ToString();
 
                     strBody = strBody.Replace("#Fname#", fullname);
                     strBody = strBody.Replace("#TaskLink#", string.Format("{0}?TaskId={1}", Request.Url.ToString().Split('?')[0], hdnTaskId.Value));
+                    strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", hdnTaskId.Value, Title));
 
                     strBody = strHeader + strBody + strFooter;
 

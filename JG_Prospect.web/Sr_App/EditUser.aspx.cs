@@ -3809,6 +3809,10 @@ namespace JG_Prospect
                 {
                     DataSet dsUser = TaskGeneratorBLL.Instance.GetInstallUserDetails(Convert.ToInt32(userID));
 
+                    DataSet dsTaskDetails = TaskGeneratorBLL.Instance.GetTaskDetails(Convert.ToInt32(strTaskId));
+                    DataTable dtTaskMasterDetails = dsTaskDetails.Tables[0];
+                    String Title = dtTaskMasterDetails.Rows[0]["Title"].ToString();
+
                     string emailId = dsUser.Tables[0].Rows[0]["Email"].ToString();
                     string FName = dsUser.Tables[0].Rows[0]["FristName"].ToString();
                     string LName = dsUser.Tables[0].Rows[0]["LastName"].ToString();
@@ -3839,7 +3843,7 @@ namespace JG_Prospect
                                                                             strSubTaskId
                                                                         )
                                             );
-
+                    strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", strTaskId, Title));
                     strBody = strHeader + strBody + strFooter;
 
                     List<Attachment> lstAttachments = new List<Attachment>();
