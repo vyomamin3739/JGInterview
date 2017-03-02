@@ -493,7 +493,7 @@ namespace JG_Prospect.Sr_App
                             #region - if Rows[0][6] is haveing value
                             ddlstatus.SelectedValue = ds.Tables[0].Rows[0][6].ToString();
                             Session["PreviousStatusNew"] = Convert.ToString(ds.Tables[0].Rows[0][6]);
-                            if (ddlstatus.SelectedValue == "Install Prospect")
+                            if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InstallProspect).ToString())
                             {
                                 rqDesignition.Enabled = false;
                                 RequiredFieldValidator3.Enabled = false;
@@ -549,7 +549,7 @@ namespace JG_Prospect.Sr_App
                                 rqSource.Enabled = true;
                                 lblConfirmPass.Visible = false;
                             }
-                            else if (ddlstatus.SelectedValue == "Applicant")
+                            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString())
                             {
                                 rqDesignition.Enabled = false;
                                 RequiredFieldValidator3.Enabled = false;
@@ -606,7 +606,7 @@ namespace JG_Prospect.Sr_App
                                 rqSource.Enabled = true;
                                 lblConfirmPass.Visible = false;
                             }
-                            else if (ddlstatus.SelectedValue == "OfferMade")
+                            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                             {
                                 rqDesignition.Enabled = true;
                                 RequiredFieldValidator3.Enabled = true;
@@ -673,7 +673,7 @@ namespace JG_Prospect.Sr_App
                                 rqEmpType.Enabled = true;
                                 #endregion
                             }
-                            else if (ddlstatus.SelectedValue == "Active")
+                            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
                             {
                                 rqDesignition.Enabled = true;
                                 RequiredFieldValidator3.Enabled = true;
@@ -742,8 +742,8 @@ namespace JG_Prospect.Sr_App
                                 rqEmpType.Enabled = true;
                                 #endregion
 
-                                if ((ddlstatus.SelectedValue == "Active")
-                                    || (ddlstatus.SelectedValue == "OfferMade"))
+                                if ((ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
+                                    || (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString()))
                                 {
                                     showHideNewHireSection(true);
                                 }
@@ -753,8 +753,8 @@ namespace JG_Prospect.Sr_App
                             #endregion
                         }
                         Session["PreviousStatus"] = Convert.ToString(ds.Tables[0].Rows[0][6]);
-                        if (ds.Tables[0].Rows[0][6].ToString() == "Active"
-                            || ds.Tables[0].Rows[0][6].ToString() == "OfferMade")
+                        if (ds.Tables[0].Rows[0][6].ToString() == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString()
+                            || ds.Tables[0].Rows[0][6].ToString() == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                         {
 
                             //pnlGrid.Visible = true;
@@ -767,7 +767,7 @@ namespace JG_Prospect.Sr_App
                             showHideNewHireSection(false);
                             pnl4.Visible = false;
                         }
-                        if (ds.Tables[0].Rows[0][6].ToString() == "Deactive")
+                        if (ds.Tables[0].Rows[0][6].ToString() == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                         {
                             ddlstatus.Enabled = false;
                         }
@@ -781,13 +781,13 @@ namespace JG_Prospect.Sr_App
                         {
                             txtNotes.Text = ds.Tables[0].Rows[0][39].ToString();
                         }
-                        if (ds.Tables[0].Rows[0][40].ToString() != "" && ds.Tables[0].Rows[0][6].ToString() != "InterviewDate")
+                        if (ds.Tables[0].Rows[0][40].ToString() != "" && ds.Tables[0].Rows[0][6].ToString() != Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString() )
                         {
                             txtReson.Text = ds.Tables[0].Rows[0][40].ToString();
                             txtReson.Visible = true;
                             ddlInsteviewtime.Visible = false;
                         }
-                        else if (ds.Tables[0].Rows[0][40].ToString() != "" && ds.Tables[0].Rows[0][6].ToString() == "InterviewDate")
+                        else if (ds.Tables[0].Rows[0][40].ToString() != "" && ds.Tables[0].Rows[0][6].ToString() == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                         {
                             dtInterviewDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0][40]).ToShortDateString();
                             dtInterviewDate.Visible = true;
@@ -1281,11 +1281,11 @@ namespace JG_Prospect.Sr_App
                 //objuser.SecondoryTradeId = Convert.ToInt32(ddlSecondaryTrade.SelectedValue);
                 objuser.Source = ddlSource.SelectedValue;
                 objuser.Notes = txtNotes.Text;
-                if (txtReson.Visible == true && ddlstatus.SelectedValue != "InterviewDate")
+                if (txtReson.Visible == true && ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     objuser.Reason = txtReson.Text;
                 }
-                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == "InterviewDate")
+                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     objuser.Reason = Convert.ToString(dtInterviewDate.Text);
                 }
@@ -1448,7 +1448,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.InstallerType = ddlInstallerType.SelectedValue;
                 }
-                if (ddlstatus.SelectedValue == "InterviewDate")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     objuser.InterviewTime = ddlInsteviewtime.SelectedItem.Text;
                 }
@@ -1456,7 +1456,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.InterviewTime = "";
                 }
-                if (ddlstatus.SelectedValue == "Active")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
                 {
                     objuser.ActivationDate = DateTime.Today.ToShortDateString();
                     objuser.UserActivated = Convert.ToString(Session["Username"]);
@@ -1515,6 +1515,14 @@ namespace JG_Prospect.Sr_App
                 objuser.InstallId = InstallId;
                 objuser.fristname = txtfirstname.Text;
                 objuser.lastname = txtlastname.Text;
+
+
+                if (txtemail.Text == "")
+                {
+                    txtemail.Text = txtfirstname.Text + "." + txtlastname.Text + "@" + Utilits.AppSettingsValues.GetDomainActiveUserEailCreation;
+                
+                }
+                
                 objuser.email = txtemail.Text.Trim();
                 objuser.address = txtaddress.Text;
                 objuser.zip = txtZip.Text;
@@ -1579,7 +1587,7 @@ namespace JG_Prospect.Sr_App
                 //objuser.SecondoryTradeId = Convert.ToInt32(ddlSecondaryTrade.SelectedValue);
                 objuser.Source = ddlSource.SelectedValue;
                 objuser.Notes = txtNotes.Text;
-                if (txtReson.Visible == true && ddlstatus.SelectedValue == "Rejected")
+                if (txtReson.Visible == true && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString())
                 {
                     str_Reason = txtReson.Text;
                     objuser.Reason = txtReson.Text;
@@ -1587,7 +1595,7 @@ namespace JG_Prospect.Sr_App
                     objuser.RejectionTime = DateTime.Now.ToShortTimeString();
                     objuser.RejectedUserId = Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
                 }
-                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == "InterviewDate")
+                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     str_Reason = txtReson.Text;
                     objuser.Reason = Convert.ToString(dtInterviewDate.Text);
@@ -1727,7 +1735,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.InstallerType = ddlInstallerType.SelectedValue;
                 }
-                if (ddlstatus.SelectedValue == "InterviewDate")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     objuser.InterviewTime = ddlInsteviewtime.SelectedItem.Text;
                 }
@@ -1736,7 +1744,7 @@ namespace JG_Prospect.Sr_App
                     objuser.InterviewTime = "";
                 }
                 objuser.DateSourced = DateTime.Today.ToShortDateString();
-                if (ddlstatus.SelectedValue == "Active")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
                 {
                     objuser.ActivationDate = DateTime.Today.ToShortDateString();
                     objuser.UserActivated = Convert.ToString(Session["Username"]);
@@ -1774,6 +1782,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.FELONY = false;
                 }
+
                 objuser.shortterm = txtShortTermAvail.Text;
                 objuser.LongTerm = txtLongTermAvail.Text;
                 objuser.BestCandidate = txtWhyBest.Text;
@@ -1828,6 +1837,7 @@ namespace JG_Prospect.Sr_App
                 {
                     try
                     {
+                       
                         var result = InstallUserBLL.Instance.AddUser(objuser);
                         Session["ID"] = result.Item2;
 
@@ -1846,17 +1856,17 @@ namespace JG_Prospect.Sr_App
                         //lblmsg.Visible = true;
                         //lblmsg.CssClass = "success";
                         //lblmsg.Text = "User has been created successfully";
-                        //if (ddlstatus.SelectedValue == "InterviewDate" || ddlstatus.SelectedValue == "OfferMade" || ddlstatus.SelectedValue == "Deactive")
-                        if (ddlstatus.SelectedValue == "Deactive")
+                        //if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString() || ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString() || ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
+                        if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                         {
                             SendEmail(txtemail.Text, txtfirstname.Text, txtlastname.Text, ddlstatus.SelectedValue, str_Reason);
                         }
 
-                        if (ddlstatus.SelectedValue == "InterviewDate")
+                        if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                         {
                             btnSaveInterview_Click(sender, e);
                         }
-                        if (ddlstatus.SelectedValue == "OfferMade")
+                        if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                         {
                             btnSaveOfferMade_Click(sender, e);
                         }
@@ -1900,40 +1910,42 @@ namespace JG_Prospect.Sr_App
             //If insert than only chk for blank.
             if (IsInsert != true || hidExtEmail.Value.Trim() != "")
             {
-                string strHidEmailValue = hidExtEmail.Value;
-                string delimeter = "|,|";
-                string Subdelimeter = "|%|";
-                //PhoneValue = '0' + Subdelimeter + 'Phone1' + Subdelimeter + 'skype' + delimeter + '1' + Subdelimeter + 'Phone2' + Subdelimeter + 'whatsapp';
-                if (strHidEmailValue.IndexOf(delimeter) < 0)
-                    strHidEmailValue = strHidEmailValue + delimeter;
+                InstallUserBLL.Instance.AddUserEmails(hidExtEmail.Value, UserID);
 
-                string[] PhoneTypes = strHidEmailValue.Split(new string[] { delimeter }, StringSplitOptions.None);
+                //string strHidEmailValue = hidExtEmail.Value;
+                //string delimeter = "|,|";
+                //string Subdelimeter = "|%|";
+                ////PhoneValue = '0' + Subdelimeter + 'Phone1' + Subdelimeter + 'skype' + delimeter + '1' + Subdelimeter + 'Phone2' + Subdelimeter + 'whatsapp';
+                //if (strHidEmailValue.IndexOf(delimeter) < 0)
+                //    strHidEmailValue = strHidEmailValue + delimeter;
 
-                InstallUserBLL.Instance.AddUserPhone(false, "", 0, UserID, "", "", true);
+                //string[] PhoneTypes = strHidEmailValue.Split(new string[] { delimeter }, StringSplitOptions.None);
 
-                foreach (string SubItems in PhoneTypes)
-                {
-                    if (SubItems.Trim() != "")
-                    {
-                        string[] PhoneTypeItems = SubItems.Split(new string[] { Subdelimeter }, StringSplitOptions.None);
-                        if (PhoneTypeItems != null)
-                        {
-                            bool IsPrimaryPhone = false;
+                //InstallUserBLL.Instance.AddUserPhone(false, "", 0, UserID, "", "", true);
 
-                            if (PhoneTypeItems[0].ToString() == "1")
-                                IsPrimaryPhone = true;
+                //foreach (string SubItems in PhoneTypes)
+                //{
+                //    if (SubItems.Trim() != "")
+                //    {
+                //        string[] PhoneTypeItems = SubItems.Split(new string[] { Subdelimeter }, StringSplitOptions.None);
+                //        if (PhoneTypeItems != null)
+                //        {
+                //            bool IsPrimaryPhone = false;
 
-                            string PhoneISDCode = PhoneTypeItems[1].ToString();
-                            string PhoneText = PhoneTypeItems[2].ToString();
-                            string PhoneExtNo = PhoneTypeItems[3].ToString();
-                            int intPhoneType;
-                            Int32.TryParse(PhoneTypeItems[4].ToString(), out intPhoneType);
+                //            if (PhoneTypeItems[0].ToString() == "1")
+                //                IsPrimaryPhone = true;
 
-                            InstallUserBLL.Instance.AddUserPhone(IsPrimaryPhone, PhoneText, intPhoneType
-                                , UserID, PhoneExtNo, PhoneISDCode, false);
-                        }
-                    }
-                }
+                //            string PhoneISDCode = PhoneTypeItems[1].ToString();
+                //            string PhoneText = PhoneTypeItems[2].ToString();
+                //            string PhoneExtNo = PhoneTypeItems[3].ToString();
+                //            int intPhoneType;
+                //            Int32.TryParse(PhoneTypeItems[4].ToString(), out intPhoneType);
+
+                //            InstallUserBLL.Instance.AddUserPhone(IsPrimaryPhone, PhoneText, intPhoneType
+                //                , UserID, PhoneExtNo, PhoneISDCode, false);
+                //        }
+                //    }
+                //}
             }
             //InstallUserBLL.Instance.AddUserEmails(hidExtEmail.Value, UserID);
 
@@ -2195,7 +2207,7 @@ namespace JG_Prospect.Sr_App
                 objuser.Source = ddlSource.SelectedValue;
                 objuser.Notes = txtNotes.Text;
                 string str_Reason = "";
-                if (txtReson.Visible == true && ddlstatus.SelectedValue == "Rejected")
+                if (txtReson.Visible == true && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString())
                 {
                     str_Reason = txtReson.Text;
                     objuser.Reason = txtReson.Text;
@@ -2203,7 +2215,7 @@ namespace JG_Prospect.Sr_App
                     objuser.RejectionTime = DateTime.Now.ToShortTimeString();
                     objuser.RejectedUserId = Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
                 }
-                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == "InterviewDate")
+                else if (dtInterviewDate.Visible == true && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     str_Reason = Convert.ToString(dtInterviewDate.Text);
                     objuser.Reason = Convert.ToString(dtInterviewDate.Text);
@@ -2379,7 +2391,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.InstallerType = ddlInstallerType.SelectedValue;
                 }
-                if (ddlstatus.SelectedValue == "InterviewDate")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                 {
                     objuser.InterviewTime = ddlInsteviewtime.SelectedItem.Text;
                 }
@@ -2387,7 +2399,7 @@ namespace JG_Prospect.Sr_App
                 {
                     objuser.InterviewTime = "";
                 }
-                if (ddlstatus.SelectedValue == "Active")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
                 {
                     objuser.ActivationDate = DateTime.Today.ToShortDateString();
                     objuser.UserActivated = Convert.ToString(Session["Username"]);
@@ -2462,7 +2474,7 @@ namespace JG_Prospect.Sr_App
                 objuser.IsTextContactPreference = ContactPreferenceChkText.Checked;
                 objuser.IsMailContactPreference = ContactPreferenceChkMail.Checked;
 
-                if (Convert.ToString(Session["PrevDesig"]) != ddldesignation.SelectedValue || ddlstatus.SelectedValue == "Deactive")
+                if (Convert.ToString(Session["PrevDesig"]) != ddldesignation.SelectedValue || ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                 {
                     Session["installId"] = GetUpdatedId(Convert.ToString(Session["installId"]));
                     objuser.InstallId = Convert.ToString(Session["installId"]);
@@ -2484,7 +2496,7 @@ namespace JG_Prospect.Sr_App
                     UpdateUserInstallID(id, hidDesignationBeforeChange.Value);
                     CreateUserEmailID();
 
-                    if (ddlstatus.SelectedValue == "InterviewDate" || ddlstatus.SelectedValue == "OfferMade" || ddlstatus.SelectedValue == "Deactive")
+                    if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString() || ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString() || ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                     {
                         SendEmail(txtemail.Text, txtfirstname.Text, txtlastname.Text, ddlstatus.SelectedValue, str_Reason);
                     }
@@ -2851,7 +2863,7 @@ namespace JG_Prospect.Sr_App
             fullTouchPointLog(" Status To : " + ddlstatus.SelectedItem.Text.ToString());
 
 
-            if (Convert.ToString(Session["PreviousStatusNew"]) == "Active" && (!(Convert.ToString(Session["usertype"]).Contains("Admin"))))
+            if (Convert.ToString(Session["PreviousStatusNew"]) == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString() && (!(Convert.ToString(Session["usertype"]).Contains("Admin"))))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Status cannot be changed to any other status other than Deactive once user is Active')", true);
                 if (Convert.ToString(Session["PreviousStatusNew"]) != "")
@@ -2860,17 +2872,17 @@ namespace JG_Prospect.Sr_App
                 }
                 return;
             }
-            if ((Convert.ToString(Session["PreviousStatusNew"]) == "Active") && (!(Convert.ToString(Session["usertype"]).Contains("Admin")) && !(Convert.ToString(Session["usertype"]).Contains("SM"))))
+            if ((Convert.ToString(Session["PreviousStatusNew"]) == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString()) && (!(Convert.ToString(Session["usertype"]).Contains("Admin")) && !(Convert.ToString(Session["usertype"]).Contains("SM"))))
             {
                 //binddata();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('You dont have rights change the status.')", true);
                 return;
             }
-            else if ((Convert.ToString(Session["PreviousStatusNew"]) == "Active" && ddlstatus.SelectedValue != "Deactive") && ((Convert.ToString(Session["usertype"]).Contains("Admin")) || (Convert.ToString(Session["usertype"]).Contains("SM"))))
+            else if ((Convert.ToString(Session["PreviousStatusNew"]) == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString() && ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()) && ((Convert.ToString(Session["usertype"]).Contains("Admin")) || (Convert.ToString(Session["usertype"]).Contains("SM"))))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "overlayPassword();", true);
             }
-            if (Convert.ToString(Session["PreviousStatusNew"]) == "Active" && (!(Convert.ToString(Session["usertype"]).Contains("Admin"))))
+            if (Convert.ToString(Session["PreviousStatusNew"]) == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString() && (!(Convert.ToString(Session["usertype"]).Contains("Admin"))))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Status cannot be changed to any other status other than Deactive once user is Active')", true);
                 if (Convert.ToString(Session["PreviousStatusNew"]) != "")
@@ -2880,7 +2892,7 @@ namespace JG_Prospect.Sr_App
                 return;
             }
 
-            if (ddlstatus.SelectedValue == "Install Prospect")
+            if (ddlstatus.SelectedValue ==Convert.ToInt16(JGConstant.InstallUserStatus.InstallProspect).ToString())
             {
                 if (Convert.ToString(Session["PreviousStatusNew"]) != "")
                 {
@@ -2888,34 +2900,34 @@ namespace JG_Prospect.Sr_App
                 }
                 else
                 {
-                    ddlstatus.SelectedValue = "Applicant";
+                    ddlstatus.SelectedValue = Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString();
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Status cannot be changed to Install Prospect')", true);
                 return;
             }
-            else if (ddlstatus.SelectedValue == "Deactive")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
             {
-                if (Convert.ToString(Session["PreviousStatusNew"]) != "Active" && Convert.ToString(Session["PreviousStatusNew"]) != "")
+                if (Convert.ToString(Session["PreviousStatusNew"]) != Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString() && Convert.ToString(Session["PreviousStatusNew"]) != "")
                 {
                     ddlstatus.SelectedValue = Convert.ToString(Session["PreviousStatusNew"]);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('User should be active to deactivate.')", true);
                     return;
                 }
             }
-            else if (ddlstatus.SelectedValue == "Applicant")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString())
             {
                 ddlInsteviewtime.Visible = false;
                 dtInterviewDate.Visible = false;
                 txtReson.Visible = false;
             }
-            else if (ddlstatus.SelectedValue == "Rejected")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString() )
             {
                 ddlInsteviewtime.Visible = false;
                 dtInterviewDate.Visible = false;
                 RequiredFieldValidator7.Enabled = true;
                 txtReson.Visible = true;
             }
-            else if (ddlstatus.SelectedValue == "InterviewDate")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
             {
                 LoadUsersByRecruiterDesgination();
                 txtReson.Visible = false;
@@ -2930,7 +2942,7 @@ namespace JG_Prospect.Sr_App
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "overlayInterviewDate();", true);
             }
-            else if (ddlstatus.SelectedValue == "Deactive")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
             {
                 ddlInsteviewtime.Visible = false;
                 txtReson.Visible = true;
@@ -2939,7 +2951,7 @@ namespace JG_Prospect.Sr_App
                 showHideNewHireSection(false);
                 dtResignation.Text = DateTime.Now.ToShortDateString();
             }
-            else if (ddlstatus.SelectedValue == "OfferMade")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
             {
                 ddlOfferMade();
                 showHideNewHireSection(true);
@@ -2952,7 +2964,7 @@ namespace JG_Prospect.Sr_App
                 dtInterviewDate.Visible = false;
                 showHideNewHireSection(false);
             }
-            if (ddlstatus.SelectedValue == "Active")
+            if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
             {
                 lblReqPicture.Style["display"] = "block";
                 lblReqDL.Style["display"] = "block";
@@ -2972,7 +2984,7 @@ namespace JG_Prospect.Sr_App
                 rqdtResignition.Enabled = false;
             }
 
-            if (ddlstatus.SelectedValue == "Active"
+            if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString()
                 && (!(Convert.ToString(Session["usertype"]).Contains("Admin"))
                 && !(Convert.ToString(Session["usertype"]).Contains("SM"))))
             {
@@ -2987,7 +2999,7 @@ namespace JG_Prospect.Sr_App
                 return;
             }
 
-            if (ddlstatus.SelectedValue == "Deactive" && (!(Convert.ToString(Session["usertype"]).Contains("Admin")) && !(Convert.ToString(Session["usertype"]).Contains("SM"))))
+            if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString() && (!(Convert.ToString(Session["usertype"]).Contains("Admin")) && !(Convert.ToString(Session["usertype"]).Contains("SM"))))
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('You dont have permission to Activate or Deactivate user')", true);
                 if (Convert.ToString(Session["ddlStatus"]) != "")
@@ -2997,14 +3009,14 @@ namespace JG_Prospect.Sr_App
 
                 return;
             }
-            if ((ddlstatus.SelectedValue == "OfferMade") && (ddldesignation.SelectedItem.Text == "ForeMan" || ddldesignation.SelectedItem.Text == "Installer"))
+            if ((ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString()) && (ddldesignation.SelectedItem.Text == "ForeMan" || ddldesignation.SelectedItem.Text == "Installer"))
             {
                 showHideNewHireSection(true);
                 txtReson.Visible = false;
                 //pnlnewHire.Visible = true;
                 RequiredFieldValidator7.Enabled = true;
             }
-            else if ((ddlstatus.SelectedValue == "Active"))
+            else if ((ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString()))
             {
                 lblReqPicture.Style["display"] = "block";
                 lblReqDL.Style["display"] = "block";
@@ -3050,8 +3062,8 @@ namespace JG_Prospect.Sr_App
                 ddlInstallerType.Visible = false;
             }
 
-            if ((ddlstatus.SelectedValue == "Active")
-                || (ddlstatus.SelectedValue == "OfferMade"))
+            if ((ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
+                || (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString()))
             {
                 showHideNewHireSection(true);
             }
@@ -3063,7 +3075,7 @@ namespace JG_Prospect.Sr_App
             #region NewRequiredFields
 
 
-            if (ddlstatus.SelectedValue == "Applicant")
+            if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString())
             {
                 rqDesignition.Enabled = false;
                 RequiredFieldValidator3.Enabled = false;
@@ -3118,7 +3130,7 @@ namespace JG_Prospect.Sr_App
                 rqSource.Enabled = true;
                 lblConfirmPass.Visible = false;
             }
-            else if (ddlstatus.SelectedValue == "OfferMade")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
             {
                 ValidationSummary1.ValidationGroup = btncreate.ValidationGroup = "OfferMade";
                 rqDesignition.Enabled = true;
@@ -3188,7 +3200,7 @@ namespace JG_Prospect.Sr_App
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Fill new hire section above')", true);
                 //return;
             }
-            else if (ddlstatus.SelectedValue == "Active")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
             {
                 rqDesignition.Enabled = true;
                 RequiredFieldValidator3.Enabled = true;
@@ -3260,7 +3272,7 @@ namespace JG_Prospect.Sr_App
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Fill new hire section above')", true);
                 return;
             }
-            else if (ddlstatus.SelectedValue == "Deactive")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
             {
                 rqDesignition.Enabled = false;
                 RequiredFieldValidator3.Enabled = false;
@@ -3339,7 +3351,7 @@ namespace JG_Prospect.Sr_App
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "showStatusChangePopUp()", true);
                 return;
             }
-            else if (ddlstatus.SelectedValue == "Active")
+            else if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "showStatusChangePopUp()", true);
                 return;
@@ -4287,7 +4299,7 @@ namespace JG_Prospect.Sr_App
             //{
             //    switch (ddlstatus.Items[i].Value)
             //    {
-            //        case "Applicant":
+            //        case Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString():
             //        case "ReferralApplicant":
             //            imageURL = "../Sr_App/img/red-astrek.png";
             //            ddlstatus.Items[i].Attributes["data-image"] = imageURL;
@@ -4304,7 +4316,7 @@ namespace JG_Prospect.Sr_App
             //            imageURL = "../Sr_App/img/green-astrek.png";
             //            ddlstatus.Items[i].Attributes["data-image"] = imageURL;
             //            break;
-            //        case "InterviewDate":
+            //        case Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString():
             //            imageURL = "../Sr_App/img/Light-Blue-astrek.png"; //purple-astrek.png
             //            ddlstatus.Items[i].Attributes["data-image"] = imageURL;
             //            break;
@@ -4947,7 +4959,7 @@ namespace JG_Prospect.Sr_App
             GridView1.DataSource = null;
             ddlcitizen.SelectedValue = "0";
             //ddldesignation.SelectedValue = "Jr. Sales";
-            ddlstatus.SelectedValue = "Applicant";
+            ddlstatus.SelectedValue = Convert.ToInt16(JGConstant.InstallUserStatus.Applicant).ToString();
             ddlInstallerType.SelectedValue = "Foreman";
             txtHireDate.Text = DateTime.Today.ToShortDateString();
             ddlWorkerCompCode.SelectedValue = "0";
@@ -5090,7 +5102,7 @@ namespace JG_Prospect.Sr_App
             string newId = string.Empty;
 
             var selDesignation = (JGConstant.DesignationType)Convert.ToInt32(ddldesignation.SelectedValue);
-            if ((selDesignation == JGConstant.DesignationType.Admin || selDesignation == JGConstant.DesignationType.Office_Manager || selDesignation == JGConstant.DesignationType.Recruiter) && (ddlstatus.SelectedValue != "Deactive"))
+            if ((selDesignation == JGConstant.DesignationType.Admin || selDesignation == JGConstant.DesignationType.Office_Manager || selDesignation == JGConstant.DesignationType.Recruiter) && (ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()))
             {
                 if (SalesId != "")
                 {
@@ -5120,11 +5132,11 @@ namespace JG_Prospect.Sr_App
                     SalesId = "ADM0001";
                 }
             }
-            else if ((selDesignation == JGConstant.DesignationType.Admin || selDesignation == JGConstant.DesignationType.Office_Manager || selDesignation == JGConstant.DesignationType.Recruiter) && (ddlstatus.SelectedValue == "Deactive") && (SalesId != ""))
+            else if ((selDesignation == JGConstant.DesignationType.Admin || selDesignation == JGConstant.DesignationType.Office_Manager || selDesignation == JGConstant.DesignationType.Recruiter) && (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()) && (SalesId != ""))
             {
                 SalesId = SalesId + "-X";
             }
-            else if ((selDesignation == JGConstant.DesignationType.Jr_Sales || selDesignation == JGConstant.DesignationType.Jr_Project_Manager || selDesignation == JGConstant.DesignationType.Sales_Manager || selDesignation == JGConstant.DesignationType.Sr_Sales) && (ddlstatus.SelectedValue != "Deactive"))
+            else if ((selDesignation == JGConstant.DesignationType.Jr_Sales || selDesignation == JGConstant.DesignationType.Jr_Project_Manager || selDesignation == JGConstant.DesignationType.Sales_Manager || selDesignation == JGConstant.DesignationType.Sr_Sales) && (ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()))
             {
                 if (SalesId != "")
                 {
@@ -5154,7 +5166,7 @@ namespace JG_Prospect.Sr_App
                     SalesId = "SLE0001";
                 }
             }
-            else if ((selDesignation == JGConstant.DesignationType.Jr_Sales || selDesignation == JGConstant.DesignationType.Jr_Project_Manager || selDesignation == JGConstant.DesignationType.Sales_Manager || selDesignation == JGConstant.DesignationType.Sr_Sales) && (ddlstatus.SelectedValue == "Deactive") && (SalesId != ""))
+            else if ((selDesignation == JGConstant.DesignationType.Jr_Sales || selDesignation == JGConstant.DesignationType.Jr_Project_Manager || selDesignation == JGConstant.DesignationType.Sales_Manager || selDesignation == JGConstant.DesignationType.Sr_Sales) && (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()) && (SalesId != ""))
             {
                 SalesId = SalesId + "-X";
             }
@@ -5192,7 +5204,7 @@ namespace JG_Prospect.Sr_App
                 //Body.Append("<br>");
                 //Body.Append("Your stattus for the JG Prospect is :" + status);
                 //Body.Append("<br>");
-                ////if (status == "Source" || status == "Rejected" || status == "Interview Date" || status == "Offer Made")
+                ////if (status == "Source" || status == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString() || status == "Interview Date" || status == "Offer Made")
                 ////{
                 //Body.Append(Reason);
                 ////}
@@ -5202,18 +5214,18 @@ namespace JG_Prospect.Sr_App
                 Body.Append("<br>");
                 Body.Append(strBody);
                 Body.Append("<br>");
-                //if (status == "Source" || status == "Rejected" || status == "Interview Date" || status == "Offer Made")
+                //if (status == "Source" || status == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString() || status == "Interview Date" || status == "Offer Made")
                 //{
                 //Body.Append(Reason);
                 //}
                 Body.Append("<br>");
                 Body.Append(strFooter);
-                if (ddlstatus.SelectedValue == "OfferMade")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                 {
                     //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
                     //createForeMenForJobAcceptance(Convert.ToString(Body));
                 }
-                if (ddlstatus.SelectedValue == "Deactive")
+                if (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                 {
                     //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
                     //CreateDeactivationAttachment(Convert.ToString(Body));
@@ -5243,7 +5255,7 @@ namespace JG_Prospect.Sr_App
             // Body.Append("<br>");
             // Body.Append("Your stattus for the JG Prospect is :" + status);
             // Body.Append("<br>");
-            // //if (status == "Source" || status == "Rejected" || status == "Interview Date" || status == "Offer Made")
+            // //if (status == "Source" || status == Convert.ToInt16(JGConstant.InstallUserStatus.Rejected).ToString() || status == "Interview Date" || status == "Offer Made")
             // //{
             //     Body.Append(Reason);
             // //}
@@ -5735,12 +5747,12 @@ namespace JG_Prospect.Sr_App
                 strBody = strHeader + strBody + strFooter;
 
                 EditUser obj = new EditUser();
-                if (status == "OfferMade")
+                if (status ==Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                 {
                     // TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
                     //obj.createForeMenForJobAcceptance(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
                 }
-                if (status == "Deactive")
+                if (status == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString())
                 {
                     // TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
                     //obj.CreateDeactivationAttachment(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
@@ -6057,9 +6069,9 @@ namespace JG_Prospect.Sr_App
         private void CreateUserEmailID()
         {
             // so On Create and Update will check if user was not active or so. on the bae of the same create accoutn.
-            if (Convert.ToString(Session["PreviousStatusNew"]) != "Active" && ddlstatus.SelectedValue == "Active")
+            if (Convert.ToString(Session["PreviousStatusNew"]) != Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString() && ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Active).ToString())
             {
-                string strNewEmailId = txtfirstname.Text + txtlastname.Text;
+                string strNewEmailId = txtfirstname.Text + "." + txtlastname.Text;
 
                 Utilits.EmailCommonHelper.CreateUserEmailAccount(strNewEmailId);
             }
@@ -6157,7 +6169,7 @@ namespace JG_Prospect.Sr_App
             {
                 SalesId = Convert.ToString(dtId.Rows[0][0]);
             }
-            if ((Desig == "Admin" || Desig == "Office Manager" || Desig == "Recruiter") && (ddlstatus.SelectedValue != "Deactive"))
+            if ((Desig == "Admin" || Desig == "Office Manager" || Desig == "Recruiter") && (ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()))
             {
                 if (SalesId != "")
                 {
@@ -6169,11 +6181,11 @@ namespace JG_Prospect.Sr_App
                     SalesId = "ADM0001";
                 }
             }
-            else if ((Desig == "Admin" || Desig == "Office Manager" || Desig == "Recruiter") && (ddlstatus.SelectedValue == "Deactive") && (SalesId != ""))
+            else if ((Desig == "Admin" || Desig == "Office Manager" || Desig == "Recruiter") && (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()) && (SalesId != ""))
             {
                 SalesId = SalesId + "-X";
             }
-            else if ((Desig == "Jr. Sales" || Desig == "Jr Project Manager" || Desig == "Sales Manager" || Desig == "Sr. Sales") && (ddlstatus.SelectedValue != "Deactive"))
+            else if ((Desig == "Jr. Sales" || Desig == "Jr Project Manager" || Desig == "Sales Manager" || Desig == "Sr. Sales") && (ddlstatus.SelectedValue != Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()))
             {
                 if (SalesId != "")
                 {
@@ -6185,7 +6197,7 @@ namespace JG_Prospect.Sr_App
                     SalesId = "SLE0001";
                 }
             }
-            else if ((Desig == "Jr. Sales" || Desig == "Jr Project Manager" || Desig == "Sales Manager" || Desig == "Sr. Sales") && (ddlstatus.SelectedValue == "Deactive") && (SalesId != ""))
+            else if ((Desig == "Jr. Sales" || Desig == "Jr Project Manager" || Desig == "Sales Manager" || Desig == "Sr. Sales") && (ddlstatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.Deactive).ToString()) && (SalesId != ""))
             {
                 SalesId = SalesId + "-X";
             }
