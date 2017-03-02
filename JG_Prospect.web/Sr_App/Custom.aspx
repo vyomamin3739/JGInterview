@@ -7,6 +7,7 @@
     <script src="../js/jquery-latest.js" type="text/javascript"></script>
     <script type="text/javascript" src="../../Scripts/jquery.MultiFile.js"></script>
     <script type="text/javascript">
+
         function uploadComplete() {
 
             if (Checkfiles() == true) {
