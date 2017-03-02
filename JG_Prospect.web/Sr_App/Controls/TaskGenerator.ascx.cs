@@ -1926,6 +1926,9 @@ namespace JG_Prospect.Sr_App.Controls
                 foreach (string userID in strInstallUserIDs.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     DataSet dsUser = TaskGeneratorBLL.Instance.GetInstallUserDetails(Convert.ToInt32(userID));
+                    DataSet dsTaskDetails = TaskGeneratorBLL.Instance.GetTaskDetails(Convert.ToInt32(hdnTaskId.Value));
+                    DataTable dtTaskMasterDetails = dsTaskDetails.Tables[0];
+                    String Title = dtTaskMasterDetails.Rows[0]["Title"].ToString();
 
                     string emailId = dsUser.Tables[0].Rows[0]["Email"].ToString();
                     string FName = dsUser.Tables[0].Rows[0]["FristName"].ToString();
@@ -1939,7 +1942,7 @@ namespace JG_Prospect.Sr_App.Controls
 
                     strBody = strBody.Replace("#Fname#", fullname);
                     strBody = strBody.Replace("#TaskLink#", string.Format("{0}://{1}/sr_app/TaskGenerator.aspx?TaskId={2}", Request.Url.Scheme, Request.Url.Host.ToString(), intTaskId));
-
+                    strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", hdnTaskId.Value, Title));
                     strBody = strHeader + strBody + strFooter;
 
                     List<Attachment> lstAttachments = new List<Attachment>();
