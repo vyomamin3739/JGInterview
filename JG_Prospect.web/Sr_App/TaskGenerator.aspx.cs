@@ -120,11 +120,25 @@ namespace JG_Prospect.Sr_App
             }
         }
 
+       public int  HighlightedTaskId
+       {
+           get
+           {
+               if (Request.QueryString["hstid"] != null)
+               {
+                   return (Convert.ToInt32(Request.QueryString["hstid"].ToString()));
+               }
+               else return 0;
+           }
+        }
+
         #endregion
 
         #region "--Page Events--"
 
-        protected void Page_Load(object sender, EventArgs e)
+        
+
+       protected void Page_Load(object sender, EventArgs e)
         {
             CommonFunction.AuthenticateUser();
 
@@ -233,6 +247,7 @@ namespace JG_Prospect.Sr_App
                     LoadTaskData(hdnTaskId.Value);
                 }
             }
+
         }
 
         #endregion
@@ -1279,9 +1294,13 @@ namespace JG_Prospect.Sr_App
                     string strsubject = dsEmailTemplate.Tables[0].Rows[0]["htmlsubject"].ToString();
 
                     strBody = strBody.Replace("#Fname#", fullname);
-                    strBody = strBody.Replace("#TaskLink#", string.Format("{0}?TaskId={1}", Request.Url.ToString().Split('?')[0], hdnTaskId.Value));
+                   /* strBody = strBody.Replace("#TaskLink#", 
+                        string.Format("{0}?TaskId={1}", Request.Url.ToString().Split('?')[0], hdnTaskId.Value));
                     strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", hdnTaskId.Value, Title));
-
+                    */
+                    strBody = strBody.Replace("#TaskLink#", string.Format("<a href='{0}?TaskId={1}&hstid={2}'>TaskID#:{3}-I:Title: {4} </a>", Request.Url.ToString().Split('?')[0], hdnTaskId.Value, HighlightedTaskId, hdnTaskId.Value, Title));
+                    //strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", hdnTaskId.Value, Title));
+                  
                     strBody = strHeader + strBody + strFooter;
 
                     List<Attachment> lstAttachments = new List<Attachment>();
