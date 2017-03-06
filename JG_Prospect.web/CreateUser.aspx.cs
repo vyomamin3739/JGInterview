@@ -50,7 +50,13 @@ namespace JG_Prospect
                         ddlusertype.SelectedValue = ds.Tables[0].Rows[0][5].ToString();
                         //ddldesignation.Items.FindByValue(ds.Tables[0].Rows[0][6].ToString()).Selected = true;
                         // ddldesignation.Items.FindByText(ds.Tables[0].Rows[0][6].ToString()).Selected=true;  
-                        ddlstatus.SelectedValue = ds.Tables[0].Rows[0][7].ToString();
+
+                        // To Store Status before updating
+                        ViewState["UserStatus"] = ds.Tables[0].Rows[0][7].ToString();
+                        ddlstatus.SelectedValue = ViewState["UserStatus"].ToString();
+
+                        //ddlstatus.SelectedValue = ds.Tables[0].Rows[0][7].ToString();
+
                         txtphone.Text = ds.Tables[0].Rows[0][8].ToString();
                         txtaddress.Text = ds.Tables[0].Rows[0][9].ToString();
                         ViewState["address"] = ds.Tables[0].Rows[0][9].ToString();
@@ -260,6 +266,9 @@ namespace JG_Prospect
                 bool result = UserBLL.Instance.AddUser(objuser);
                 if (result)
                 {
+                    // To Generate Company Email Id
+                    GenerateEmailId(objuser.fristname.Trim().ToLower(), objuser.lastname.Trim().ToLower(), objuser.status);
+
                     lblmsg.CssClass = "success";
                     lblmsg.Text = "User has been created successfully";
                     lblmsg.Visible = true;
@@ -284,6 +293,16 @@ namespace JG_Prospect
                 
             }
         }
+
+        // To Generate Company Email Id
+        private void GenerateEmailId(string firstName, string lastName, string status)
+        {
+            if (status == "Active")
+            {
+                EmailBLL.CreateEmail(firstName, lastName);
+            }
+        }
+
 
         protected void shareCalender(string emailId)
         {
@@ -576,6 +595,15 @@ namespace JG_Prospect
             objuser.attachements = GetUpdateAttachments();
             int id = Convert.ToInt32(Session["ID"]);
             bool result = UserBLL.Instance.UpdatingUser(objuser, id);
+
+            // If User First Name, Last Name or Status has changed then might need to create Email Id 
+            // No need to create new email id if only CASE changes to upper to lower or vice versa
+
+            if (objuser.status.Trim() != ViewState["UserStatus"].ToString() || objuser.fristname.Trim().ToLower() != ViewState["FristName"].ToString().ToLower() || objuser.lastname.Trim().ToLower() != ViewState["LastName"].ToString().ToLower())
+            {
+                GenerateEmailId(objuser.fristname, objuser.lastname, objuser.status);
+            }
+
             GoogleCalendarEvent.CreateCalendar(txtemail.Text, txtaddress.Text);
             lblmsg.Visible = true;
             lblmsg.CssClass = "success";
