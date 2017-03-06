@@ -69,7 +69,7 @@ namespace JG_Prospect.Sr_App
         public bool IsAdminAndItLeadMode
         {
             get
-            {
+             {
                 bool returnVal = false;
 
                 if (ViewState["AIMODE"] != null)
