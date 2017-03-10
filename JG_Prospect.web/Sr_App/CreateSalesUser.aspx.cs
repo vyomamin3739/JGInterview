@@ -6068,7 +6068,7 @@ namespace JG_Prospect.Sr_App
         }
 
         /// <summary>
-        /// Create email on the base of FirestName & Last Name 
+        /// Create email on the base of FirestName & Last Name
         /// </summary>
         private void CreateUserEmailID()
         {
