@@ -1493,7 +1493,15 @@ namespace JG_Prospect.Sr_App
             }
         }
 
-        protected void btncreate_Click(object sender, EventArgs e)
+        protected void btncreate_Click(object sender, EventArgs e) {
+            OnCreateUserClick(sender, e);
+        }
+
+        /// <summary>
+        /// Method is responsible tp create the sales user.
+        /// Method ware already created i have modified few thing to make it work as per test requirement. It has some bugs so i made correction some where not it work OK.
+        /// </summary>
+        protected void OnCreateUserClick(object sender, EventArgs e)
         {
             if (!Page.IsValid)
                 return;
@@ -1516,12 +1524,10 @@ namespace JG_Prospect.Sr_App
                 objuser.fristname = txtfirstname.Text;
                 objuser.lastname = txtlastname.Text;
 
-
-                if (txtemail.Text == "")
-                {
+                if (string.IsNullOrEmpty(txtemail.Text)) {
                     txtemail.Text = txtfirstname.Text + "." + txtlastname.Text + "@" + Utilits.AppSettingsValues.GetDomainActiveUserEailCreation;
-                
                 }
+                
                 
                 objuser.email = txtemail.Text.Trim();
                 objuser.address = txtaddress.Text;
