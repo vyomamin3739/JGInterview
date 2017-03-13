@@ -616,7 +616,16 @@
                                     OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true" />
                             </td>
                             <td>
-                                <asp:DropDownList ID="drpUser" runat="server" Width="140px" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></td>
+                                <asp:DropDownList ID="drpUser" runat="server" Width="140px" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="--All--" Value=""></asp:ListItem>
+                                    <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                                    <asp:ListItem Text="Admin Recruiter" Value="Admin Recruiter"></asp:ListItem>
+                                    <asp:ListItem Text="Jr. Sales" Value="Jr. Sales"></asp:ListItem>
+                                    <asp:ListItem Text="Office Manager" Value="Office Manager"></asp:ListItem>
+                                    <asp:ListItem Text="Operations Manager" Value="Operations Manager"></asp:ListItem>
+                                    <asp:ListItem Text="Recruiter" Value="Recruiter"></asp:ListItem>
+                                    <asp:ListItem Text="Sales Manager" Value="Sales Manager"></asp:ListItem>
+                                </asp:DropDownList></td>
                             <td>
                                 <asp:DropDownList ID="ddlSource" runat="server" Width="140px" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></td>
                             <td>
@@ -646,11 +655,11 @@
                     </table>
                 </ContentTemplate>
             </asp:UpdatePanel>
-            <div style="width: auto; border:1px solid #ccc; padding:3px;">
+            <div style="width: auto; border: 1px solid #ccc; padding: 3px;">
                 <asp:UpdatePanel ID="upUsers" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
 
-                        <div style="float: left; padding-top: 10px; margin-bottom:-40px;">
+                        <div style="float: left; padding-top: 10px; margin-bottom: -40px;">
 
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="textbox" placeholder="search users" MaxLength="15" />
                             <asp:Button ID="btnSearchGridData" runat="server" Text="Search" Style="display: none;" class="btnSearc" OnClick="btnSearchGridData_Click" />
@@ -690,7 +699,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="True" HeaderText="Id# <br /> Designation" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" ControlStyle-ForeColor="Black"
-                                     Visible="true" SortExpression="Designation">
+                                    Visible="true" SortExpression="Designation">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtid" runat="server" MaxLength="30" Text='<%#Eval("Id")%>'></asp:TextBox>
                                     </EditItemTemplate>
@@ -725,7 +734,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15%" ItemStyle-Width="15%" SortExpression="FristName" ControlStyle-ForeColor="Black" >
+                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15%" ItemStyle-Width="15%" SortExpression="FristName" ControlStyle-ForeColor="Black">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" Text='<%#Eval("FristName")%>'></asp:TextBox>
                                     </EditItemTemplate>
@@ -755,11 +764,11 @@
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"  HeaderStyle-Width="20%" ItemStyle-Width="20%" SortExpression="Status">
+                                <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" ItemStyle-Width="20%" SortExpression="Status">
                                     <ItemTemplate>
                                         <asp:HiddenField ID="lblStatus" runat="server" Value='<%#Eval("Status")%>'></asp:HiddenField>
                                         <asp:HiddenField ID="lblOrderStatus" runat="server" Value='<%#(Eval("OrderStatus") == null || Eval("OrderStatus") == "") ? -99: Eval("OrderStatus")%>'></asp:HiddenField>
-                                        <asp:DropDownList ID="ddlStatus" CssClass="grd-status" style="width:95%;" AutoPostBack="true"  OnSelectedIndexChanged="grdUsers_ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlUserStatus_PreRender">
+                                        <asp:DropDownList ID="ddlStatus" CssClass="grd-status" Style="width: 95%;" AutoPostBack="true" OnSelectedIndexChanged="grdUsers_ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlUserStatus_PreRender">
                                             <%--<asp:ListItem Text="Referral applicant" Value="ReferralApplicant"></asp:ListItem>
                                             <asp:ListItem Text="Applicant" Value="Applicant"></asp:ListItem>
                                             <asp:ListItem Text="Phone/Video Screened" Value="PhoneScreened"></asp:ListItem>
@@ -777,7 +786,7 @@
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Source<br/>Added By<br/>Added On" HeaderStyle-Width="15%" ItemStyle-Width="15%" SortExpression="Source" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" >
+                                <asp:TemplateField HeaderText="Source<br/>Added By<br/>Added On" HeaderStyle-Width="15%" ItemStyle-Width="15%" SortExpression="Source" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSource" runat="server" Text='<%#Eval("Source")%>'></asp:Label>
                                         <br />
@@ -788,13 +797,13 @@
                                         <br />
                                         <span><%#String.Format("{0:M/d/yyyy}", Eval("CreatedDateTime"))%></span>&nbsp<span style="color: red"><%#String.Format("{0:hh:mm:ss tt}", Eval("CreatedDateTime"))%></span>&nbsp<span>(EST)</span>
                                     </ItemTemplate>
-                                    
+
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Added On" Visible="false" SortExpression="CreatedDateTime" HeaderStyle-HorizontalAlign="Center"  ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="Added On" Visible="false" SortExpression="CreatedDateTime" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                     </ItemTemplate>
-                                    
+
                                 </asp:TemplateField>
 
 
@@ -806,8 +815,8 @@
                                             <asp:LinkButton ID="lbtnEmail" runat="server" Text='<%# Eval("Email") %>' ToolTip='<%# Eval("Email") %>'
                                                 CommandName="send-email" CommandArgument='<%# Container.DataItemIndex %>' />
                                         </div>
-                                        <asp:Label ID="lblPrimaryPhone" CssClass="grd-lblPrimaryPhone"  runat="server" Text='<%# Eval("PrimaryPhone") %>'></asp:Label>
-                                        <div class="GrdContainer" style="width:90%">
+                                        <asp:Label ID="lblPrimaryPhone" CssClass="grd-lblPrimaryPhone" runat="server" Text='<%# Eval("PrimaryPhone") %>'></asp:Label>
+                                        <div class="GrdContainer" style="width: 90%">
                                             <div class="GrdHeader">
                                                 <span>Click To Add Phone /Email</span>
                                             </div>
@@ -875,13 +884,13 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="BulkProspectUploader" runat="server" ErrorMessage="Select file to import data." ValidationGroup="BulkImport"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
-                        <asp:LinkButton ID="lbtnDeactivateSelected" runat="server" Text="Deactivate Selected" 
+                        <asp:LinkButton ID="lbtnDeactivateSelected" runat="server" Text="Deactivate Selected"
                             OnClientClick="return confirm('Are you sure you want to deactivate selected users?')"
                             OnClick="lbtnDeactivateSelected_Click" />
                         <br />
                         <br />
                         <asp:LinkButton ID="lbtnDeleteSelected" runat="server" Text="Delete Selected"
-                             OnClientClick="return confirm('Are you sure you want to delete selected users?')"
+                            OnClientClick="return confirm('Are you sure you want to delete selected users?')"
                             OnClick="lbtnDeleteSelected_Click" />
                         <br />
                         <br />
@@ -1131,15 +1140,15 @@
 
         <asp:Panel ID="pnlUploadBulk" runat="server">
             <style>
-    kTab {
-        :;
-    }
+                kTab {
+                    :;
+                }
 
-    {
-        x;
-    }
-    /* END EXT
-</style>
+                {
+                    x;
+                }
+                /* END EXT
+            </style>
             <div id="lightUploadBulk" class="white_content" style="text-align: center">
                 <a class="close" href="#" onclick="CloseAddUserPopUp()">&times;</a>
 
@@ -1315,11 +1324,13 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Tech Task" Visible="false" ItemStyle-Width="100">
                                 <ItemTemplate>
-                                    Tech Task: <asp:DropDownList ID="ddlTechTask" runat="server" Width="95" AutoPostBack="true" OnSelectedIndexChanged="grdUsers_Popup_ddlTechTask_SelectedIndexChanged" />
+                                    Tech Task:
+                                    <asp:DropDownList ID="ddlTechTask" runat="server" Width="95" AutoPostBack="true" OnSelectedIndexChanged="grdUsers_Popup_ddlTechTask_SelectedIndexChanged" />
                                     <asp:RequiredFieldValidator ID="rfvTechTask" runat="server" ErrorMessage="Please select tech task." InitialValue="0"
                                         ControlToValidate="ddlTechTask" ValidationGroup="vgChangeStatus" Display="None" />
                                     <br />
-                                    Sub Task: <asp:DropDownList ID="ddlTechSubTask" runat="server" Width="95" />
+                                    Sub Task:
+                                    <asp:DropDownList ID="ddlTechSubTask" runat="server" Width="95" />
                                     <asp:RequiredFieldValidator ID="rfvTechSubTask" runat="server" ErrorMessage="Please select tech sub task." InitialValue="0"
                                         ControlToValidate="ddlTechSubTask" ValidationGroup="vgChangeStatus" Display="None" />
                                 </ItemTemplate>

@@ -496,9 +496,9 @@ namespace JG_Prospect.BLL
             return InstallUserDAL.Instance.GetSalesUserAutoSuggestion(searchTerm);
         }
 
-        public DataSet GetSalesUsersStaticticsAndData(string strSearchTerm, string strStatus, Int32 intDesignationId, Int32 intSourceId, DateTime? fromdate, DateTime? todate, int userid, int intPageIndex, int intPageSize, string strSortExpression)
+        public DataSet GetSalesUsersStaticticsAndData(string strSearchTerm, string strStatus, Int32 intDesignationId, Int32 intSourceId, DateTime? fromdate, DateTime? todate, string AddedByDesignation, int intPageIndex, int intPageSize, string strSortExpression)
         {
-            return InstallUserDAL.Instance.GetSalesUsersStaticticsAndData(strSearchTerm, strStatus, intDesignationId, intSourceId, fromdate, todate, userid, intPageIndex, intPageSize, strSortExpression);
+            return InstallUserDAL.Instance.GetSalesUsersStaticticsAndData(strSearchTerm, strStatus, intDesignationId, intSourceId, fromdate, todate, AddedByDesignation, intPageIndex, intPageSize, strSortExpression);
         }
 
         public DataSet GetHrData(DateTime? fromdate, DateTime? todate, int userid)

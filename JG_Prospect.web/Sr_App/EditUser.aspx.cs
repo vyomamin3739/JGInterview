@@ -244,10 +244,13 @@ namespace JG_Prospect
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     Label lblPrimaryPhone = (e.Row.FindControl("lblPrimaryPhone") as Label);
+                    Label lblFirstName = (e.Row.FindControl("lblFirstName") as Label);
+                    Label lblLastName = (e.Row.FindControl("lblLastName") as Label);
                     DropDownList ddlStatus = (e.Row.FindControl("ddlStatus") as DropDownList);//Find the DropDownList in the Row
                     DropDownList ddlContactType = (e.Row.FindControl("ddlContactType") as DropDownList);
                     HyperLink hypTechTask = e.Row.FindControl("hypTechTask") as HyperLink;
                     LinkButton lnkDelete = e.Row.FindControl("lnkDelete") as LinkButton;
+
 
                     ddlStatus = JG_Prospect.Utilits.FullDropDown.FillUserStatus(ddlStatus);
 
@@ -274,6 +277,13 @@ namespace JG_Prospect
 
                         switch ((JGConstant.InstallUserStatus)Convert.ToByte(Status))
                         {
+                            case JGConstant.InstallUserStatus.Active:
+                                {
+                                    lblFirstName.Attributes["style"] = "color: red";
+                                    lblLastName.Attributes["style"] = "color: red";
+                                    break;
+                                }
+
                             case JGConstant.InstallUserStatus.Applicant:
                                 {
                                     e.Row.Attributes["style"] = "background-color: #FFFF00";
@@ -315,7 +325,11 @@ namespace JG_Prospect
                                                                                 DataBinder.Eval(e.Row.DataItem, "TechTaskId")
                                                                                );
                                         hypTechTask.Visible = true;
+
                                     }
+
+                                    lblFirstName.Attributes["style"] = "color: blue";
+                                    lblLastName.Attributes["style"] = "color: blue";
                                     break;
                                 }
                             case JGConstant.InstallUserStatus.Rejected:
@@ -324,6 +338,11 @@ namespace JG_Prospect
                                     break;
                                 }
                             case JGConstant.InstallUserStatus.Deactive:
+                                {
+                                    lblFirstName.Attributes["style"] = "color: grey";
+                                    lblLastName.Attributes["style"] = "color: grey";
+                                    break;
+                                }
                             case JGConstant.InstallUserStatus.Deleted:
                                 {
                                     e.Row.Attributes["style"] = "background-color: #565656";
@@ -2016,15 +2035,16 @@ namespace JG_Prospect
             //    drpUser.DataBind();
             //}
 
-            DataSet dsInstalledUser = InstallUserBLL.Instance.GetUsersNDesignationForSalesFilter();
-            drpUser.DataSource = dsInstalledUser.Tables[0];
-            drpUser.DataValueField = "Id";
-            drpUser.DataTextField = "FirstName";
-            drpUser.DataBind();
-            drpUser.Items.Insert(0, new ListItem("--All--", "0"));
-            DataTable dtInstalledUsers = dsInstalledUser.Tables[0];
-            Session["HighlightUsersForTypes"] = dtInstalledUsers;
-            HighlightUsersForTypes(dtInstalledUsers, drpUser);
+            //Commented by Ketan Godhani
+            //DataSet dsInstalledUser = InstallUserBLL.Instance.GetUsersNDesignationForSalesFilter();
+            //drpUser.DataSource = dsInstalledUser.Tables[0];
+            //drpUser.DataValueField = "Id";
+            //drpUser.DataTextField = "FirstName";
+            //drpUser.DataBind();
+            //drpUser.Items.Insert(0, new ListItem("--All--", "0"));
+            //DataTable dtInstalledUsers = dsInstalledUser.Tables[0];
+            //Session["HighlightUsersForTypes"] = dtInstalledUsers;
+            //HighlightUsersForTypes(dtInstalledUsers, drpUser);
         }
 
         private void HighlightUsersForTypes(DataTable dtUsers, DropDownList ddlUsers)
@@ -3258,7 +3278,7 @@ namespace JG_Prospect
                                                             Convert.ToInt32(ddlSource.SelectedValue),
                                                             dtFromDate,
                                                             dtToDate,
-                                                            Convert.ToInt32(drpUser.SelectedValue),
+                                                            drpUser.SelectedValue,
                                                             grdUsers.PageIndex,
                                                             grdUsers.PageSize,
                                                             strSortExpression
@@ -3714,7 +3734,7 @@ namespace JG_Prospect
 
             txtEmailSubject.Text = objHTMLTemplate.Subject;
             txtEmailBody.Text = string.Concat(
-                //objHTMLTemplate.Designation + " --- ",
+                                                //objHTMLTemplate.Designation + " --- ",
                                                 objHTMLTemplate.Header,
                                                 objHTMLTemplate.Body,
                                                 objHTMLTemplate.Footer
@@ -3832,14 +3852,14 @@ namespace JG_Prospect
                     strBody = strBody.Replace("#email#", emailId);
                     strBody = strBody.Replace("#Designation(s)#", ddlDesignationForTask.SelectedItem != null ? ddlDesignationForTask.SelectedItem.Text : "");
                     strBody = strBody.Replace("#TaskLink#", string.Format(
-                                                                            "{0}?TaskId={1}&hstid={2}", 
+                                                                            "{0}?TaskId={1}&hstid={2}",
                                                                             string.Concat(
-                                                                                            Request.Url.Scheme, 
-                                                                                            Uri.SchemeDelimiter, 
-                                                                                            Request.Url.Host.Split('?')[0], 
+                                                                                            Request.Url.Scheme,
+                                                                                            Uri.SchemeDelimiter,
+                                                                                            Request.Url.Host.Split('?')[0],
                                                                                             "/Sr_App/TaskGenerator.aspx"
-                                                                                         ), 
-                                                                            strTaskId, 
+                                                                                         ),
+                                                                            strTaskId,
                                                                             strSubTaskId
                                                                         )
                                             );
