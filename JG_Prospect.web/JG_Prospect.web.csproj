@@ -1878,8 +1878,6 @@
     <Content Include="Synapse.aspx" />
     <Content Include="TestGoogleMap.aspx" />
     <Content Include="upload.aspx" />
-    <Content Include="UploadedFiles\7162015111634AMKoala.jpg" />
-    <Content Include="UploadedFiles\7162015111655AMJellyfish.jpg" />
     <Content Include="UserControl\UCAddress.ascx" />
     <Content Include="UserControl\ucAuditTrailByUser.ascx" />
     <Content Include="UserControl\ucRenewSession.ascx" />
@@ -2910,6 +2908,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Sr_App\MailDocument\MailAttachments\" />
     <Folder Include="Sr_App\UploadedFile\" />
+    <Folder Include="UploadedFiles\" />
     <Folder Include="UploadeProfile\" />
     <Folder Include="UserImages\" />
   </ItemGroup>
