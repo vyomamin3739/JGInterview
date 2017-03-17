@@ -911,7 +911,7 @@ namespace JG_Prospect.Sr_App
             objvendor.contract_number = contactNo;
             objvendor.ContactExten = contactExten;
             objvendor.address = txtPrimaryAddress.Text;
-            objvendor.notes = txtAddNotes.Text;
+            objvendor.notes = txtAddNotes.Text.Trim();
             objvendor.ManufacturerType = GetManufacturerType();
             objvendor.BillingAddress = BillingAddress;
             objvendor.TaxId = txtTaxId.Text;
@@ -3875,8 +3875,11 @@ namespace JG_Prospect.Sr_App
             foreach (DataRow dr in tblVendorAddress.Rows)
             {
                 var addressId = "";
+                int intAddressId;
+                intAddressId = Int32.TryParse(dr["AddressID"].ToString(), out intAddressId) ? Convert.ToInt32(dr["AddressID"].ToString()) : 0;
                 addressId = dr["AddressID"].ToString();
-                if (dr["AddressID"] != null && dr["AddressID"].ToString() != "0" && Convert.ToInt32(dr["AddressID"].ToString()) <= 0)
+                //if (dr["AddressID"] != null && dr["AddressID"].ToString() != "0" && Convert.ToInt32(dr["AddressID"].ToString()) <= 0)
+                if (dr["AddressID"] != null && dr["AddressID"].ToString() != "0" && intAddressId <= 0)
                 {
                     dr["AddressID"] = 0;
                 }
@@ -4294,7 +4297,7 @@ namespace JG_Prospect.Sr_App
             {
                 UserId = Session["loginid"].ToString();
             }
-            string Notes = txtAddNotes.Text;
+            string Notes = txtAddNotes.Text.Trim();
             string TempId = "";
             if (VendorID > 0)
             {

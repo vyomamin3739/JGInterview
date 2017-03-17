@@ -343,6 +343,12 @@
                 $('#<%=LblSave.ClientID%>').text("Please select Vendor Category!");
                 return false;
             }
+            if ($('#<%=txtAddNotes.ClientID%>').val().match(/\ /)) {
+                var strNotesTxt = $('#<%=txtAddNotes.ClientID%>').val();
+                if ($.trim(strNotesTxt) == "") {
+                    return false;
+                }
+              }
             //$("#divModalPopup").show();
             var AddressData = [];
             var VendorEmailData = [];
@@ -2788,7 +2794,7 @@
                                                         <asp:TextBox ID="txtAddNotes" runat="server" TextMode="MultiLine" Rows="7" Width="100%" CssClass="textbox"></asp:TextBox>
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="rfvAddNotes" runat="server" ControlToValidate="txtAddNotes" Display="Dynamic"
-                                                            ValidationGroup="addAddNotes" ErrorMessage="Please Enter Notes." ForeColor="Red"></asp:RequiredFieldValidator>
+                                                            ValidationGroup="addAddNotes" ErrorMessage="Please Enter Notes or remove entered space." ForeColor="Red"></asp:RequiredFieldValidator>
                                                     </div>
                                                 </td>
                                             </tr>
