@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -499,7 +498,6 @@ namespace JG_Prospect
                 int StatusId = Convert.ToInt32(e.CommandArgument);
                 string Status = ddlStatus.SelectedValue;
                 bool result = InstallUserBLL.Instance.UpdateInstallUserStatus(Status, StatusId);
-
             }
             else if (e.CommandName == "EditAddedByUserInstall")
             {
@@ -908,7 +906,6 @@ namespace JG_Prospect
 
         protected void btnSaveReason_Click(object sender, EventArgs e)
         {
-            string GitHubUsername = "";
             if (Convert.ToString(Session["DeactivationStatus"]) == "Deactive")
             {
                 DataSet ds = new DataSet();
@@ -916,7 +913,6 @@ namespace JG_Prospect
                 string HireDate = "";
                 string EmpType = "";
                 string PayRates = "";
-                
                 ds = InstallUserBLL.Instance.ChangeStatus(Convert.ToString(Session["EditStatus"]), Convert.ToInt32(Session["EditId"]), DateTime.Today, DateTime.Now.ToShortTimeString(), Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]), JGSession.IsInstallUser.Value, txtReason.Text);
                 if (ds.Tables.Count > 0)
                 {
@@ -938,40 +934,16 @@ namespace JG_Prospect
                         {
                             PayRates = Convert.ToString(ds.Tables[0].Rows[0][3]);
                         }
-                        if (Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]) != "")
-                        {
-                            GitHubUsername = Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]);
-                        }
                     }
                 }
                 SendEmail(email, Convert.ToString(Session["FirstNameNewSC"]), Convert.ToString(Session["LastNameNewSC"]), "Deactivation", txtReason.Text, Convert.ToString(Session["DesignitionSC"]), HireDate, EmpType, PayRates, 0);
             }
             else
             {
-               DataSet ds = InstallUserBLL.Instance.ChangeStatus(Convert.ToString(Session["EditStatus"]), Convert.ToInt32(Session["EditId"]), DateTime.Today, DateTime.Now.ToShortTimeString(), Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]), JGSession.IsInstallUser.Value, txtReason.Text);
-               if (ds.Tables.Count > 0)
-               {
-                   if (Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]) != "")
-                   {
-                       GitHubUsername = Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]);
-                   } 
-               }
+                InstallUserBLL.Instance.ChangeStatus(Convert.ToString(Session["EditStatus"]), Convert.ToInt32(Session["EditId"]), DateTime.Today, DateTime.Now.ToShortTimeString(), Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]), JGSession.IsInstallUser.Value, txtReason.Text);
                 //binddata();
                 GetSalesUsersStaticticsAndData();
             }
-
-            if (!string.IsNullOrEmpty(GitHubUsername))
-            {
-                string GitHubAppName = ConfigurationManager.AppSettings["GitHubAppName"].ToString();
-                string GitHubToken = ConfigurationManager.AppSettings["GitHubToken"].ToString();
-                string GitHubRepositoryOwner = ConfigurationManager.AppSettings["GitHubRepositoryOwner"].ToString();
-                string GitHubRepositoryName = ConfigurationManager.AppSettings["GitHubRepositoryName"].ToString();
-                var client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(GitHubAppName));
-                var tokenAuth = new Octokit.Credentials(GitHubToken);
-                client.Credentials = tokenAuth;
-                client.Repository.Collaborator.Delete(GitHubRepositoryOwner, GitHubRepositoryName, GitHubUsername);
-            }
-
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "ClosePopup()", true);
             return;
         }
@@ -1004,7 +976,7 @@ namespace JG_Prospect
             string HireDate = "";
             string EmpType = "";
             string PayRates = "";
-            string GitHubUsername = "";
+
 
             //string InterviewDate = dtInterviewDate.Text;
             DateTime interviewDate;
@@ -1035,10 +1007,6 @@ namespace JG_Prospect
                     {
                         PayRates = Convert.ToString(ds.Tables[0].Rows[0][3]);
                     }
-                    if (Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]) != "")
-                    {
-                        GitHubUsername = Convert.ToString(ds.Tables[0].Rows[0]["GitHubUserName"]);
-                    }
                 }
             }
 
@@ -1048,21 +1016,6 @@ namespace JG_Prospect
 
             //AssignedTask if any or Default
             AssignedTaskToUser(Convert.ToInt32(Session["EditId"]), ddlTechTask, ddlTechSubTask);
-
-            // Colloborate User To Github
-
-            if (!string.IsNullOrEmpty(GitHubUsername))
-            {
-                string GitHubAppName = ConfigurationManager.AppSettings["GitHubAppName"].ToString();
-                string GitHubToken = ConfigurationManager.AppSettings["GitHubToken"].ToString();
-                string GitHubRepositoryOwner = ConfigurationManager.AppSettings["GitHubRepositoryOwner"].ToString();
-                string GitHubRepositoryName = ConfigurationManager.AppSettings["GitHubRepositoryName"].ToString();
-                var client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(GitHubAppName));
-                var tokenAuth = new Octokit.Credentials(GitHubToken);
-                client.Credentials = tokenAuth;
-                client.Repository.Collaborator.Add(GitHubRepositoryOwner, GitHubRepositoryName, GitHubUsername);
-            }
-
 
             Response.Redirect(JG_Prospect.Common.JGConstant.PG_PATH_MASTER_CALENDAR);
 
