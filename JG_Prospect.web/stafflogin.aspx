@@ -213,7 +213,7 @@
                                                 <table border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td>
-                                                            <label>Login Id(Yogesh Changed this text)<span>*</span></label>
+                                                            <label>Login Id<span>*</span></label>
                                                             <asp:TextBox ID="txtloginid" runat="server" TabIndex="1" Width="312px" placeholder="Enter email address or phone number"></asp:TextBox>
                                                             <br />
                                                             <label></label>
