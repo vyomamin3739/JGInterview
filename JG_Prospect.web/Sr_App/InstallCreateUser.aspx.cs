@@ -2355,6 +2355,16 @@ namespace JG_Prospect.Sr_App
                     objuser.ActivationDate = "";
                     objuser.UserActivated = "";
                 }
+
+                // added by- lokender
+                objuser.nStartDate = Convert.ToString(txtStartDate.Text);
+                objuser.BankName = Convert.ToString(ddlBankName.SelectedValue);
+                objuser.BankBranchState = Convert.ToString(ddlBankBranchState.SelectedValue);
+                objuser.BankBranchCity = Convert.ToString(ddlBankBranchCity.SelectedValue);
+                objuser.BankBranchName = Convert.ToString(ddlBankBranchName.SelectedValue);
+
+
+
                 bool result = InstallUserBLL.Instance.UpdateInstallUser(objuser, Convert.ToInt32(Session["EmailEdiId"]));
                 GoogleCalendarEvent.CreateCalendar(txtemail.Text, txtaddress.Text);
                 //lblmsg.Visible = true;

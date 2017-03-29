@@ -773,7 +773,30 @@
                                     <asp:Button ID="btnNewMinus" runat="server" Text="-" Style="background: url(img/main-header-bg.png) repeat-x; color: #fff;" OnClick="btnNewMinus_Click" TabIndex="150" />
 
                                 </td>
-                                <td style="font-weight: bold; font-size: large">New Hire</td>
+                                <td style="font-weight: bold; font-size: large">
+                                    <table class="fullwidth">
+                                        <tr>
+                                            <td>New Hire</td>
+                                            <td> <label>
+                                                    Next Review Date<%--<asp:Label ID="lblNextReviewDate" runat="server" Text="*" ForeColor="Red"></asp:Label>--%></label><asp:TextBox ID="dtReviewDate" runat="server" Width="230px" TabIndex="154"></asp:TextBox>
+                                                <ajaxToolkit:CalendarExtender ID="CalendarExtender4" TargetControlID="dtReviewDate" Enabled="true" runat="server"></ajaxToolkit:CalendarExtender>
+                                                <br />
+                                                <label>
+                                                </label>
+                                                <%--<asp:RequiredFieldValidator ID="rqDtNewReview" runat="server" ControlToValidate="dtReviewDate"
+                                                            ValidationGroup="submit" ForeColor="Red" Display="Dynamic" ErrorMessage="Enter New Review Date"></asp:RequiredFieldValidator>--%></td>
+                                            <td><label>
+                                                    Last Review Date<%--<asp:Label ID="lblLastReview" runat="server" Text="*" ForeColor="Red"></asp:Label>--%></label><asp:TextBox ID="dtLastDate" runat="server" Width="238px" TabIndex="156"></asp:TextBox>
+                                                <ajaxToolkit:CalendarExtender ID="CalendarExtender5" TargetControlID="dtLastDate" runat="server"></ajaxToolkit:CalendarExtender>
+                                                <br />
+                                                <label>
+                                                </label>
+                                                <%--<asp:RequiredFieldValidator ID="rqLastReviewDate" runat="server" ControlToValidate="dtLastDate"
+                                                            ValidationGroup="submit" ForeColor="Red" Display="Dynamic" ErrorMessage="Enter LastReview Date"></asp:RequiredFieldValidator>--%></td>
+                                        </tr>
+                                       
+                                    </table>
+                                </td>
                             </tr>
 
                         </table>
@@ -786,15 +809,38 @@
                                     <table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td style="height: 137px;">
-                                                <label>
-                                                    Hire Date<asp:Label ID="lblReqHireDate" runat="server" Text="*" ForeColor="Blue"></asp:Label></label>
-                                                <asp:TextBox ID="txtHireDate" runat="server" Width="231px" TabIndex="151"></asp:TextBox>
-                                                <ajaxToolkit:CalendarExtender ID="CalendarExtender2" TargetControlID="txtHireDate" runat="server"></ajaxToolkit:CalendarExtender>
+                                                <table class="fullwidth">
+                                                    <tr>
+                                                        <td>
+                                                            <label>
+                                                            Hire Date<asp:Label ID="lblReqHireDate" runat="server" ForeColor="Blue" Text="*"></asp:Label>
+                                                            </label>
+                                                            <asp:TextBox ID="txtHireDate" runat="server" TabIndex="151" Width="132px"></asp:TextBox>
+                                                            <br />
+                                                            <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtHireDate">
+                                                            </ajaxToolkit:CalendarExtender>
+                                                            <asp:RequiredFieldValidator ID="rqHireDate" runat="server" ControlToValidate="txtHireDate" Display="Dynamic" ErrorMessage="Please Enter Hire Date" ForeColor="Blue" ValidationGroup="submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                            Start Date<asp:Label ID="lblReqStartDate" runat="server" ForeColor="Blue" Text="*"></asp:Label>
+                                                            </label>
+                                                            <asp:TextBox ID="txtStartDate" runat="server" TabIndex="151" Width="157px"></asp:TextBox>
+                                                            <br />
+                                                            <ajaxToolkit:CalendarExtender ID="CalendarExtender7" runat="server" TargetControlID="txtStartDate">
+                                                            </ajaxToolkit:CalendarExtender>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtStartDate" Display="Dynamic" ErrorMessage="Please Enter Start Date" ForeColor="Blue" ValidationGroup="submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                                 <br />
                                                 <label>
                                                 </label>
-                                                <asp:RequiredFieldValidator ID="rqHireDate" runat="server" ControlToValidate="txtHireDate"
-                                                    ValidationGroup="submit" ForeColor="Blue" Display="Dynamic" ErrorMessage="Please Enter Hire Date"></asp:RequiredFieldValidator>
+                                                <br />
+                                                <label>
+                                                </label>
+
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -949,6 +995,77 @@
 
                                             </td>
                                         </tr>
+
+
+
+                                         <tr>
+                                            <td>
+                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+                                                    <ContentTemplate>
+                                                        <label>
+                                                            <asp:Label ID="Label1" runat="server" ForeColor="Black">
+                                                            Bank Name</asp:Label>
+                                                        </label>
+                                                        <asp:DropDownList ID="ddlBankName" runat="server" Width="251px" TabIndex="153">
+                                                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                                 
+                                                </asp:DropDownList>
+
+
+                                                        <br />
+                                                      
+
+                                                         <label>
+                                                            <asp:Label ID="Label3" runat="server" ForeColor="Black">
+                                                            Bank Branch State</asp:Label>
+                                                        </label>
+                                                        <asp:DropDownList ID="ddlBankBranchState" runat="server" Width="251px" TabIndex="153">
+                                                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                                 
+                                                </asp:DropDownList>
+
+                                                        <br />
+
+
+                                                         <label>
+                                                            <asp:Label ID="Label4" runat="server" ForeColor="Black">
+                                                            Bank Branch City</asp:Label>
+                                                        </label>
+                                                        <asp:DropDownList ID="ddlBankBranchCity" runat="server" Width="251px" TabIndex="153">
+                                                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                                 
+                                                </asp:DropDownList>
+
+                                                        <br />
+
+
+                                                         <label>
+                                                            <asp:Label ID="Label5" runat="server" ForeColor="Black">
+                                                            Bank Branch Name</asp:Label>
+                                                        </label>
+                                                        <asp:DropDownList ID="ddlBankBranchName" runat="server" Width="251px" TabIndex="153">
+                                                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                                 
+                                                </asp:DropDownList>
+
+
+                                                    </ContentTemplate>
+                                                    <Triggers>
+                                                      <%--  <asp:AsyncPostBackTrigger ControlID="rdoDeposite" EventName="CheckedChanged" />
+                                                        <asp:AsyncPostBackTrigger ControlID="rdoCheque" EventName="CheckedChanged" />--%>
+                                                    </Triggers>
+                                                </asp:UpdatePanel>
+                                                <br />
+                                                <label></label>
+
+                                            </td>
+                                        </tr>
+
+
+
+
+
+
                                     </table>
                                 </asp:Panel>
                             </ContentTemplate>
@@ -981,26 +1098,12 @@
                                         </tr>
                                         <tr>
                                             <td class="auto-style15">
-                                                <label>
-                                                    Next Review Date<%--<asp:Label ID="lblNextReviewDate" runat="server" Text="*" ForeColor="Red"></asp:Label>--%></label><asp:TextBox ID="dtReviewDate" runat="server" Width="230px" TabIndex="154"></asp:TextBox>
-                                                <ajaxToolkit:CalendarExtender ID="CalendarExtender4" TargetControlID="dtReviewDate" Enabled="true" runat="server"></ajaxToolkit:CalendarExtender>
-                                                <br />
-                                                <label>
-                                                </label>
-                                                <%--<asp:RequiredFieldValidator ID="rqDtNewReview" runat="server" ControlToValidate="dtReviewDate"
-                                                            ValidationGroup="submit" ForeColor="Red" Display="Dynamic" ErrorMessage="Enter New Review Date"></asp:RequiredFieldValidator>--%>
+                                               
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="auto-style15">
-                                                <label>
-                                                    Last Review Date<%--<asp:Label ID="lblLastReview" runat="server" Text="*" ForeColor="Red"></asp:Label>--%></label><asp:TextBox ID="dtLastDate" runat="server" Width="238px" TabIndex="156"></asp:TextBox>
-                                                <ajaxToolkit:CalendarExtender ID="CalendarExtender5" TargetControlID="dtLastDate" runat="server"></ajaxToolkit:CalendarExtender>
-                                                <br />
-                                                <label>
-                                                </label>
-                                                <%--<asp:RequiredFieldValidator ID="rqLastReviewDate" runat="server" ControlToValidate="dtLastDate"
-                                                            ValidationGroup="submit" ForeColor="Red" Display="Dynamic" ErrorMessage="Enter LastReview Date"></asp:RequiredFieldValidator>--%>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -1026,6 +1129,8 @@
                                                         <asp:RequiredFieldValidator ID="rqExtraEarningAmt" runat="server" ControlToValidate="txtExtraIncome"
                                                             ValidationGroup="SubmitNew" ForeColor="Red" Display="Static" ErrorMessage="Enter Extra Earning"></asp:RequiredFieldValidator>
                                                         <br />
+                                                        <asp:Button ID="btnAddExtraIncome" runat="server" Height="28px" OnClick="btnAddExtraIncome_Click" Style="background: url(img/main-header-bg.png) repeat-x; color: #fff;" TabIndex="160" Text="Add" ValidationGroup="SubmitNew" Width="55px" />
+                                                        <br />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </td>
@@ -1038,8 +1143,7 @@
                                         </tr>
                                         <tr>
                                             <td class="auto-style15">
-                                                <asp:Button ID="btnAddExtraIncome" runat="server" Height="28px" OnClick="btnAddExtraIncome_Click" Style="background: url(img/main-header-bg.png) repeat-x; color: #fff;" TabIndex="160" Text="Add" ValidationGroup="SubmitNew" Width="55px" />
-                                            </td>
+                                                &nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td class="auto-style15">
@@ -1147,6 +1251,8 @@
                                                        
                                                 <asp:RequiredFieldValidator ID="rqDeduction" Display="Static" runat="server" ControlToValidate="txtDeducReason"
                                                     ForeColor="Red" ValidationGroup="Add" ErrorMessage="Enter Deduction Reason"></asp:RequiredFieldValidator>
+                                                <br />
+                                                <asp:Button ID="btnAddType" runat="server" Height="28px" OnClick="btnAddType_Click" Style="background: url(img/main-header-bg.png) repeat-x; color: #fff;" TabIndex="165" Text="Add" ValidationGroup="Add" Width="55px" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -1158,9 +1264,6 @@
                                         <tr>
                                             <td class="auto-style15">
                                                 <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
-                                                    <ContentTemplate>
-                                                        <asp:Button ID="btnAddType" runat="server" Height="28px" OnClick="btnAddType_Click" Style="background: url(img/main-header-bg.png) repeat-x; color: #fff;" Text="Add" ValidationGroup="Add" Width="55px" TabIndex="165" />
-                                                    </ContentTemplate>
                                                     <Triggers>
                                                         <asp:AsyncPostBackTrigger ControlID="btnAddType" EventName="Click" />
                                                     </Triggers>
