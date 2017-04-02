@@ -199,7 +199,15 @@ namespace JG_Prospect.Common
             Rejected = 9
                 ,
             ReferralApplicant = 10
-                , Deleted = 11
+                , 
+            Deleted = 11
+                , 
+            // Task ID - ID#: ITSN042
+            ApplicantScreened_20 = 12
+                ,
+            ApplicantScreened_25 = 13
+                ,
+            NewHire_80 = 14
         }
 
         public enum UserRoles

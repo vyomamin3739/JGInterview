@@ -123,6 +123,22 @@ namespace JG_Prospect.Utilits
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InstallProspect).ToString();
             lstUserStatus.Add(objUserStatus);
 
+            // Task ID - ID#: ITSN042
+            objUserStatus = new UserStatus();
+            objUserStatus.Status = "Applicant Screened : 20%";
+            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.ApplicantScreened_20).ToString();
+            lstUserStatus.Add(objUserStatus);
+            
+            objUserStatus = new UserStatus();
+            objUserStatus.Status = "Applicant Screened : 25%";
+            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.ApplicantScreened_25).ToString();
+            lstUserStatus.Add(objUserStatus);
+
+            objUserStatus = new UserStatus();
+            objUserStatus.Status = "New Hire : 80%";
+            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.NewHire_80).ToString();
+            lstUserStatus.Add(objUserStatus);
+
             ddlUserStatus.DataSource = lstUserStatus;
             ddlUserStatus.DataTextField = "Status";
             ddlUserStatus.DataValueField = "StatusValue";
@@ -162,6 +178,19 @@ namespace JG_Prospect.Utilits
                         break;
                     case JGConstant.InstallUserStatus.InterviewDate:
                         imageURL = "../Sr_App/img/Light-Blue-astrek.png"; //purple-astrek.png
+                        ddlstatus.Items[i].Attributes["data-image"] = imageURL;
+                        break;
+                    // Task ID - ID#: ITSN042
+                    case JGConstant.InstallUserStatus.ApplicantScreened_20:
+                        imageURL = "../Sr_App/img/purple-astrek.png";
+                        ddlstatus.Items[i].Attributes["data-image"] = imageURL;
+                        break;
+                    case JGConstant.InstallUserStatus.ApplicantScreened_25:
+                        imageURL = "../Sr_App/img/yellow-astrek.png";
+                        ddlstatus.Items[i].Attributes["data-image"] = imageURL;
+                        break;
+                    case JGConstant.InstallUserStatus.NewHire_80:
+                        imageURL = "../Sr_App/img/black-astrek.png";
                         ddlstatus.Items[i].Attributes["data-image"] = imageURL;
                         break;
                     default:
