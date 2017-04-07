@@ -64,7 +64,7 @@ namespace JG_Prospect.Utilits
         /// <param name="ddlUserStatus"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Used with JQuesy Image dropdown msDropDown().
+        /// Used with JQuery Image dropdown msDropDown().
         /// </remarks>
         public static DropDownList FillUserStatus(DropDownList ddlUserStatus, string FirstItem = "", string FirstItemValue = "")
         {
@@ -85,7 +85,7 @@ namespace JG_Prospect.Utilits
             lstUserStatus.Add(objUserStatus);
 
             //Task ID - ID#: ITSN042 - Passing the Status Text with HTML elements
-            //for JQuesy Image dropdown msDropDown()
+            //for JQuery Image dropdown msDropDown()
             objUserStatus = new UserStatus();
             objUserStatus.Status = "Applicant <span class='ddlstatus-per-text' id='ddlstatusApplicant'><img src='../Sr_App/img/yellow-astrek.png' class='fnone'>Applicant Screened : 25%</span>";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Applicant).ToString();
