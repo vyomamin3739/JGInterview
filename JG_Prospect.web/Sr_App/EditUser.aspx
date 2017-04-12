@@ -2,199 +2,200 @@
     CodeBehind="EditUser.aspx.cs" Inherits="JG_Prospect.EditUser" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <%@ Register Src="~/UserControl/ucStatusChangePopup.ascx" TagPrefix="ucStatusChange" TagName="PoPup" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <script src="../js/Custom/JgPopUp.js" type="text/javascript"></script>
     <link type="text/css" href="../css/flags24.css" rel="Stylesheet" />
     <style type="text/css">
-        /*Grid add Container START*/
-        .GrdContainer {
-            width: 100%;
-            border: 1px solid #d3d3d3;
+        .ddlstatus-per-text {
+        float: right;
+        padding-right: 25px;
         }
 
-            .GrdContainer div {
-                width: 100%;
-            }
+        /*Grid add Container START*/
+        .GrdContainer {
+        width: 100%;
+        border: 1px solid #d3d3d3;
+        }
 
-            .GrdContainer .GrdHeader {
-                background-color: #d3d3d3;
-                padding: 2px;
-                cursor: pointer;
-                font-weight: bold;
-            }
+        .GrdContainer div {
+        width: 100%;
+        }
 
-            .GrdContainer .GrdContent {
-                display: none;
-                padding: 5px;
-                height: 160px;
-            }
+        .GrdContainer .GrdHeader {
+        background-color: #d3d3d3;
+        padding: 2px;
+        cursor: pointer;
+        font-weight: bold;
+        }
 
+        .GrdContainer .GrdContent {
+        display: none;
+        padding: 5px;
+        height: 160px;
+        }
         .GrdContent ul li span {
-            width: 100% !important;
+        width: 100% !important;
         }
 
         .GrdContent ul li {
-            width: 80%;
-            padding-top: 10px;
+        width: 80%;
+        padding-top: 10px;
         }
 
-            .GrdContent ul li span label {
-                width: 75%;
-                float: left;
-                padding-top: 0px;
-            }
+        .GrdContent ul li span label {
+        width: 75%;
+        float: left;
+        padding-top: 0px;
+        }
 
-            .GrdContent ul li span input {
-                width: 20% !important;
-                float: left;
-            }
+        .GrdContent ul li span input {
+        width: 20% !important;
+        float: left;
+        }
 
-            .GrdContent ul li select, .GrdContent ul li input {
-                width: 85% !important;
-            }
+        .GrdContent ul li select, .GrdContent ul li input {
+        width: 85% !important;
+        }
 
         .GrdBtnAdd {
-            margin-top: 12px;
-            height: 30px;
-            background: url(img/main-header-bg.png) repeat-x;
-            color: #fff;
+        margin-top: 12px;
+        height: 30px;
+        background: url(img/main-header-bg.png) repeat-x;
+        color: #fff;
         }
 
         /*Grid add Container END */
         .PrimaryPhone {
-            cursor: pointer;
+        cursor: pointer;
         }
 
         .GrdPrimaryEmail {
-            text-decoration: underline;
-            cursor: pointer;
-            color: blue;
-            line-height: 20px;
-            width: 150px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+        text-decoration: underline;
+        cursor: pointer;
+        color: blue;
+        line-height: 20px;
+        width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         }
+
         /*.GrdPrimaryEmail:hover {
-                overflow: visible;
-                white-space: normal;
-                width: auto;
-                position: absolute;
-                background-color: #FFF;
-            }*/
+        overflow: visible;
+        white-space: normal;
+        width: auto;
+        position: absolute;
+        background-color: #FFF;
+        }*/
         .ddChild li {
-            text-align: left;
-            margin: 0 !important;
-            width: auto !important;
-            border-bottom: none !important;
+        text-align: left;
+        margin: 0 !important;
+        width: auto ;
+        border-bottom: none ;
         }
 
         .grd-lblPrimaryPhone img {
-            float: left;
+        float: left;
         }
 
         .grd-lblPrimaryPhone {
-            width: 135px !important;
-            padding-top: 8px;
+        width: 135px !important;
+        padding-top: 8px;
         }
 
         .user-zip {
-            padding-left: 50px;
-            margin-left: 70px;
+        padding-left: 50px;
+        margin-left: 70px;
         }
 
         .SearchLoad {
-            position: absolute;
-            display: block;
-            margin-top: 116px;
-            margin-left: 153px;
+        position: absolute;
+        display: block;
+        margin-top: 116px;
+        margin-left: 153px;
         }
 
         .wordBreak {
-            word-wrap: break-word;
+        word-wrap: break-word;
         }
 
         .black_overlay {
-            display: none;
-            position: fixed;
-            top: 0%;
-            left: 0%;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            z-index: 1001;
-            -moz-opacity: 0.8;
-            opacity: .80;
-            filter: alpha(opacity=80);
-            overflow-y: hidden;
+        display: none;
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        -moz-opacity: 0.8;
+        opacity: .80;
+        filter: alpha(opacity=80);
+        overflow-y: hidden;
         }
+
         /*#327FB5*/
         .white_content {
-            display: none;
-            position: absolute;
-            top: 10%;
-            left: 20%;
-            width: 60%;
-            min-height: 10%;
-            padding: 0 16px 16px 16px;
-            border: 10px solid #000000;
-            background-color: white;
-            z-index: 1002;
-            overflow: auto;
+        display: none;
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        width: 60%;
+        min-height: 10%;
+        padding: 0 16px 16px 16px;
+        border: 10px solid #000000;
+        background-color: white;
+        z-index: 1002;
+        overflow: auto;
         }
 
         .close {
-            position: absolute;
-            top: 35px;
-            right: 30px;
-            transition: all 200ms;
-            font-size: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
+        position: absolute;
+        top: 35px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
         }
 
         .HeaderFreez {
-            position: absolute;
-            /*top: expression(this.offsetParent.scrollTop);*/
-            z-index: 10;
-            margin-top: -53px;
+        position: absolute;
+        /*top: expression(this.offsetParent.scrollTop);*/
+        z-index: 10;
+        margin-top: -53px;
         }
 
         .grdUserMain {
-            /*margin-top: 50px;*/
+        /*margin-top: 50px;*/
         }
 
-            .grdUserMain tr td {
-                padding: 10px 8px 12px 4px !important;
-            }
-
+        .grdUserMain tr td {
+        padding: 10px 8px 12px 4px !important;
+        }
         .txtSearch {
-            width: 135px;
-            padding: 5px;
-            border-radius: 5px 0 0 5px;
-            color: #666;
-            font-size: 14px;
+        width: 135px;
+        padding: 5px;
+        border-radius: 5px 0 0 5px;
+        color: #666;
+        font-size: 14px;
         }
 
         .btnSearc {
-            width: 100px;
-            border-radius: 0 5px 5px 0;
-            line-height: 28px;
-            background: #A33E3F;
-            color: #fff;
-            cursor: pointer;
+        width: 100px;
+        border-radius: 0 5px 5px 0;
+        line-height: 28px;
+        background: #A33E3F;
+        color: #fff;
+        cursor: pointer;
         }
     </style>
     <script type="text/javascript">
-
-
         function ConfirmDelete() {
             var Ok = confirm('Are you sure you want to Delete this User?');
             if (Ok)
@@ -202,58 +203,58 @@
             else
                 return false;
         }
-
+        
         function ClosePopup() {
             document.getElementById('light').style.display = 'none';
             document.getElementById('fade').style.display = 'none';
         }
-
+        
         function overlay() {
             document.getElementById('light').style.display = 'block';
             document.getElementById('fade').style.display = 'block';
         }
-
-
+        
+        
         function ClosePopupInterviewDate() {
             document.getElementById('interviewDatelite').style.display = 'none';
             document.getElementById('interviewDatefade').style.display = 'none';
         }
-
+        
         function overlayInterviewDate() {
-
+        
             document.getElementById('interviewDatelite').style.display = 'block';
             document.getElementById('interviewDatefade').style.display = 'block';
             //$('#interviewDatelite').focus();
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-
+        
         function ClosePopupOfferMade() {
             document.getElementById('DivOfferMade').style.display = 'none';
             document.getElementById('DivOfferMadefade').style.display = 'none';
         }
-
+        
         function OverlayPopupOfferMade() {
             document.getElementById('DivOfferMade').style.display = 'block';
             document.getElementById('DivOfferMadefade').style.display = 'block';
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-
+        
         function ClosePopupUploadBulk() {
             document.getElementById('lightUploadBulk').style.display = 'none';
             document.getElementById('fadeUploadBulk').style.display = 'none';
         }
-
+        
         function OverlayPopupUploadBulk() {
             document.getElementById('lightUploadBulk').style.display = 'block';
             document.getElementById('fadeUploadBulk').style.display = 'block';
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-
+        
         function CloseAddUserPopUp() {
             document.getElementById('lightUploadBulk').style.display = 'none';
             document.getElementById('fadeUploadBulk').style.display = 'none';
         }
-
+        
         //var validFilesTypes = ["xls", "xlsx", "csv"];
         var validFilesTypes = ["xlsx", "csv"];
         function ValidateFile() {
@@ -272,13 +273,13 @@
                 alert('Select file of type csv or xlsx ');
                 //label.style.color = "red";
                 //label.innerHTML = "Invalid File. Please upload a File with" +
-
+        
                 // " extension:\n\n" + validFilesTypes.join(", ");
-
+        
             }
             return isValidFile;
         }
-
+        
         function SetDesignationForTask() {
             var dID = $('#<%=ddlDesignationForTask.ClientID%>').val();
             $.ajax({
@@ -298,13 +299,11 @@
     </script>
     <script>
         function pageLoad() {
-
-
-            $(document).ready(function () {
-
-
+                
+            $(document).ready(function () {       
+        
                 $(".GrdHeader").click(function () {
-
+        
                     $header = $(this);
                     //getting the next element
                     $content = $header.next();
@@ -318,8 +317,8 @@
                         });
                     });
                 });
-
-
+        
+        
                 $('.PrimaryPhone').click(function () {
                     showCustomPopUp("\\CommingSoon.aspx", "Primary Phone");
                 });
@@ -327,78 +326,81 @@
                     //showCustomPopUp("\\CommingSoon.aspx", "Primary Email");
                 });
             });
-
+        
         }
     </script>
+
     <style type="text/css">
         .modalBackground {
-            background-color: Black;
-            filter: alpha(opacity=90);
-            opacity: 0.8;
+        background-color: Black;
+        filter: alpha(opacity=90);
+        opacity: 0.8;
         }
 
         .modalPopup {
-            background-color: #FFFFFF;
-            border-width: 3px;
-            border-style: solid;
-            border-color: black;
-            padding-top: 10px;
-            padding-left: 2px;
-            width: 129px;
-            height: 173px;
+        background-color: #FFFFFF;
+        border-width: 3px;
+        border-style: solid;
+        border-color: black;
+        padding-top: 10px;
+        padding-left: 2px;
+        width: 129px;
+        height: 173px;
         }
 
         table.select_period_table {
         }
 
-            table.select_period_table tr td {
-                width: 50% !important;
-            }
+        table.select_period_table tr td {
+        width: 50% !important;
+        }
 
-                table.select_period_table tr td label {
-                    display: block !important;
-                    width: 100% !important;
-                }
+        table.select_period_table tr td label {
+        display: block !important;
+        width: 100% !important;
+        }
 
-                table.select_period_table tr td input {
-                    width: 100% !important;
-                    box-sizing: border-box !important;
-                }
+        table.select_period_table tr td input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        }
 
         table.tblshowhrdata {
-            width: 100%;
-            border: 1px solid #ddd;
-            background: #fff;
-            border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        background: #fff;
+        border-collapse: collapse;
         }
 
         .tblPieChart td.head {
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            height: 15px;
-            background: #A33E3F url(../img/line.png) bottom repeat-x;
-            padding: 10px 0px;
-            width: 32%;
-            line-height: 15px;
-            min-height: 5px;
-            vertical-align: top;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        height: 15px;
+        background: #A33E3F url(../img/line.png) bottom repeat-x;
+        padding: 10px 0px;
+        width: 32%;
+        line-height: 15px;
+        min-height: 5px;
+        vertical-align: top;
         }
 
         .scrollCls {
-            height: 300px !important;
-            overflow-y: scroll;
+        height: 300px !important;
+        overflow-y: scroll;
         }
         /*.scrollCls table tbody {
-            display: block;
-            height: 300px;
-            overflow-y: scroll;
+        display: block;
+        height: 300px;
+        overflow-y: scroll;
         }*/
     </style>
+
     <link href="../Styles/dd.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="../ckeditor/ckeditor.js"></script>
+
     <div class="right_panel">
         <!-- appointment tabs section start -->
         <ul class="appointment_tab">
@@ -541,7 +543,6 @@
                                 <td>
                                     <asp:Label ID="lblInstallProspectCount" runat="server" Text="0"></asp:Label>
                                 </td>
-
                                 <td>
                                     <asp:Label ID="lblAppInterview" runat="server">Applicant/interview ratio</asp:Label>
                                 </td>
@@ -570,20 +571,20 @@
                                 </td>
                                 <%--<td>
                                     <asp:Label ID="lblInactive" runat="server">New Inactive</asp:Label>
-                                </td>
-                                <td>
+                                    </td>
+                                    <td>
                                     <asp:Label ID="lblInactiveCount" runat="server" Text="0"></asp:Label>
-                                </td><td>
+                                    </td><td>
                                     <asp:Label ID="lblAppHire" runat="server">Applicant/new hire ratio</asp:Label>
-                                </td>
-                                <td>
+                                    </td>
+                                    <td>
                                     <asp:Label ID="lblAppHireRatio" runat="server" Text="0"></asp:Label>
-                                </td><td>
+                                    </td><td>
                                     <asp:Label ID="lblJobOfferHire" runat="server">Job Offer/new hire ratio	</asp:Label>
-                                </td>
-                                <td>
+                                    </td>
+                                    <td>
                                     <asp:Label ID="lblJobOfferHireRatio" runat="server" Text="0"></asp:Label>
-                                </td>--%>
+                                    </td>--%>
                             </tr>
                         </table>
                     </div>
@@ -596,19 +597,34 @@
                     <table style="width: 100%;">
                         <tr style="background-color: #A33E3F; color: white; font-weight: bold; text-align: center; width: 100%;">
                             <td>
-                                <asp:Label ID="lblUserStatus" Text="User Status" runat="server" /><span style="color: red">*</span></td>
+                                <asp:Label ID="lblUserStatus" Text="User Status" runat="server" />
+                                <span style="color: red">*</span>
+                            </td>
                             <td>
-                                <asp:Label ID="lblDesignation" Text="Designation" runat="server" /></td>
+                                <asp:Label ID="lblDesignation" Text="Designation" runat="server" />
+                            </td>
                             <td>
-                                <asp:Label ID="lblAddedBy" Text="Added By" runat="server" /></td>
+                                <asp:Label ID="lblAddedBy" Text="Added By" runat="server" />
+                            </td>
                             <td>
-                                <asp:Label ID="lblSourceH" Text="Source" runat="server" /></td>
+                                <asp:Label ID="lblSourceH" Text="Source" runat="server" />
+                            </td>
                             <td colspan="2">
-                                <asp:Label ID="Label2" Text="Select Period" runat="server" /></td>
+                                <asp:Label ID="Label2" Text="Select Period" runat="server" />
+                            </td>
                         </tr>
                         <tr style="text-align: center; width: 100%">
+                            <%--<td style="text-align: center;">--%>
                             <td style="text-align: center;">
-                                <asp:DropDownList ID="ddlUserStatus" runat="server" Width="140px" AutoPostBack="true"
+                                <style>
+                                    /*.form_panel ul li {
+                                    width: 90% !important;
+                                    }*/
+                                    .dd .ddChild li {
+                                    width: 95% !important;
+                                    }
+                                </style>
+                                <asp:DropDownList ID="ddlUserStatus" style="text-align: left;" runat="server" Width="400px" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" OnPreRender="ddlUserStatus_PreRender" />
                             </td>
                             <td>
@@ -625,11 +641,14 @@
                                     <asp:ListItem Text="Operations Manager" Value="Operations Manager"></asp:ListItem>
                                     <asp:ListItem Text="Recruiter" Value="Recruiter"></asp:ListItem>
                                     <asp:ListItem Text="Sales Manager" Value="Sales Manager"></asp:ListItem>
-                                </asp:DropDownList></td>
+                                </asp:DropDownList>
+                            </td>
                             <td>
-                                <asp:DropDownList ID="ddlSource" runat="server" Width="140px" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></td>
+                                <asp:DropDownList ID="ddlSource" runat="server" Width="140px" OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </td>
                             <td>
-                                <asp:CheckBox ID="chkAllDates" runat="server" Checked="true" Text="All" OnCheckedChanged="chkAllDates_CheckedChanged" AutoPostBack="true" /></td>
+                                <asp:CheckBox ID="chkAllDates" runat="server" Checked="true" Text="All" OnCheckedChanged="chkAllDates_CheckedChanged" AutoPostBack="true" />
+                            </td>
                             <td>
                                 <asp:Label ID="Label3" Text="From :*" runat="server" />
                                 <asp:TextBox ID="txtfrmdate" runat="server" TabIndex="2" CssClass="date"
@@ -646,7 +665,8 @@
                                 <br />
                                 <asp:RequiredFieldValidator ID="requirefrmdate" ControlToValidate="txtfrmdate"
                                     runat="server" ErrorMessage=" Select From date" ForeColor="Red" ValidationGroup="show">
-                                </asp:RequiredFieldValidator><asp:RequiredFieldValidator ID="Requiretodate" ControlToValidate="txtTodate"
+                                </asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="Requiretodate" ControlToValidate="txtTodate"
                                     runat="server" ErrorMessage=" Select To date" ForeColor="Red" ValidationGroup="show">
                                 </asp:RequiredFieldValidator>
                                 <br />
@@ -658,12 +678,9 @@
             <div style="width: auto; border: 1px solid #ccc; padding: 3px;">
                 <asp:UpdatePanel ID="upUsers" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-
                         <div style="float: left; padding-top: 10px; margin-bottom: -40px;">
-
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="textbox" placeholder="search users" MaxLength="15" />
                             <asp:Button ID="btnSearchGridData" runat="server" Text="Search" Style="display: none;" class="btnSearc" OnClick="btnSearchGridData_Click" />
-
                             Number of Records: 
                             <asp:DropDownList ID="ddlPageSize_grdUsers" runat="server" AutoPostBack="true"
                                 OnSelectedIndexChanged="ddlPageSize_grdUsers_SelectedIndexChanged">
@@ -674,8 +691,6 @@
                                 <asp:ListItem Text="50" Value="50" />
                             </asp:DropDownList>
                         </div>
-
-
                         <asp:GridView ID="grdUsers" OnPreRender="grdUsers_PreRender" runat="server" CssClass="scroll" Width="100%" EmptyDataText="No Data"
                             AutoGenerateColumns="False" DataKeyNames="Id" AllowSorting="true" AllowPaging="true" AllowCustomPaging="true" PageSize="20"
                             OnRowDataBound="grdUsers_RowDataBound" OnRowCommand="grdUsers_RowCommand" OnSorting="grdUsers_Sorting"
@@ -683,7 +698,6 @@
                             <PagerSettings Mode="NumericFirstLast" NextPageText="Next" PreviousPageText="Previous" Position="TopAndBottom" />
                             <PagerStyle HorizontalAlign="Right" CssClass="pagination-ys" />
                             <Columns>
-
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="5%" ItemStyle-Width="5%">
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" />
@@ -714,7 +728,6 @@
                                     <ControlStyle ForeColor="Black" />
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 </asp:TemplateField>
-
                                 <asp:TemplateField ShowHeader="True" HeaderText="Install Id" Visible="false" SortExpression="Id" ControlStyle-ForeColor="Black"
                                     ItemStyle-HorizontalAlign="Center">
                                     <EditItemTemplate>
@@ -733,8 +746,7 @@
                                             CommandArgument='<%#Eval("picture")%>'></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
-                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15%" ItemStyle-Width="15%" SortExpression="FristName" ControlStyle-ForeColor="Black">
+                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="12%" ItemStyle-Width="12%" SortExpression="FristName" ControlStyle-ForeColor="Black">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" Text='<%#Eval("FristName")%>'></asp:TextBox>
                                     </EditItemTemplate>
@@ -747,7 +759,6 @@
                                     <ControlStyle ForeColor="Black" />
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 </asp:TemplateField>
-
                                 <asp:TemplateField HeaderText="Last name" Visible="false" SortExpression="Lastname" ItemStyle-HorizontalAlign="Center">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtlastname" runat="server" Text='<%# Bind("Lastname") %>'></asp:TextBox>
@@ -763,25 +774,17 @@
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" ItemStyle-Width="20%" SortExpression="Status">
+                                <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="23%" ItemStyle-Width="23%" SortExpression="Status">
                                     <ItemTemplate>
                                         <asp:HiddenField ID="lblStatus" runat="server" Value='<%#Eval("Status")%>'></asp:HiddenField>
                                         <asp:HiddenField ID="lblOrderStatus" runat="server" Value='<%#(Eval("OrderStatus") == null || Eval("OrderStatus") == "") ? -99: Eval("OrderStatus")%>'></asp:HiddenField>
-                                        <asp:DropDownList ID="ddlStatus" CssClass="grd-status" Style="width: 95%;" AutoPostBack="true" OnSelectedIndexChanged="grdUsers_ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlUserStatus_PreRender">
-                                            <%--<asp:ListItem Text="Referral applicant" Value="ReferralApplicant"></asp:ListItem>
-                                            <asp:ListItem Text="Applicant" Value="Applicant"></asp:ListItem>
-                                            <asp:ListItem Text="Phone/Video Screened" Value="PhoneScreened"></asp:ListItem>
-                                            <asp:ListItem Text="Rejected" Value="Rejected"></asp:ListItem>
-                                            <asp:ListItem Text="Interview Date" Value="InterviewDate"></asp:ListItem>
-                                            <asp:ListItem Text="Offer Made" Value="OfferMade"></asp:ListItem>
-                                            <asp:ListItem Text="Active" Value="Active"></asp:ListItem>
-                                            <asp:ListItem Text="Deactive" Value="Deactive"></asp:ListItem>
-                                            <asp:ListItem Text="Install Prospect" Value="Install Prospect"></asp:ListItem>--%>
-                                        </asp:DropDownList><br />
+                                        <asp:DropDownList ID="ddlStatus" Width="400px" CssClass="grd-status" Style="text-align: left; width: 95%;" AutoPostBack="true" OnSelectedIndexChanged="grdUsers_ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlUserStatus_PreRender">
+                                        </asp:DropDownList>
+                                        <br />
                                         <asp:Label ID="lblRejectDetail" runat="server" Text='<%#Eval("RejectDetail") %>'></asp:Label>
                                         <br />
-                                        <span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Split(' ')[0]%></span>&nbsp<span style="color: red"><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Remove(0, Eval("InterviewDetail").ToString().IndexOf(' ') + 1)%></span>&nbsp<span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":"(EST)"%></span><asp:Label ID="lblInterviewDetail" runat="server" Visible="false" Text='<%#Eval("InterviewDetail") %>'></asp:Label>
+                                        <span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Split(' ')[0]%></span>&nbsp<span style="color: red"><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Remove(0, Eval("InterviewDetail").ToString().IndexOf(' ') + 1)%></span>&nbsp<span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":"(EST)"%></span>
+                                        <asp:Label ID="lblInterviewDetail" runat="server" Visible="false" Text='<%#Eval("InterviewDetail") %>'></asp:Label>
                                         <asp:HyperLink ID="hypTechTask" runat="server" Visible="false" />
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
@@ -797,16 +800,11 @@
                                         <br />
                                         <span><%#String.Format("{0:M/d/yyyy}", Eval("CreatedDateTime"))%></span>&nbsp<span style="color: red"><%#String.Format("{0:hh:mm:ss tt}", Eval("CreatedDateTime"))%></span>&nbsp<span>(EST)</span>
                                     </ItemTemplate>
-
                                 </asp:TemplateField>
-
                                 <asp:TemplateField HeaderText="Added On" Visible="false" SortExpression="CreatedDateTime" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                     </ItemTemplate>
-
                                 </asp:TemplateField>
-
-
                                 <asp:TemplateField HeaderText="Email<br/>Phone Type - Phone" HeaderStyle-Width="20%" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" SortExpression="Phone">
                                     <ItemTemplate>
                                         <%-- ControlStyle-CssClass="wordBreak" <asp:Label ID="lblPhone" runat="server" Text='<%# Bind("Phone") %>'></asp:Label>--%>
@@ -823,22 +821,25 @@
                                             <div class="GrdContent">
                                                 <ul style="padding-left: 0px;">
                                                     <li>
-                                                        <asp:CheckBox ID="chkIsPrimaryPhone" Text=" Is Primary contact" runat="server"></asp:CheckBox></li>
+                                                        <asp:CheckBox ID="chkIsPrimaryPhone" Text=" Is Primary contact" runat="server"></asp:CheckBox>
+                                                    </li>
                                                     <li>
                                                         <asp:DropDownList ID="ddlContactType" runat="server">
                                                             <asp:ListItem Text="Home Phone"></asp:ListItem>
                                                             <asp:ListItem Text="Office Phone"></asp:ListItem>
                                                             <asp:ListItem Text="Alt Phone"></asp:ListItem>
                                                             <asp:ListItem Text="Email"></asp:ListItem>
-                                                        </asp:DropDownList></li>
+                                                        </asp:DropDownList>
+                                                    </li>
                                                     <li>
-                                                        <asp:TextBox ID="txtNewContact" runat="server"></asp:TextBox></li>
+                                                        <asp:TextBox ID="txtNewContact" runat="server"></asp:TextBox>
+                                                    </li>
                                                     <li>
-                                                        <asp:Button ID="btnAddPhone" CssClass="GrdBtnAdd" runat="server" Text="Add" CommandName="AddNewContact" CommandArgument='<%# Eval("Id") %>'></asp:Button></li>
+                                                        <asp:Button ID="btnAddPhone" CssClass="GrdBtnAdd" runat="server" Text="Add" CommandName="AddNewContact" CommandArgument='<%# Eval("Id") %>'></asp:Button>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Country-Zip<br/>Type-Apptitude Test %<br/>Resume Attachment" HeaderStyle-Width="15%" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" SortExpression="Zip" ControlStyle-CssClass="wordBreak">
@@ -847,18 +848,15 @@
                                         </div>
                                         <%--<span><%# Eval("Zip") %></span>--%>
                                         <asp:Label ID="lblZip" runat="server" Text='<%# " - "+ Eval("Zip") %>'></asp:Label>
-
                                         <br />
                                         <br />
                                         <span><%# (Eval("EmpType").ToString() =="0")?"Not Selected -":Eval("EmpType") +" -" %></span>
                                         <span><%#(string.IsNullOrEmpty(Eval("Aggregate").ToString()))?"N/A":string.Format("{0:#,##}",Eval("Aggregate"))+ "%" %></span>
-
                                         <br />
                                         <a href='<%# Eval("Resumepath") %>' id="aReasumePath" runat="server" target="_blank"><%# System.IO.Path.GetFileName(Eval("Resumepath").ToString()) %></a>
                                         <%--<span><%# Eval("EmpType") %></span> <span> - <span><%#(string.IsNullOrEmpty(Eval("Aggregate").ToString()))?"N/A":string.Format("{0:#,##}",Eval("Aggregate"))+ "%" %></span>--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
                             </Columns>
                         </asp:GridView>
                     </ContentTemplate>
@@ -880,7 +878,8 @@
                     <td>
                         <label>
                             Upload Prospects using xlsx file: 
-                            <asp:FileUpload ID="BulkProspectUploader" runat="server" /></label>
+                            <asp:FileUpload ID="BulkProspectUploader" runat="server" />
+                        </label>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="BulkProspectUploader" runat="server" ErrorMessage="Select file to import data." ValidationGroup="BulkImport"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
@@ -902,7 +901,8 @@
             <br />
             <div class="btn_sec">
                 <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClientClick="return ValidateFile()" OnClick="btnUpload_Click" />
-                <asp:Button ID="btnExport" runat="server" Text="Export" OnClick="btnExport_Click" /><br />
+                <asp:Button ID="btnExport" runat="server" Text="Export" OnClick="btnExport_Click" />
+                <br />
                 <br />
                 <asp:Label ID="Label1" runat="server" />
             </div>
@@ -911,7 +911,7 @@
     <%--Modal Popup Stars--%>
     <div id="divModalPopups">
         <%--<asp:UpdatePanel ID="updatepanel1" runat="server">
-                        <ContentTemplate>--%>
+            <ContentTemplate>--%>
         <asp:Button ID="Button1" Style="display: none;" runat="server" Text="Button" />
         <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panel1" TargetControlID="Button1"
             CancelControlID="btnClose" BackgroundCssClass="modalBackground">
@@ -921,7 +921,6 @@
             <br />
             <asp:Button ID="btnClose" runat="server" Text="Close" />
         </asp:Panel>
-
         <asp:Panel ID="panelPopup" runat="server">
             <div id="light" class="white_content">
                 <h3>Reason
@@ -959,18 +958,22 @@
                         <table width="100%" style="border: Solid 3px #b04547; width: 100%; height: 300px;"
                             cellpadding="0" cellspacing="0">
                             <tr>
-                                <td colspan="3" align="center">Name:
-                                    <asp:Label ID="lblName_InterviewDetails" runat="server" /></td>
+                                <td colspan="3" align="center">
+                                    Name:
+                                    <asp:Label ID="lblName_InterviewDetails" runat="server" />
+                                </td>
                             </tr>
                             <tr>
-                                <td align="center" style="height: 15px;">Date :
-                        <asp:TextBox ID="dtInterviewDate" placeholder="Select Date" runat="server" ClientIDMode="Static" onkeypress="return false" TabIndex="104" Width="127px"></asp:TextBox>
+                                <td align="center" style="height: 15px;">
+                                    Date :
+                                    <asp:TextBox ID="dtInterviewDate" placeholder="Select Date" runat="server" ClientIDMode="Static" onkeypress="return false" TabIndex="104" Width="127px"></asp:TextBox>
                                     <cc1:CalendarExtender ID="CalendarExtender1" TargetControlID="dtInterviewDate" Format="MM/dd/yyyy" runat="server"></cc1:CalendarExtender>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Select Date" ControlToValidate="dtInterviewDate" ValidationGroup="InterviewDate"></asp:RequiredFieldValidator>
                                 </td>
                                 <td align="center"></td>
-                                <td>Time :
-                            <asp:DropDownList ID="ddlInsteviewtime" runat="server" TabIndex="105" Width="112px"></asp:DropDownList>
+                                <td>
+                                    Time :
+                                    <asp:DropDownList ID="ddlInsteviewtime" runat="server" TabIndex="105" Width="112px"></asp:DropDownList>
                                 </td>
                             </tr>
                             <tr>
@@ -1022,7 +1025,6 @@
                 </asp:UpdatePanel>
             </div>
         </asp:Panel>
-
         <asp:Panel ID="panel3" runat="server">
             <div id="litePassword" class="white_content">
                 <h3>Password
@@ -1051,7 +1053,6 @@
         </asp:Panel>
         <div id="fadePassword" class="black_overlay">
         </div>
-
         <asp:Panel ID="panel4" runat="server">
             <div id="DivOfferMade" class="white_content" style="height: auto;">
                 <h3>Offer Made Details</h3>
@@ -1062,16 +1063,24 @@
                         <table width="100%" style="border: Solid 3px #b04547; width: 100%; height: 300px;"
                             cellpadding="0" cellspacing="0">
                             <tr>
-                                <td align="right">Name:
-                                    <asp:Label ID="lblName_OfferMade" runat="server" /></td>
-                                <td>Designation:
-                                    <asp:Label ID="lblDesignation_OfferMade" runat="server" /></td>
+                                <td align="right">
+                                    Name:
+                                    <asp:Label ID="lblName_OfferMade" runat="server" />
+                                </td>
+                                <td>
+                                    Designation:
+                                    <asp:Label ID="lblDesignation_OfferMade" runat="server" />
+                                </td>
                             </tr>
                             <tr>
                                 <td align="right" style="height: 15px;">
                                     <br />
                                     <label>
-                                        Email<span><asp:Label ID="lblReqEmail" Text="*" runat="server" ForeColor="Red"></asp:Label></span></label>
+                                        Email
+                                        <span>
+                                            <asp:Label ID="lblReqEmail" Text="*" runat="server" ForeColor="Red"></asp:Label>
+                                        </span>
+                                    </label>
                                 </td>
                                 <td>
                                     <asp:TextBox ID="txtEmail" runat="server" MaxLength="40" Width="242px"
@@ -1088,7 +1097,9 @@
                             <tr>
                                 <td align="right" style="height: 15px;">
                                     <label>
-                                        Password<asp:Label ID="lblPassReq" runat="server" Text="*" ForeColor="Red"></asp:Label></label>
+                                        Password
+                                        <asp:Label ID="lblPassReq" runat="server" Text="*" ForeColor="Red"></asp:Label>
+                                    </label>
                                 </td>
                                 <td>
                                     <asp:TextBox ID="txtPassword1" runat="server" TextMode="Password" MaxLength="30"
@@ -1097,13 +1108,16 @@
                                     <label>
                                     </label>
                                     <asp:RequiredFieldValidator ID="rqPass" runat="server" ControlToValidate="txtPassword1"
-                                        ValidationGroup="OfferMade" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Password"></asp:RequiredFieldValidator><br />
+                                        ValidationGroup="OfferMade" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Password"></asp:RequiredFieldValidator>
+                                    <br />
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right" style="height: 15px;">
                                     <label>
-                                        Confirm Password<asp:Label ID="lblConfirmPass" runat="server" Text="*" ForeColor="Red"></asp:Label></label>
+                                        Confirm Password
+                                        <asp:Label ID="lblConfirmPass" runat="server" Text="*" ForeColor="Red"></asp:Label>
+                                    </label>
                                 </td>
                                 <td>
                                     <asp:TextBox ID="txtpassword2" runat="server" TextMode="Password" autocomplete="off"
@@ -1117,7 +1131,6 @@
                                     </asp:CompareValidator>
                                     <asp:RequiredFieldValidator ID="rqConPass" runat="server" ControlToValidate="txtpassword2"
                                         ForeColor="Red" ValidationGroup="OfferMade" ErrorMessage="Enter Confirm Password"></asp:RequiredFieldValidator>
-
                                 </td>
                             </tr>
                             <tr>
@@ -1137,7 +1150,6 @@
         </asp:Panel>
         <div id="DivOfferMadefade" class="black_overlay">
         </div>
-
         <asp:Panel ID="pnlUploadBulk" runat="server">
             <style>
                 kTab {
@@ -1151,13 +1163,11 @@
             </style>
             <div id="lightUploadBulk" class="white_content" style="text-align: center">
                 <a class="close" href="#" onclick="CloseAddUserPopUp()">&times;</a>
-
                 <asp:Panel ID="pnlDuplicate" runat="server">
                     <asp:Label ID="lblDuplicateCount" runat="server"></asp:Label>
-
                     <div style="padding: 20px; margin: auto;">
                         <center>
-                                <table width="60%" class="uploadBulkTab" cellpadding="0">
+                            <table width="60%" class="uploadBulkTab" cellpadding="0">
                                 <tr style="background-color: #A33E3F; color: white; font-weight: bold; text-align: center; width: 100%;">
                                     <td><span>Full Name</span></td>
                                     <td><span>Email</span></td>
@@ -1175,7 +1185,7 @@
                                     </ItemTemplate>
                                 </asp:ListView>
                             </table>
-                            </center>
+                        </center>
                     </div>
                     <div style="padding: 20px; margin: auto;">
                         Email or Phone number of above users already exists, do you want to update the existing record?
@@ -1189,35 +1199,32 @@
                             Style="height: 26px; font-weight: 700; line-height: 1em;" Text="No" Width="100px"
                             ValidationGroup="IndiCred" TabIndex="119" OnClick="btnNoEdit_Click" />
                     </div>
-
                     <hr />
                     <br />
                 </asp:Panel>
-
                 <asp:Panel ID="pnlAddNewUser" runat="server">
                     <asp:Label ID="lblNewRecordAddedCount" runat="server"></asp:Label>
                     <center>
-                    <table width="60%" class="uploadBulkTab" cellpadding="0" style="margin-top:20px;">
-                        <tr style="background-color: #A33E3F; color: white; font-weight: bold; text-align: center; width: 100%;">
-                            <td><span>Full Name</span></td>
-                            <td><span>Email</span></td>
-                            <td><span>Phone</span></td>
-                            <td><span>status</span></td>
-                        </tr>
-                        <asp:ListView ID="lstNewUserAdd" runat="server">
-                            <ItemTemplate>
-                                <tr>
-                                    <td><span><%#Eval("FirstName")%>&nbsp;<%#Eval("LastName")%></span></td>
-                                    <td><span><%#Eval("Email")%></span></td>
-                                    <td><span><%#Eval("phone")%></span></td>
-                                    <td><span><%#Eval("status")%></span></td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:ListView>
-                    </table>
+                        <table width="60%" class="uploadBulkTab" cellpadding="0" style="margin-top:20px;">
+                            <tr style="background-color: #A33E3F; color: white; font-weight: bold; text-align: center; width: 100%;">
+                                <td><span>Full Name</span></td>
+                                <td><span>Email</span></td>
+                                <td><span>Phone</span></td>
+                                <td><span>status</span></td>
+                            </tr>
+                            <asp:ListView ID="lstNewUserAdd" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><span><%#Eval("FirstName")%>&nbsp;<%#Eval("LastName")%></span></td>
+                                        <td><span><%#Eval("Email")%></span></td>
+                                        <td><span><%#Eval("phone")%></span></td>
+                                        <td><span><%#Eval("status")%></span></td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </table>
                     </center>
                 </asp:Panel>
-
             </div>
         </asp:Panel>
         <div id="fadeUploadBulk" class="black_overlay">
@@ -1235,25 +1242,29 @@
                     <asp:ValidationSummary ID="vsEmailToUser" runat="server" ValidationGroup="vgEmailToUser" ShowSummary="False" ShowMessageBox="True" />
                     <fieldset>
                         <legend>
-                            <asp:Label ID="lblEmailTo" runat="server" /><asp:HiddenField ID="hdnEmailTo" runat="server" />
+                            <asp:Label ID="lblEmailTo" runat="server" />
+                            <asp:HiddenField ID="hdnEmailTo" runat="server" />
                         </legend>
                         <table cellspacing="3" cellpadding="3" width="100%">
                             <tr>
-                                <td>Subject:<br />
+                                <td>
+                                    Subject:<br />
                                     <asp:TextBox ID="txtEmailSubject" runat="server" CssClass="textbox" Width="90%" ReadOnly="true" />
                                     <asp:RequiredFieldValidator ID="rfvEmailSubject" ValidationGroup="vgEmailToUser"
                                         runat="server" ControlToValidate="txtEmailSubject" ForeColor="Red" ErrorMessage="Please enter email subject." Display="None" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>Custom Message:<br />
+                                <td>
+                                    Custom Message:<br />
                                     <asp:TextBox ID="txtEmailCustomMessage" runat="server" CssClass="textbox" TextMode="MultiLine" Width="90%" />
                                     <asp:RequiredFieldValidator ID="rfvEmailCustomMessage" ValidationGroup="vgEmailToUser" Display="None"
                                         runat="server" ControlToValidate="txtEmailCustomMessage" ForeColor="Red" ErrorMessage="Please enter custom message for email." />
                                 </td>
                             </tr>
                             <tr>
-                                <td>Email Body:<br />
+                                <td>
+                                    Email Body:<br />
                                     <asp:TextBox ID="txtEmailBody" runat="server" CssClass="textbox" TextMode="MultiLine" Rows="4" Width="90%" />
                                     <asp:RequiredFieldValidator ID="rfvEmailBody" ValidationGroup="vgEmailToUser"
                                         runat="server" ControlToValidate="txtEmailBody" ForeColor="Red" ErrorMessage="Please enter email body." Display="None" />
@@ -1274,14 +1285,13 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-
         <div id="divChangeStatusForSelected" runat="server" title="Change Status">
             <asp:UpdatePanel ID="upChangeStatusForSelected" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:ValidationSummary ID="vsChangeStatus" runat="server" ValidationGroup="vgChangeStatus" ShowMessageBox="true" ShowSummary="false" />
                     <div>
                         Status:
-                        <asp:DropDownList ID="ddlStatus_Popup" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_Popup_SelectedIndexChanged" />
+                        <asp:DropDownList ID="ddlStatus_Popup" Width="400px" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_Popup_SelectedIndexChanged" OnPreRender="ddlStatus_Popup_PreRender"/>
                         <asp:RequiredFieldValidator ID="rfvStatus_Popup" runat="server" ErrorMessage="Please select recruiter." InitialValue="0"
                             ControlToValidate="ddlStatus_Popup" ValidationGroup="vgChangeStatus" Display="None" />
                     </div>
@@ -1303,7 +1313,9 @@
                         <Columns>
                             <asp:TemplateField HeaderText="Name" ItemStyle-Width="150">
                                 <ItemTemplate>
-                                    <asp:Literal ID="ltrlFirstName" runat="server" Text='<%#Eval("FirstName") %>' />&nbsp;<asp:Literal ID="ltrlLastName" runat="server" Text='<%#Eval("LastName") %>' />
+                                    <asp:Literal ID="ltrlFirstName" runat="server" Text='<%#Eval("FirstName") %>' />
+                                    &nbsp;
+                                    <asp:Literal ID="ltrlLastName" runat="server" Text='<%#Eval("LastName") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Designation" ItemStyle-Width="150">
@@ -1347,47 +1359,47 @@
                     <br />
                     <div class="btn_sec">
                         <asp:Button ID="btnSaveStatusForSelected" runat="server" Text="Change Status" ValidationGroup="vgChangeStatus"
-                            OnClick="btnSaveStatusForSelected_Click" />&nbsp;
-                    <asp:Button ID="btnCancelChangeStatusForSelected" runat="server" Text="Cancel" OnClick="btnCancelChangeStatusForSelected_Click" />
+                            OnClick="btnSaveStatusForSelected_Click" />
+                        &nbsp;
+                        <asp:Button ID="btnCancelChangeStatusForSelected" runat="server" Text="Cancel" OnClick="btnCancelChangeStatusForSelected_Click" />
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
     </div>
     <%--Popup Ends--%>
-
     <script src="../js/jquery.dd.min.js"></script>
     <script type="text/javascript">
-
         var prmTaskGenerator = Sys.WebForms.PageRequestManager.getInstance();
-
+        
         prmTaskGenerator.add_beginRequest(function () {
             DestroyCKEditors();
         });
-
+        
         prmTaskGenerator.add_endRequest(function () {
             EditUser_Initialize();
         });
-
+        
         $(document).ready(function () {
             EditUser_Initialize();
         });
-
+        
         function EditUser_Initialize() {
-
+        
             SetSalesUserAutoSuggestion();
             SetSalesUserAutoSuggestionUI();
-
+        
             try {
                 $("#<%=ddlUserStatus.ClientID%>").msDropDown();
-                $(".grd-status").msDropDown();
+                $("#<%=ddlStatus_Popup.ClientID%>").msDropDown(); 
+                $(".grd-status").msDropDown();                
             } catch (e) {
                 alert(e.message);
             }
         }
-
+        
         function SetSalesUserAutoSuggestion() {
-
+        
             $("#<%=txtSearch.ClientID%>").catcomplete({
                 delay: 500,
                 source: function (request, response) {
@@ -1400,7 +1412,7 @@
                         success: function (data) {
                             // Handle 'no match' indicated by [ "" ] response
                             if (data.d) {
-
+        
                                 response(data.length === 1 && data[0].length === 0 ? [] : JSON.parse(data.d));
                             }
                             // remove loading spinner image.                                
@@ -1416,9 +1428,9 @@
                 }
             });
         }
-
+        
         function SetSalesUserAutoSuggestionUI() {
-
+        
             $.widget("custom.catcomplete", $.ui.autocomplete, {
                 _create: function () {
                     this._super();
@@ -1438,11 +1450,11 @@
                             li.attr("aria-label", item.Category + " : " + item.label);
                         }
                     });
-
+        
                 }
             });
         }
-
+        
         function grdUsers_Email_OnClick(sender, email) {
             $('#<%=lblEmailTo.ClientID%>').html(email);
             $('#<%=hdnEmailTo.ClientID%>').val(email);
@@ -1450,7 +1462,6 @@
             SetCKEditor('<%=txtEmailBody.ClientID%>');
             SetCKEditor('<%=txtEmailFooter.ClientID%>');--%>
             ShowPopupWithTitle('#<%=divSendEmailToUser.ClientID%>', 'Send Email');
-        }
-
+        }        
     </script>
 </asp:Content>

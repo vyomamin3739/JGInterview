@@ -335,7 +335,8 @@ namespace JG_Prospect.Sr_App
                 txtOfferConPassword.Attributes.Add("value", "jmgrove");
                 ViewState["Email"] = lnkEmail.Text;
 
-                if (selValue == "OfferMade")
+                //if (selValue == "OfferMade")
+                if (selValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "OverlayPopupOfferMade();", true);
                     return;
@@ -348,12 +349,15 @@ namespace JG_Prospect.Sr_App
             string status = e.Appointment.Attributes["Status"];
             //string status = Convert.ToString(DataBinder.Eval(e.Appointment.DataItem, "Status"));
             DropDownList ddlStatus = (DropDownList)e.Container.FindControl("ddlStatus");
+            ddlStatus = JG_Prospect.Utilits.FullDropDown.FillUserStatus(ddlStatus, "", "", false);
             LinkButton lbtnReSchedule = (LinkButton)e.Container.FindControl("lbtnReSchedule");
+
             if (ddlStatus != null && !string.IsNullOrEmpty(status) && ddlStatus.Items.FindByValue(status) != null)
             {
                 ddlStatus.SelectedValue = status;
 
-                if (ddlStatus.SelectedValue == "InterviewDate")
+                //if (ddlStatus.SelectedValue == "InterviewDate")
+                if (ddlStatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                     lbtnReSchedule.Visible = true;
                 else
                     lbtnReSchedule.Visible = false;
@@ -480,7 +484,7 @@ namespace JG_Prospect.Sr_App
             string strFristName = string.Empty;
             string strLastName = string.Empty;
             string strHireDate = string.Empty;
-             
+
             DateTime interviewDate;
             DateTime.TryParse(dtInterviewDate.Text, out interviewDate);
             if (interviewDate == null)
@@ -488,11 +492,11 @@ namespace JG_Prospect.Sr_App
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "alert('Invalid Interview Date, Please verify');", true);
                 return;
             }
-            ds = InstallUserBLL.Instance.ReSchedule_Interivew( Convert.ToInt32(Session["ApplicantId"])
+            ds = InstallUserBLL.Instance.ReSchedule_Interivew(Convert.ToInt32(Session["ApplicantId"])
                 , interviewDate.ToString("yyyy-MM-dd")
                 , ddlInsteviewtime.SelectedItem.Text
                 , Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]));
-             
+
 
             if (ds != null)
             {
@@ -501,16 +505,16 @@ namespace JG_Prospect.Sr_App
                     strEmail = ds.Tables[0].Rows[0]["Email"].ToString();
                     strFristName = ds.Tables[0].Rows[0]["FristName"].ToString();
                     strLastName = ds.Tables[0].Rows[0]["LastName"].ToString();
-                    strHireDate = ds.Tables[0].Rows[0]["LastName"].ToString();  
+                    strHireDate = ds.Tables[0].Rows[0]["LastName"].ToString();
                 }
             }
-            
+
             //AssignedTask if any or Default
-            
-            SendEmail(strEmail, strFristName, strLastName, "Interview Date Auto Email", "" ,
+
+            SendEmail(strEmail, strFristName, strLastName, "Interview Date Auto Email", "",
                 Convert.ToString(Session["ApplicantDesignation"]), strHireDate, "", "", 104);
 
-            AssignedTaskToUser(); 
+            AssignedTaskToUser();
 
             Session["ApplicantId"] = null;
 
@@ -520,7 +524,7 @@ namespace JG_Prospect.Sr_App
             //ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "ClosePopupInterviewDate()", true);
             //return;
         }
-        
+
         #endregion
 
         #region '--Methods--'
@@ -529,18 +533,18 @@ namespace JG_Prospect.Sr_App
 
         private void ReScheduleInterviewDate(int CandidateUserId)
         {
-            LoadUsersByRecruiterDesgination();            
+            LoadUsersByRecruiterDesgination();
 
             ddlTechTask = Utilits.FullDropDown.FillTechTaskDropDown(ddlTechTask);
             ddlInsteviewtime = Utilits.FullDropDown.GetTimeIntervals(ddlInsteviewtime);
 
             lblCurrentTask.Text = GetUserCurrentTask(CandidateUserId);
-            
+
             dtInterviewDate.Text = DateTime.Now.AddDays(1).ToShortDateString();
             ddlInsteviewtime.SelectedValue = "10:00 AM";
-            
+
         }
-        
+
         private string GetUserCurrentTask(int UserId)
         {
             string strUserTask = "No Task Assigned";
@@ -590,7 +594,7 @@ namespace JG_Prospect.Sr_App
 
                 if (ddlTechTask.SelectedValue != "" || ddlTechTask.SelectedValue != "0")
                     SendEmailToAssignedUsers(ApplicantId, ddlTechTask.SelectedValue);
-                
+
             }
         }
 
@@ -602,7 +606,7 @@ namespace JG_Prospect.Sr_App
 
             int result = TaskGeneratorBLL.Instance.UpdateTaskStatus(task);    // save task master details
         }
-        
+
         private void SendEmailToAssignedUsers(string strInstallUserIDs, string strTaskId)
         {
             try
@@ -797,72 +801,72 @@ namespace JG_Prospect.Sr_App
                 string fullname = FName + " " + LName;
                 DataSet ds = AdminBLL.Instance.GetEmailTemplate(Designition, htmlTempID);// AdminBLL.Instance.FetchContractTemplate(104);
 
-            if (ds == null)
-            {
-                ds = AdminBLL.Instance.GetEmailTemplate("Admin");
-            }
-            else if (ds.Tables[0].Rows.Count == 0)
-            {
-                ds = AdminBLL.Instance.GetEmailTemplate("Admin");
-            }
-            string strHeader = ds.Tables[0].Rows[0]["HTMLHeader"].ToString(); //GetEmailHeader(status);
-            string strBody = ds.Tables[0].Rows[0]["HTMLBody"].ToString(); //GetEmailBody(status);
-            string strFooter = ds.Tables[0].Rows[0]["HTMLFooter"].ToString(); // GetFooter(status);
-            string strsubject = ds.Tables[0].Rows[0]["HTMLSubject"].ToString();
-
-            string userName = ConfigurationManager.AppSettings["VendorCategoryUserName"].ToString();
-            string password = ConfigurationManager.AppSettings["VendorCategoryPassword"].ToString();
-
-            strBody = strBody.Replace("#Email#", emailId).Replace("#email#", emailId);
-            strBody = strBody.Replace("#Name#", FName).Replace("#name#", FName);
-            //strBody = strBody.Replace("#Date#", dtInterviewDate.Text).Replace("#date#", dtInterviewDate.Text);
-            //strBody = strBody.Replace("#Time#", ddlInsteviewtime.SelectedValue).Replace("#time#", ddlInsteviewtime.SelectedValue);
-            strBody = strBody.Replace("#Designation#", Designition).Replace("#designation#", Designition);
-
-            strFooter = strFooter.Replace("#Name#", FName).Replace("#name#", FName);
-            //strFooter = strFooter.Replace("#Date#", dtInterviewDate.Text).Replace("#date#", dtInterviewDate.Text);
-            //strFooter = strFooter.Replace("#Time#", ddlInsteviewtime.SelectedValue).Replace("#time#", ddlInsteviewtime.SelectedValue);
-            strFooter = strFooter.Replace("#Designation#", Designition).Replace("#designation#", Designition);
-
-            strBody = strBody.Replace("Lbl Full name", fullname);
-            strBody = strBody.Replace("LBL position", Designition);
-            //strBody = strBody.Replace("lbl: start date", txtHireDate.Text);
-            //strBody = strBody.Replace("($ rate","$"+ txtHireDate.Text);
-            strBody = strBody.Replace("Reason", Reason);
-            //Hi #lblFName#, <br/><br/>You are requested to appear for an interview on #lblDate# - #lblTime#.<br/><br/>Regards,<br/>
-            strBody = strHeader + strBody + strFooter;
-
-            EditUser obj = new EditUser();
-            if (status == "OfferMade")
-            {
-                //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
-                //obj.createForeMenForJobAcceptance(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
-            }
-            if (status == "Deactive")
-            {
-                //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
-                //obj.CreateDeactivationAttachment(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
-            }
-
-            List<Attachment> lstAttachments = new List<Attachment>();
-
-            for (int i = 0; i < ds.Tables[1].Rows.Count; i++)
-            {
-                string sourceDir = Server.MapPath(ds.Tables[1].Rows[i]["DocumentPath"].ToString());
-                if (File.Exists(sourceDir))
+                if (ds == null)
                 {
-                    Attachment attachment = new Attachment(sourceDir);
-                    attachment.Name = Path.GetFileName(sourceDir);
-                    lstAttachments.Add(attachment);
+                    ds = AdminBLL.Instance.GetEmailTemplate("Admin");
                 }
-            }
+                else if (ds.Tables[0].Rows.Count == 0)
+                {
+                    ds = AdminBLL.Instance.GetEmailTemplate("Admin");
+                }
+                string strHeader = ds.Tables[0].Rows[0]["HTMLHeader"].ToString(); //GetEmailHeader(status);
+                string strBody = ds.Tables[0].Rows[0]["HTMLBody"].ToString(); //GetEmailBody(status);
+                string strFooter = ds.Tables[0].Rows[0]["HTMLFooter"].ToString(); // GetFooter(status);
+                string strsubject = ds.Tables[0].Rows[0]["HTMLSubject"].ToString();
 
-            if (Attachments != null)
-            {
-                lstAttachments.AddRange(Attachments);
-            }
+                string userName = ConfigurationManager.AppSettings["VendorCategoryUserName"].ToString();
+                string password = ConfigurationManager.AppSettings["VendorCategoryPassword"].ToString();
 
-            JG_Prospect.App_Code.CommonFunction.SendEmail(Designition, emailId, strsubject, strBody, lstAttachments);
+                strBody = strBody.Replace("#Email#", emailId).Replace("#email#", emailId);
+                strBody = strBody.Replace("#Name#", FName).Replace("#name#", FName);
+                //strBody = strBody.Replace("#Date#", dtInterviewDate.Text).Replace("#date#", dtInterviewDate.Text);
+                //strBody = strBody.Replace("#Time#", ddlInsteviewtime.SelectedValue).Replace("#time#", ddlInsteviewtime.SelectedValue);
+                strBody = strBody.Replace("#Designation#", Designition).Replace("#designation#", Designition);
+
+                strFooter = strFooter.Replace("#Name#", FName).Replace("#name#", FName);
+                //strFooter = strFooter.Replace("#Date#", dtInterviewDate.Text).Replace("#date#", dtInterviewDate.Text);
+                //strFooter = strFooter.Replace("#Time#", ddlInsteviewtime.SelectedValue).Replace("#time#", ddlInsteviewtime.SelectedValue);
+                strFooter = strFooter.Replace("#Designation#", Designition).Replace("#designation#", Designition);
+
+                strBody = strBody.Replace("Lbl Full name", fullname);
+                strBody = strBody.Replace("LBL position", Designition);
+                //strBody = strBody.Replace("lbl: start date", txtHireDate.Text);
+                //strBody = strBody.Replace("($ rate","$"+ txtHireDate.Text);
+                strBody = strBody.Replace("Reason", Reason);
+                //Hi #lblFName#, <br/><br/>You are requested to appear for an interview on #lblDate# - #lblTime#.<br/><br/>Regards,<br/>
+                strBody = strHeader + strBody + strFooter;
+
+                EditUser obj = new EditUser();
+                if (status == "OfferMade")
+                {
+                    //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
+                    //obj.createForeMenForJobAcceptance(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
+                }
+                if (status == "Deactive")
+                {
+                    //TODO : commented code for missing directive using Word = Microsoft.Office.Interop.Word;
+                    //obj.CreateDeactivationAttachment(strBody, FName, LName, Designition, emailId, HireDate, EmpType, PayRates);
+                }
+
+                List<Attachment> lstAttachments = new List<Attachment>();
+
+                for (int i = 0; i < ds.Tables[1].Rows.Count; i++)
+                {
+                    string sourceDir = Server.MapPath(ds.Tables[1].Rows[i]["DocumentPath"].ToString());
+                    if (File.Exists(sourceDir))
+                    {
+                        Attachment attachment = new Attachment(sourceDir);
+                        attachment.Name = Path.GetFileName(sourceDir);
+                        lstAttachments.Add(attachment);
+                    }
+                }
+
+                if (Attachments != null)
+                {
+                    lstAttachments.AddRange(Attachments);
+                }
+
+                JG_Prospect.App_Code.CommonFunction.SendEmail(Designition, emailId, strsubject, strBody, lstAttachments);
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "UserMsg", "alert('An email notification has sent on " + emailId + ".');", true);
             }

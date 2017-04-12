@@ -19,7 +19,6 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 //using Word = Microsoft.Office.Interop.Word;
 using System.Web.Services;
 
@@ -86,7 +85,10 @@ namespace JG_Prospect.Sr_App
                     // Store GIUD when user is in create mode and save Touch Point Log..
                     hidTouchPointGUID.Value = Guid.NewGuid().ToString();
                     SetUserControlValue(string.Empty);
-                    hlnkUserID.Text = GetInstallIdFromDesignation(ddldesignation.SelectedItem.Text) + "-AXXXX";
+
+                    //Following line throws exceoption because the ddl has no optins populated at this point
+                    //The options/hlnkUserID are populated down below the code. So commented the line
+                    //hlnkUserID.Text = GetInstallIdFromDesignation(ddldesignation.SelectedItem.Text) + "-AXXXX";
                 }
 
             }
@@ -291,8 +293,6 @@ namespace JG_Prospect.Sr_App
                 lblConfirmPass.Visible = false;
                 RequiredFieldValidator7.Enabled = false;
                 #endregion
-
-
 
                 if (dsSource.Tables[0].Rows.Count > 0)
                 {
@@ -2877,7 +2877,7 @@ namespace JG_Prospect.Sr_App
                 dtInterviewDate.Visible = true;
                 dtInterviewDate.Text = DateTime.Now.AddDays(1).ToShortDateString();
                 ddlInsteviewtime.Visible = true;
-                ddlInsteviewtime.SelectedValue = "10:00";
+                ddlInsteviewtime.SelectedValue = "10:00 AM";
                 ddlTechTask = Utilits.FullDropDown.FillTechTaskDropDown(ddlTechTask);
 
                 showHideNewHireSection(false);
@@ -2950,7 +2950,7 @@ namespace JG_Prospect.Sr_App
 
                 return;
             }
-            if ((GetEnumValueForStatus() ==  JGConstant.InstallUserStatus.OfferMade) && (ddldesignation.SelectedItem.Text == "ForeMan" || ddldesignation.SelectedItem.Text == "Installer"))
+            if ((GetEnumValueForStatus() == JGConstant.InstallUserStatus.OfferMade) && (ddldesignation.SelectedItem.Text == "ForeMan" || ddldesignation.SelectedItem.Text == "Installer"))
             {
                 showHideNewHireSection(true);
                 txtReson.Visible = false;
@@ -4688,7 +4688,7 @@ namespace JG_Prospect.Sr_App
                 string[] str_Reason = Reason.Split(',');
                 string[] str_Amt = Amount.Split(',');
                 string[] str_Type = Type.Split(',');
-            label:
+                label:
                 drNew = dt.NewRow();
                 for (int i = 0; i < str_Reason.Length; i++)
                 {
@@ -4737,7 +4737,7 @@ namespace JG_Prospect.Sr_App
                 }
                 dt.Rows.Add(drNew);
                 goto label;
-            label1:
+                label1:
                 Session["DtTemp"] = null;
                 Session["DtTemp"] = dt;
                 GridView1.DataSource = dt;
@@ -4756,7 +4756,7 @@ namespace JG_Prospect.Sr_App
             Session["loop5"] = "";
             string[] str_PersonName = PersonName.Split(',');
             string[] str_PersonType = PersonType.Split(',');
-        label:
+            label:
             drNew = dt.NewRow();
             for (int i = 0; i < str_PersonName.Length; i++)
             {
@@ -4791,7 +4791,7 @@ namespace JG_Prospect.Sr_App
             }
             dt.Rows.Add(drNew);
             goto label;
-        label1:
+            label1:
             Session["PersonTypeData"] = null;
             Session["PersonTypeData"] = dt;
             //GridView2.DataSource = dt;

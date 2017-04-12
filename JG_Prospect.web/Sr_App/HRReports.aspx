@@ -579,23 +579,23 @@
     </div>
     <script src="../js/jquery.dd.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var prm = Sys.WebForms.PageRequestManager.getInstance();
-        
-            if (prm != null) {
-                prm.add_endRequest(function (sender, e) {
-                    if (sender._postBackSettings.panelsToUpdate != null) {
-                        $(".loading").hide();
-                        $("#<%=ddlStatus.ClientID%>").msDropDown();
-                    }
-                });
-            };
+        var prmTaskGenerator = Sys.WebForms.PageRequestManager.getInstance();
+
+        prmTaskGenerator.add_endRequest(function () {
+            HRReport_Initialize();
         });
-        
-        try {
-            $("#<%=ddlStatus.ClientID%>").msDropDown();
-        } catch (e) {
-            alert(e.message);
+
+        $(document).ready(function () {
+            HRReport_Initialize();
+        });
+
+        function HRReport_Initialize() {
+
+            try {
+                $("#<%=ddlStatus.ClientID%>").msDropDown();
+            } catch (e) {
+                alert(e.message);
+            }
         }
     </script>
 

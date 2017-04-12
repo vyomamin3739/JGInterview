@@ -64,9 +64,9 @@ namespace JG_Prospect.Utilits
         /// <param name="ddlUserStatus"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Used with JQuery Image dropdown msDropDown().
+        /// Used with both JQuery Image msDropDown() and plain dropdown.
         /// </remarks>
-        public static DropDownList FillUserStatus(DropDownList ddlUserStatus, string FirstItem = "", string FirstItemValue = "")
+        public static DropDownList FillUserStatus(DropDownList ddlUserStatus, string FirstItem = "", string FirstItemValue = "", Boolean Formatted = true)
         {
             List<UserStatus> lstUserStatus = new List<UserStatus>();
             UserStatus objUserStatus;
@@ -87,12 +87,12 @@ namespace JG_Prospect.Utilits
             //Task ID - ID#: ITSN042 - Passing the Status Text with HTML elements
             //for JQuery Image dropdown msDropDown()
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Applicant <span class='ddlstatus-per-text' id='ddlstatusApplicant'><img src='../Sr_App/img/yellow-astrek.png' class='fnone'>Applicant Screened : 25%</span>";
+            objUserStatus.Status = Formatted ? "Applicant <span class='ddlstatus-per-text' id='ddlstatusApplicant'><img src='../Sr_App/img/yellow-astrek.png' class='fnone'>Applicant Screened : 25%</span>" : "Applicant";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Applicant).ToString();
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Interview Date <span class='ddlstatus-per-text' id='ddlstatusInterviewDate'><img src='../Sr_App/img/purple-astrek.png' class='fnone'>Applicant Screened : 20%</span>";
+            objUserStatus.Status = Formatted ? "Interview Date <span class='ddlstatus-per-text' id='ddlstatusInterviewDate'><img src='../Sr_App/img/purple-astrek.png' class='fnone'>Applicant Screened : 20%</span>" : "Interview Date";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InterviewDate).ToString();
             lstUserStatus.Add(objUserStatus);
 
@@ -102,7 +102,7 @@ namespace JG_Prospect.Utilits
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Offer Made <span class='ddlstatus-per-text' id='ddlstatusOfferMade'><img src='../Sr_App/img/black-astrek.png' class='fnone'>New Hire : 80%</span>";
+            objUserStatus.Status = Formatted ? "Offer Made <span class='ddlstatus-per-text' id='ddlstatusOfferMade'><img src='../Sr_App/img/black-astrek.png' class='fnone'>New Hire : 80%</span>" : "Offer Made";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.OfferMade).ToString();
             lstUserStatus.Add(objUserStatus);
 
@@ -182,8 +182,11 @@ namespace JG_Prospect.Utilits
                         imageURL = "../Sr_App/img/Light-Blue-astrek.png"; //purple-astrek.png
                         ddlstatus.Items[i].Attributes["data-image"] = imageURL;
                         break;
-                    default:
+                    case JGConstant.InstallUserStatus.Deactive:
+                    case JGConstant.InstallUserStatus.Rejected:
                         ddlstatus.Items[i].Attributes["data-image"] = "../Sr_App/img/white-astrek.png";
+                        break;
+                    default:
                         break;
                 }
             }
