@@ -25,18 +25,87 @@
                     color: #000;
                     cursor: pointer;
                 }
+
+
+        .menu-wrap {
+            width: 100%;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            background: #3e3436;
+        }
+
+        .menu li ul {
+            width: 450px;
+        }
+
+        .menu li:hover > a, .menu .current-item > a {
+            text-decoration: none;
+            color: #be5b70;
+        }
+
+        /*----- Top Level -----*/
+        .menu > ul > li {
+            float: left;
+            display: inline-block;
+            position: relative;
+            font-size: 19px;
+        }
+
+            .menu > ul > li:hover > a, .menu > ul > .current-item > a {
+                background: #2e2728;
+            }
+
+        /*----- Bottom Level -----*/
+        .menu li:hover .sub-menu {
+            z-index: 1;
+            opacity: 1;
+        }
+
+        .sub-menu {
+            width: 150%;
+            padding: 5px 5px;
+            position: absolute;
+            top: 100%;
+            left: 0px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity linear 0.15s;
+        }
+
+            .sub-menu li {
+                display: block;
+                font-size: 16px;
+            }
+
+                .sub-menu li a {
+                    padding: 2px 15px;
+                    display: block;
+                }
+
+                    .sub-menu li a:hover, .sub-menu .current-item a {
+                        background: #3e3436;
+                    }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="right_panel">
         <!-- appointment tabs section start -->
-        <ul class="appointment_tab">
-            <li><a href="home.aspx" class="active">Sales Calendar</a></li>
-            <li><a href="GoogleCalendarView.aspx">Master  Calendar</a></li>
-            <li><a href="#">Construction Calendar</a></li>
-            <li><a href="CallSheet.aspx">Call Sheet</a></li>
-            <li id="li_AnnualCalender" visible="false" runat="server"><a href="#" runat="server">Annual Event Calendar</a> </li>
-        </ul>
+        <div class="menu-wrap">
+            <nav class="menu">
+                <ul class="appointment_tab">
+                    <li><a href="home.aspx" class="active">Sales Calendar</a></li>
+                    <li><a href="home.aspx">Master Calendar</a>
+                        <ul class="sub-menu">
+                            <li><a href="home.aspx" runat="server">IT-Dashboard</a></li>
+                            <li><a href="GoogleCalendarView.aspx" runat="server">Calendars</a></li>
+                        </ul>
+                    </li>
+                    <%--<li><a href="#">Construction Calendar</a></li>--%>
+                    <li><a href="CallSheet.aspx">Call Sheet</a></li>
+                    <li id="li_AnnualCalender" visible="false" runat="server"><a href="#" runat="server">Annual Event Calendar</a> </li>
+                </ul>
+            </nav>
+        </div>
+
         <!-- appointment tabs section end -->
         <h1><b>Dashboard</b></h1>
         <asp:Panel ID="pnlTestEmail" Visible="false" GroupingText="Test E-Mail" runat="server" CssClass="clsTestMail">
