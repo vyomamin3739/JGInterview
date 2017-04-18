@@ -53,7 +53,9 @@
         function isAlphaKey(e) {
             var k;
             document.all ? k = e.keyCode : k = e.which;
-            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k == 46));
+/*Old Code*/ // return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k == 46));
+//New code below - Task# 146 - Inventory Page Errors - To allow special characters to Vendor Category Name text Box - Added ASCII codes for special characters
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k == 46) || (k > 31 && k < 42) || (k == 44) || (k == 64));
         }
         function isNumericKey(e) {
             var k;
