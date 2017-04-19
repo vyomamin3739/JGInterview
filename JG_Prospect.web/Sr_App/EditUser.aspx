@@ -11,77 +11,78 @@
     <link type="text/css" href="../css/flags24.css" rel="Stylesheet" />
     <style type="text/css">
         .ddlstatus-per-text {
-        float: right;
-        padding-right: 25px;
+            float: right;
+            padding-right: 25px;
         }
 
         /*Grid add Container START*/
         .GrdContainer {
-        width: 100%;
-        border: 1px solid #d3d3d3;
+            width: 100%;
+            border: 1px solid #d3d3d3;
         }
 
-        .GrdContainer div {
-        width: 100%;
-        }
+            .GrdContainer div {
+                width: 100%;
+            }
 
-        .GrdContainer .GrdHeader {
-        background-color: #d3d3d3;
-        padding: 2px;
-        cursor: pointer;
-        font-weight: bold;
-        }
+            .GrdContainer .GrdHeader {
+                background-color: #d3d3d3;
+                padding: 2px;
+                cursor: pointer;
+                font-weight: bold;
+            }
 
-        .GrdContainer .GrdContent {
-        display: none;
-        padding: 5px;
-        height: 160px;
-        }
+            .GrdContainer .GrdContent {
+                display: none;
+                padding: 5px;
+                height: 160px;
+            }
+
         .GrdContent ul li span {
-        width: 100% !important;
+            width: 100% !important;
         }
 
         .GrdContent ul li {
-        width: 80%;
-        padding-top: 10px;
+            width: 80%;
+            padding-top: 10px;
         }
 
-        .GrdContent ul li span label {
-        width: 75%;
-        float: left;
-        padding-top: 0px;
-        }
+            .GrdContent ul li span label {
+                width: 75%;
+                float: left;
+                padding-top: 0px;
+            }
 
-        .GrdContent ul li span input {
-        width: 20% !important;
-        float: left;
-        }
+            .GrdContent ul li span input {
+                width: 20% !important;
+                float: left;
+            }
 
-        .GrdContent ul li select, .GrdContent ul li input {
-        width: 85% !important;
-        }
+            .GrdContent ul li select, .GrdContent ul li input {
+                width: 85% !important;
+            }
 
         .GrdBtnAdd {
-        margin-top: 12px;
-        height: 30px;
-        background: url(img/main-header-bg.png) repeat-x;
-        color: #fff;
+            margin-top: 12px;
+            height: 30px;
+            background: url(img/main-header-bg.png) repeat-x;
+            color: #fff;
         }
 
         /*Grid add Container END */
         .PrimaryPhone {
-        cursor: pointer;
+            cursor: pointer;
         }
 
         .GrdPrimaryEmail {
-        text-decoration: underline;
-        cursor: pointer;
-        color: blue;
-        line-height: 20px;
-        width: 150px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+            text-decoration: underline;
+            cursor: pointer;
+            color: blue;
+            line-height: 20px;
+            width: 150px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         /*.GrdPrimaryEmail:hover {
@@ -92,108 +93,110 @@
         background-color: #FFF;
         }*/
         .ddChild li {
-        text-align: left;
-        margin: 0 !important;
-        width: auto ;
-        border-bottom: none ;
+            text-align: left;
+            margin: 0 !important;
+            width: auto;
+            border-bottom: none;
         }
 
         .grd-lblPrimaryPhone img {
-        float: left;
+            float: left;
         }
 
         .grd-lblPrimaryPhone {
-        width: 135px !important;
-        padding-top: 8px;
+            width: 135px !important;
+            padding-top: 8px;
         }
 
         .user-zip {
-        padding-left: 50px;
-        margin-left: 70px;
+            padding-left: 50px;
+            margin-left: 70px;
         }
 
         .SearchLoad {
-        position: absolute;
-        display: block;
-        margin-top: 116px;
-        margin-left: 153px;
+            position: absolute;
+            display: block;
+            margin-top: 116px;
+            margin-left: 153px;
         }
 
         .wordBreak {
-        word-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .black_overlay {
-        display: none;
-        position: fixed;
-        top: 0%;
-        left: 0%;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 1001;
-        -moz-opacity: 0.8;
-        opacity: .80;
-        filter: alpha(opacity=80);
-        overflow-y: hidden;
+            display: none;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+            overflow-y: hidden;
         }
 
         /*#327FB5*/
         .white_content {
-        display: none;
-        position: absolute;
-        top: 10%;
-        left: 20%;
-        width: 60%;
-        min-height: 10%;
-        padding: 0 16px 16px 16px;
-        border: 10px solid #000000;
-        background-color: white;
-        z-index: 1002;
-        overflow: auto;
+            display: none;
+            position: absolute;
+            top: 10%;
+            left: 20%;
+            width: 60%;
+            min-height: 10%;
+            padding: 0 16px 16px 16px;
+            border: 10px solid #000000;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
         }
 
         .close {
-        position: absolute;
-        top: 35px;
-        right: 30px;
-        transition: all 200ms;
-        font-size: 30px;
-        font-weight: bold;
-        text-decoration: none;
-        color: #333;
+            position: absolute;
+            top: 35px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
         }
 
         .HeaderFreez {
-        position: absolute;
-        /*top: expression(this.offsetParent.scrollTop);*/
-        z-index: 10;
-        margin-top: -53px;
+            position: absolute;
+            /*top: expression(this.offsetParent.scrollTop);*/
+            z-index: 10;
+            margin-top: -53px;
         }
 
         .grdUserMain {
-        /*margin-top: 50px;*/
+            /*margin-top: 50px;*/
         }
 
-        .grdUserMain tr td {
-        padding: 10px 8px 12px 4px !important;
-        }
+            .grdUserMain tr td {
+                padding: 10px 8px 12px 4px !important;
+            }
+
         .txtSearch {
-        width: 135px;
-        padding: 5px;
-        border-radius: 5px 0 0 5px;
-        color: #666;
-        font-size: 14px;
+            width: 135px;
+            padding: 5px;
+            border-radius: 5px 0 0 5px;
+            color: #666;
+            font-size: 14px;
         }
 
         .btnSearc {
-        width: 100px;
-        border-radius: 0 5px 5px 0;
-        line-height: 28px;
-        background: #A33E3F;
-        color: #fff;
-        cursor: pointer;
+            width: 100px;
+            border-radius: 0 5px 5px 0;
+            line-height: 28px;
+            background: #A33E3F;
+            color: #fff;
+            cursor: pointer;
         }
+
     </style>
     <script type="text/javascript">
         function ConfirmDelete() {
@@ -203,58 +206,58 @@
             else
                 return false;
         }
-        
+
         function ClosePopup() {
             document.getElementById('light').style.display = 'none';
             document.getElementById('fade').style.display = 'none';
         }
-        
+
         function overlay() {
             document.getElementById('light').style.display = 'block';
             document.getElementById('fade').style.display = 'block';
         }
-        
-        
+
+
         function ClosePopupInterviewDate() {
             document.getElementById('interviewDatelite').style.display = 'none';
             document.getElementById('interviewDatefade').style.display = 'none';
         }
-        
+
         function overlayInterviewDate() {
-        
+
             document.getElementById('interviewDatelite').style.display = 'block';
             document.getElementById('interviewDatefade').style.display = 'block';
             //$('#interviewDatelite').focus();
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-        
+
         function ClosePopupOfferMade() {
             document.getElementById('DivOfferMade').style.display = 'none';
             document.getElementById('DivOfferMadefade').style.display = 'none';
         }
-        
+
         function OverlayPopupOfferMade() {
             document.getElementById('DivOfferMade').style.display = 'block';
             document.getElementById('DivOfferMadefade').style.display = 'block';
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-        
+
         function ClosePopupUploadBulk() {
             document.getElementById('lightUploadBulk').style.display = 'none';
             document.getElementById('fadeUploadBulk').style.display = 'none';
         }
-        
+
         function OverlayPopupUploadBulk() {
             document.getElementById('lightUploadBulk').style.display = 'block';
             document.getElementById('fadeUploadBulk').style.display = 'block';
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-        
+
         function CloseAddUserPopUp() {
             document.getElementById('lightUploadBulk').style.display = 'none';
             document.getElementById('fadeUploadBulk').style.display = 'none';
         }
-        
+
         //var validFilesTypes = ["xls", "xlsx", "csv"];
         var validFilesTypes = ["xlsx", "csv"];
         function ValidateFile() {
@@ -273,13 +276,13 @@
                 alert('Select file of type csv or xlsx ');
                 //label.style.color = "red";
                 //label.innerHTML = "Invalid File. Please upload a File with" +
-        
+
                 // " extension:\n\n" + validFilesTypes.join(", ");
-        
+
             }
             return isValidFile;
         }
-        
+
         function SetDesignationForTask() {
             var dID = $('#<%=ddlDesignationForTask.ClientID%>').val();
             $.ajax({
@@ -299,11 +302,11 @@
     </script>
     <script>
         function pageLoad() {
-                
-            $(document).ready(function () {       
-        
+
+            $(document).ready(function () {
+
                 $(".GrdHeader").click(function () {
-        
+
                     $header = $(this);
                     //getting the next element
                     $content = $header.next();
@@ -317,8 +320,8 @@
                         });
                     });
                 });
-        
-        
+
+
                 $('.PrimaryPhone').click(function () {
                     showCustomPopUp("\\CommingSoon.aspx", "Primary Phone");
                 });
@@ -326,68 +329,68 @@
                     //showCustomPopUp("\\CommingSoon.aspx", "Primary Email");
                 });
             });
-        
+
         }
     </script>
 
     <style type="text/css">
         .modalBackground {
-        background-color: Black;
-        filter: alpha(opacity=90);
-        opacity: 0.8;
+            background-color: Black;
+            filter: alpha(opacity=90);
+            opacity: 0.8;
         }
 
         .modalPopup {
-        background-color: #FFFFFF;
-        border-width: 3px;
-        border-style: solid;
-        border-color: black;
-        padding-top: 10px;
-        padding-left: 2px;
-        width: 129px;
-        height: 173px;
+            background-color: #FFFFFF;
+            border-width: 3px;
+            border-style: solid;
+            border-color: black;
+            padding-top: 10px;
+            padding-left: 2px;
+            width: 129px;
+            height: 173px;
         }
 
         table.select_period_table {
         }
 
-        table.select_period_table tr td {
-        width: 50% !important;
-        }
+            table.select_period_table tr td {
+                width: 50% !important;
+            }
 
-        table.select_period_table tr td label {
-        display: block !important;
-        width: 100% !important;
-        }
+                table.select_period_table tr td label {
+                    display: block !important;
+                    width: 100% !important;
+                }
 
-        table.select_period_table tr td input {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        }
+                table.select_period_table tr td input {
+                    width: 100% !important;
+                    box-sizing: border-box !important;
+                }
 
         table.tblshowhrdata {
-        width: 100%;
-        border: 1px solid #ddd;
-        background: #fff;
-        border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-collapse: collapse;
         }
 
         .tblPieChart td.head {
-        color: white;
-        font-weight: bold;
-        text-align: center;
-        height: 15px;
-        background: #A33E3F url(../img/line.png) bottom repeat-x;
-        padding: 10px 0px;
-        width: 32%;
-        line-height: 15px;
-        min-height: 5px;
-        vertical-align: top;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            height: 15px;
+            background: #A33E3F url(../img/line.png) bottom repeat-x;
+            padding: 10px 0px;
+            width: 32%;
+            line-height: 15px;
+            min-height: 5px;
+            vertical-align: top;
         }
 
         .scrollCls {
-        height: 300px !important;
-        overflow-y: scroll;
+            height: 300px !important;
+            overflow-y: scroll;
         }
         /*.scrollCls table tbody {
         display: block;
@@ -621,10 +624,10 @@
                                     width: 90% !important;
                                     }*/
                                     .dd .ddChild li {
-                                    width: 95% !important;
+                                        width: 95% !important;
                                     }
                                 </style>
-                                <asp:DropDownList ID="ddlUserStatus" style="text-align: left;" runat="server" Width="400px" AutoPostBack="true"
+                                <asp:DropDownList ID="ddlUserStatus" Style="text-align: left;" runat="server" Width="400px" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlFilter_SelectedIndexChanged" OnPreRender="ddlUserStatus_PreRender" />
                             </td>
                             <td>
@@ -694,22 +697,17 @@
                         <asp:GridView ID="grdUsers" OnPreRender="grdUsers_PreRender" runat="server" CssClass="scroll" Width="100%" EmptyDataText="No Data"
                             AutoGenerateColumns="False" DataKeyNames="Id" AllowSorting="true" AllowPaging="true" AllowCustomPaging="true" PageSize="20"
                             OnRowDataBound="grdUsers_RowDataBound" OnRowCommand="grdUsers_RowCommand" OnSorting="grdUsers_Sorting"
-                            OnPageIndexChanging="grdUsers_PageIndexChanging">
+                            OnPageIndexChanging="grdUsers_PageIndexChanging" Font-Size="Small">
                             <PagerSettings Mode="NumericFirstLast" NextPageText="Next" PreviousPageText="Previous" Position="TopAndBottom" />
                             <PagerStyle HorizontalAlign="Right" CssClass="pagination-ys" />
                             <Columns>
-                                <asp:TemplateField HeaderText="Action" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="5%" ItemStyle-Width="5%">
+                                <asp:TemplateField HeaderText="Action </br> Picture" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="7%" ItemStyle-Width="7%"
+                                     SortExpression="picture">
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkSelected" runat="server" />
+                                        <asp:CheckBox ID="chkSelected" runat="server" Style="z-index: 2; padding: 5px; background: #fff; position: relative; float: left;" />
                                         <br />
-                                        <asp:LinkButton ID="lbltest" Text="Edit" CommandName="EditSalesUser" runat="server"
-                                            CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
-                                        <br />
-                                        <asp:LinkButton ID="lnkDeactivate" Text="Deactivate" CommandName="DeactivateSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to deactivate this user?')"
-                                            CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
-                                        <br />
-                                        <asp:LinkButton ID="lnkDelete" Text="Delete" CommandName="DeleteSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to delete this user?')"
-                                            CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
+                                        <asp:Image ID="ImgPic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture") == "") ? "../img/placeholder.png": Eval("picture")%>' Width="85%" Height="18%" Style="position: relative; top: -25px; padding: 5px;" />
+                                        
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="True" HeaderText="Id# <br /> Designation" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" ControlStyle-ForeColor="Black"
@@ -746,7 +744,7 @@
                                             CommandArgument='<%#Eval("picture")%>'></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="12%" ItemStyle-Width="12%" SortExpression="FristName" ControlStyle-ForeColor="Black">
+                                <asp:TemplateField ShowHeader="True" HeaderText="First Name<br />Last Name" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" SortExpression="FristName" ControlStyle-ForeColor="Black">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" Text='<%#Eval("FristName")%>'></asp:TextBox>
                                     </EditItemTemplate>
@@ -783,8 +781,7 @@
                                         <br />
                                         <asp:Label ID="lblRejectDetail" runat="server" Text='<%#Eval("RejectDetail") %>'></asp:Label>
                                         <br />
-                                        <span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Split(' ')[0]%></span>&nbsp<span style="color: red"><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Remove(0, Eval("InterviewDetail").ToString().IndexOf(' ') + 1)%></span>&nbsp<span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":"(EST)"%></span>
-                                        <asp:Label ID="lblInterviewDetail" runat="server" Visible="false" Text='<%#Eval("InterviewDetail") %>'></asp:Label>
+                                        <span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Split(' ')[0]%></span>&nbsp<span style="color: red"><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":Eval("InterviewDetail").ToString().Remove(0, Eval("InterviewDetail").ToString().IndexOf(' ') + 1)%></span>&nbsp<span><%#string.IsNullOrEmpty(Eval("InterviewDetail").ToString())?"":"(EST)"%></span><asp:Label ID="lblInterviewDetail" runat="server" Visible="false" Text='<%#Eval("InterviewDetail") %>'></asp:Label>
                                         <asp:HyperLink ID="hypTechTask" runat="server" Visible="false" />
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
@@ -842,7 +839,7 @@
                                         </div>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Country-Zip<br/>Type-Apptitude Test %<br/>Resume Attachment" HeaderStyle-Width="15%" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" SortExpression="Zip" ControlStyle-CssClass="wordBreak">
+                                <asp:TemplateField HeaderText="Country-Zip<br/>Type-Apptitude Test %<br/>Resume Attachment" HeaderStyle-Width="20%" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" SortExpression="Zip" ControlStyle-CssClass="wordBreak">
                                     <ItemTemplate>
                                         <div style='<%# string.IsNullOrEmpty(Eval("CountryCode").ToString()) == true ? "": "background-image:url(img/flags24.png);background-repeat:no-repeat;float:left;height:22px;width:24px;margin-top:-5px;" %>' class='<%#Eval("CountryCode").ToString().ToLower()%>'>
                                         </div>
@@ -958,21 +955,18 @@
                         <table width="100%" style="border: Solid 3px #b04547; width: 100%; height: 300px;"
                             cellpadding="0" cellspacing="0">
                             <tr>
-                                <td colspan="3" align="center">
-                                    Name:
+                                <td colspan="3" align="center">Name:
                                     <asp:Label ID="lblName_InterviewDetails" runat="server" />
                                 </td>
                             </tr>
                             <tr>
-                                <td align="center" style="height: 15px;">
-                                    Date :
+                                <td align="center" style="height: 15px;">Date :
                                     <asp:TextBox ID="dtInterviewDate" placeholder="Select Date" runat="server" ClientIDMode="Static" onkeypress="return false" TabIndex="104" Width="127px"></asp:TextBox>
                                     <cc1:CalendarExtender ID="CalendarExtender1" TargetControlID="dtInterviewDate" Format="MM/dd/yyyy" runat="server"></cc1:CalendarExtender>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Select Date" ControlToValidate="dtInterviewDate" ValidationGroup="InterviewDate"></asp:RequiredFieldValidator>
                                 </td>
                                 <td align="center"></td>
-                                <td>
-                                    Time :
+                                <td>Time :
                                     <asp:DropDownList ID="ddlInsteviewtime" runat="server" TabIndex="105" Width="112px"></asp:DropDownList>
                                 </td>
                             </tr>
@@ -1063,12 +1057,10 @@
                         <table width="100%" style="border: Solid 3px #b04547; width: 100%; height: 300px;"
                             cellpadding="0" cellspacing="0">
                             <tr>
-                                <td align="right">
-                                    Name:
+                                <td align="right">Name:
                                     <asp:Label ID="lblName_OfferMade" runat="server" />
                                 </td>
-                                <td>
-                                    Designation:
+                                <td>Designation:
                                     <asp:Label ID="lblDesignation_OfferMade" runat="server" />
                                 </td>
                             </tr>
@@ -1247,24 +1239,21 @@
                         </legend>
                         <table cellspacing="3" cellpadding="3" width="100%">
                             <tr>
-                                <td>
-                                    Subject:<br />
+                                <td>Subject:<br />
                                     <asp:TextBox ID="txtEmailSubject" runat="server" CssClass="textbox" Width="90%" ReadOnly="true" />
                                     <asp:RequiredFieldValidator ID="rfvEmailSubject" ValidationGroup="vgEmailToUser"
                                         runat="server" ControlToValidate="txtEmailSubject" ForeColor="Red" ErrorMessage="Please enter email subject." Display="None" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    Custom Message:<br />
+                                <td>Custom Message:<br />
                                     <asp:TextBox ID="txtEmailCustomMessage" runat="server" CssClass="textbox" TextMode="MultiLine" Width="90%" />
                                     <asp:RequiredFieldValidator ID="rfvEmailCustomMessage" ValidationGroup="vgEmailToUser" Display="None"
                                         runat="server" ControlToValidate="txtEmailCustomMessage" ForeColor="Red" ErrorMessage="Please enter custom message for email." />
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    Email Body:<br />
+                                <td>Email Body:<br />
                                     <asp:TextBox ID="txtEmailBody" runat="server" CssClass="textbox" TextMode="MultiLine" Rows="4" Width="90%" />
                                     <asp:RequiredFieldValidator ID="rfvEmailBody" ValidationGroup="vgEmailToUser"
                                         runat="server" ControlToValidate="txtEmailBody" ForeColor="Red" ErrorMessage="Please enter email body." Display="None" />
@@ -1291,7 +1280,7 @@
                     <asp:ValidationSummary ID="vsChangeStatus" runat="server" ValidationGroup="vgChangeStatus" ShowMessageBox="true" ShowSummary="false" />
                     <div>
                         Status:
-                        <asp:DropDownList ID="ddlStatus_Popup" Width="400px" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_Popup_SelectedIndexChanged" OnPreRender="ddlStatus_Popup_PreRender"/>
+                        <asp:DropDownList ID="ddlStatus_Popup" Width="400px" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_Popup_SelectedIndexChanged" OnPreRender="ddlStatus_Popup_PreRender" />
                         <asp:RequiredFieldValidator ID="rfvStatus_Popup" runat="server" ErrorMessage="Please select recruiter." InitialValue="0"
                             ControlToValidate="ddlStatus_Popup" ValidationGroup="vgChangeStatus" Display="None" />
                     </div>
@@ -1371,35 +1360,35 @@
     <script src="../js/jquery.dd.min.js"></script>
     <script type="text/javascript">
         var prmTaskGenerator = Sys.WebForms.PageRequestManager.getInstance();
-        
+
         prmTaskGenerator.add_beginRequest(function () {
             DestroyCKEditors();
         });
-        
+
         prmTaskGenerator.add_endRequest(function () {
             EditUser_Initialize();
         });
-        
+
         $(document).ready(function () {
             EditUser_Initialize();
         });
-        
+
         function EditUser_Initialize() {
-        
+
             SetSalesUserAutoSuggestion();
             SetSalesUserAutoSuggestionUI();
-        
+
             try {
                 $("#<%=ddlUserStatus.ClientID%>").msDropDown();
-                $("#<%=ddlStatus_Popup.ClientID%>").msDropDown(); 
-                $(".grd-status").msDropDown();                
+                $("#<%=ddlStatus_Popup.ClientID%>").msDropDown();
+                $(".grd-status").msDropDown();
             } catch (e) {
                 alert(e.message);
             }
         }
-        
+
         function SetSalesUserAutoSuggestion() {
-        
+
             $("#<%=txtSearch.ClientID%>").catcomplete({
                 delay: 500,
                 source: function (request, response) {
@@ -1412,7 +1401,7 @@
                         success: function (data) {
                             // Handle 'no match' indicated by [ "" ] response
                             if (data.d) {
-        
+
                                 response(data.length === 1 && data[0].length === 0 ? [] : JSON.parse(data.d));
                             }
                             // remove loading spinner image.                                
@@ -1428,9 +1417,9 @@
                 }
             });
         }
-        
+
         function SetSalesUserAutoSuggestionUI() {
-        
+
             $.widget("custom.catcomplete", $.ui.autocomplete, {
                 _create: function () {
                     this._super();
@@ -1450,11 +1439,11 @@
                             li.attr("aria-label", item.Category + " : " + item.label);
                         }
                     });
-        
+
                 }
             });
         }
-        
+
         function grdUsers_Email_OnClick(sender, email) {
             $('#<%=lblEmailTo.ClientID%>').html(email);
             $('#<%=hdnEmailTo.ClientID%>').val(email);
@@ -1462,6 +1451,6 @@
             SetCKEditor('<%=txtEmailBody.ClientID%>');
             SetCKEditor('<%=txtEmailFooter.ClientID%>');--%>
             ShowPopupWithTitle('#<%=divSendEmailToUser.ClientID%>', 'Send Email');
-        }        
+        }
     </script>
 </asp:Content>
