@@ -397,6 +397,8 @@
         height: 300px;
         overflow-y: scroll;
         }*/
+
+        span.clsAction{color:#0075cc;}
     </style>
 
     <link href="../Styles/dd.css" rel="stylesheet" />
@@ -701,8 +703,8 @@
                             <PagerSettings Mode="NumericFirstLast" NextPageText="Next" PreviousPageText="Previous" Position="TopAndBottom" />
                             <PagerStyle HorizontalAlign="Right" CssClass="pagination-ys" />
                             <Columns>
-                                <asp:TemplateField HeaderText="Action </br> Picture" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="7%" ItemStyle-Width="7%"
-                                     SortExpression="picture">
+                                <asp:TemplateField HeaderText="<span class='clsAction'>Action </br> <u>Picture</u></span>" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="7%" ItemStyle-Width="7%"
+                                     >
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" Style="z-index: 2; padding: 5px; background: #fff; position: relative; float: left;" />
                                         <br />
