@@ -17,12 +17,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link rel="stylesheet" href="../css/jquery-ui.css" />
     <link href="../css/dropzone/css/basic.css" rel="stylesheet" />
-    <link href="../css/dropzone/css/dropzone.css" rel="stylesheet" />    
-    
-    <script src="../ckeditor/ckeditor.js"></script>    
+    <link href="../css/dropzone/css/dropzone.css" rel="stylesheet" />
+    <script src="../js/jquery-ui.js"></script>
+    <script src="../ckeditor/ckeditor.js"></script>
     <script src="../js/clipboard.min.js"></script>
     <script type="text/javascript" src="../js/dropzone.js"></script>
-   
+
 
     <div class="right_panel">
         <hr />
@@ -32,25 +32,23 @@
                 <table id="tblTaskHeader" runat="server" visible="false" class="appointment_tab"
                     style="position: absolute; top: 221px; right: 39px; background-color: #fff;">
                     <tr>
-                        <td width="25%" align="left">
+                        <td style="width: 25%; text-align: left;">
                             <asp:LinkButton ID="lbtnDeleteTask" runat="server" OnClick="lbtnDeleteTask_Click" Text="Delete" />
                             &nbsp;&nbsp;Task ID#:
                            
                             <asp:Literal ID="ltrlInstallId" runat="server" /></td>
-                        <td align="center">Date Created:
+                        <td style="text-align: center;">Date Created:
                            
                             <asp:Literal ID="ltrlDateCreated" runat="server" /></td>
-                        <td width="25%" align="right">
+                        <td style="width: 25%; text-align: right;">
                             <asp:Literal ID="ltrlAssigningManager" runat="server" /></td>
                     </tr>
                 </table>
-                <div class="form_panel_custom">
+                <div class="form_panel_custom" style="padding:0;">
                     <table id="tblAdminTaskView" runat="server" class="tablealign"
                         width="100%" cellspacing="5">
                         <tr>
                             <td style="width: 40%;">Designation <span style="color: red;">*</span>: 
-                               
-
                                 <asp:UpdatePanel ID="upnlDesignation" runat="server" RenderMode="Inline">
                                     <ContentTemplate>
                                         <asp:DropDownCheckBoxes ID="ddlUserDesignation" runat="server" UseSelectAllNode="false" AutoPostBack="true" OnSelectedIndexChanged="ddlUserDesignation_SelectedIndexChanged">
@@ -122,7 +120,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="left">Staus:
+                            <td style="text-align: left;">Staus:
                                
                                 <asp:DropDownList ID="cmbStatus" runat="server" CssClass="textbox" />
                                 &nbsp;&nbsp;Priority:&nbsp;<asp:DropDownList ID="ddlTaskPriority" runat="server" CssClass="textbox" />
@@ -210,7 +208,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr style="display:none;">
+                        <tr style="display: none;">
                             <td colspan="2"><b>Task Description:</b>
                                 <asp:TextBox ID="txtTUDesc" TextMode="MultiLine" ReadOnly="true" Style="width: 100%;" Rows="10" runat="server"></asp:TextBox>
                             </td>
@@ -377,14 +375,14 @@
             <fieldset>
                 <legend>Log Finished Work</legend>
                 <hr />
-                <table width="100%" border="0" cellspacing="3" cellpadding="3">
+                <table style="width: 100%; border: 0; padding: 3px;">
                     <tr>
-                        <td width="120" align="right">Est. Hrs. of Task:
+                        <td style="width: 120px; text-align: right;">Est. Hrs. of Task:
                         </td>
-                        <td width="250">
+                        <td style="width: 250px;">
                             <asp:TextBox ID="txtEstHrsOfTaskFWF" runat="server" CssClass="textbox" Width="60" />
                         </td>
-                        <td width="180" align="right">Actual Hrs. of Task:
+                        <td style="width: 180px; text-align: right;">Actual Hrs. of Task:
                         </td>
                         <td style="min-width: 200px;">
                             <asp:TextBox ID="txtActualHrsOfTaskFWF" runat="server" CssClass="textbox" Width="60" />
@@ -392,21 +390,21 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <table width="100%">
+                            <table style="width: 100%;">
                                 <tr>
-                                    <td align="left">User Acceptance:
+                                    <td style="text-align: left;">User Acceptance:
                                            
                                         <asp:DropDownList ID="ddlUserAcceptance" runat="server" CssClass="textbox">
                                             <asp:ListItem Text="Accept" Value="1"></asp:ListItem>
                                             <asp:ListItem Text="Reject" Value="0"></asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
-                                    <td align="left">Due Date:
+                                    <td style="text-align: left;">Due Date:
                                                
                                         <asp:TextBox ID="txtDueDate" runat="server" CssClass="textbox datepicker" Width="120" />
                                         <asp:Literal ID="ltlTUDueDate" runat="server" />
                                     </td>
-                                    <td align="right">Hrs of Task:
+                                    <td style="text-align: right;">Hrs of Task:
                                                
                                         <asp:Literal ID="ltlTUHrsTask" runat="server" />
                                         <asp:TextBox ID="txtHours" runat="server" CssClass="textbox" Width="100" />
@@ -418,18 +416,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <td align="right">Freeze By:
+                        <td style="text-align: right;">Freeze By:
                         </td>
                         <td>Yogesh Keraliya
                         </td>
-                        <td align="right">Profile:
+                        <td style="text-align: right;">Profile:
                         </td>
                         <td>
                             <a href="InstallCreateUser.aspx?Id=901">901</a>
                         </td>
                     </tr>
                     <tr>
-                        <td align="right">Sub task:
+                        <td style="text-align: right;">Sub task:
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlSubTasksFWF" runat="server" CssClass="textbox" Width="100">
@@ -439,7 +437,7 @@
                                 <asp:ListItem>II-b</asp:ListItem>
                             </asp:DropDownList>
                         </td>
-                        <td align="right">Sub task status:
+                        <td style="text-align: right;">Sub task status:
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlSubTaskStatusFWF" runat="server" CssClass="textbox" Width="100">
@@ -451,14 +449,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" valign="top">File:<br />
+                        <td colspan="2" style="vertical-align: top;">File:<br />
                             <div class="dropzone">
                                 <div class="dz-default dz-message"></div>
                             </div>
                         </td>
-                        <td align="right" valign="top">Date of File Submission:
+                        <td style="text-align: right; vertical-align: top;">Date of File Submission:
                         </td>
-                        <td valign="top">
+                        <td style="vertical-align: top;">
                             <asp:TextBox ID="DateOfFileSubmissionFWF" runat="server" CssClass="textbox" Width="80" />
                         </td>
                     </tr>
@@ -475,12 +473,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" valign="top">Code files: (only aspx, ascx or cs files)<br />
+                        <td colspan="2" style="vertical-align: top;">Code files: (only aspx, ascx or cs files)<br />
                             <div class="dropzone">
                                 <div class="dz-default dz-message"></div>
                             </div>
                         </td>
-                        <td colspan="2" valign="top">Comment on sub task:
+                        <td colspan="2" style="vertical-align: top;">Comment on sub task:
                                        
                                        
 

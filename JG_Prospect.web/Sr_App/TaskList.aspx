@@ -143,7 +143,7 @@
                 <div class="form_panel_custom">
                     <br />
                     <%--Filter Section--%>
-                    <table width="100%" cellspacing="5" class="filter_section">
+                    <table style="width:100%;" class="filter_section">
                         <tr>
                             <td id="tdDesigCap" runat="server">
                                 <span>Designation:</span>

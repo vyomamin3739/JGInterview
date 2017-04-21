@@ -470,6 +470,7 @@ form.inline {
     border-radius: 7px;
     min-height: 400px;
     padding: 13px 13px 35px 13px;
+    overflow:auto;
 }
 
 .footer_panel {
@@ -522,13 +523,14 @@ form.inline {
         }
 
 .right_panel {
-    overflow: scroll;
-    margin: 0 0 0 220px;
+    margin: 0;
     min-height: 200px;
-    padding: 0 0 26px 0;
+    padding: 0 0 0 15px;
     background: url(../img/form-footer.png) repeat-x bottom;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 5px 2px #a1a0a0;
+    float: left;
+    width: 1060px;
 }
 
 /*------------------------------------------------------------------

@@ -202,9 +202,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\Mono.Math.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.10.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1621,6 +1620,7 @@
     <Content Include="js\jquery.ui.core.old.js" />
     <Content Include="js\jquery.ui.position.min.js" />
     <Content Include="js\lightslider.js" />
+    <Content Include="js\ScrollableGrid.js" />
     <Content Include="js\TimerFunctions.js" />
     <Content Include="Location_img\Jellyfish.jpg" />
     <Content Include="Location_img\Lighthouse.jpg" />

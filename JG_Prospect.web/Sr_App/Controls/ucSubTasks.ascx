@@ -2,8 +2,6 @@
 
 <%@ Register TagPrefix="asp" Namespace="Saplin.Controls" Assembly="DropDownCheckBoxes" %>
 
-<link rel="stylesheet" type="text/css" href="../css/lightslider.css">
-<script type="text/javascript" src="../js/lightslider.js"></script>
 <fieldset class="tasklistfieldset">
     <legend>Task List</legend>
     <asp:UpdatePanel ID="upSubTasks" runat="server" UpdateMode="Conditional">
@@ -15,13 +13,16 @@
                     AutoGenerateColumns="False" EnableSorting="true" GridLines="Vertical" DataKeyNames="TaskId,InstallId"
                     OnRowDataBound="gvSubTasks_RowDataBound"
                     OnRowCommand="gvSubTasks_RowCommand"
-                    OnSorting="gvSubTasks_Sorting">
+                    OnSorting="gvSubTasks_Sorting" HorizontalAlign="Left"
+                    style="max-height:500px;">
                     <EmptyDataRowStyle ForeColor="White" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="trHeader " />
                     <RowStyle CssClass="FirstRow" />
                     <AlternatingRowStyle CssClass="AlternateRow " />
                     <Columns>
-                        <asp:TemplateField HeaderText="List ID" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="60"
+                        <asp:TemplateField HeaderText="List ID" HeaderStyle-HorizontalAlign="Center" 
+                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Center" 
+                            HeaderStyle-Width="68"
                             SortExpression="InstallId">
                             <ItemTemplate>
                                 <asp:Literal ID="ltrlInstallId" runat="server" Text='<%# Eval("InstallId") %>' />
@@ -29,11 +30,13 @@
                                     <asp:LinkButton ID="lbtnInstallId" CssClass="context-menu" data-highlighter='<%# Eval("TaskId")%>' ForeColor="Blue" runat="server" Text='<%# Eval("InstallId") %>' CommandName="edit-sub-task"
                                         CommandArgument='<%# Container.DataItemIndex  %>' /></h5>
                             </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Task Description" HeaderStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Left"
+                        <asp:TemplateField HeaderText="Task Description" HeaderStyle-HorizontalAlign="Left" 
+                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="400"
                             SortExpression="Description">
                             <ItemTemplate>
-                                <div style="background-color: white; border-bottom: 1px solid silver; padding: 3px; max-width: 400px;">
+                                <div style="background-color: white; border-bottom: 1px solid silver; padding: 3px; max-width:400px;">
                                     <div style="padding-bottom: 5px;">
                                         <h5>Title:&nbsp;<%# String.IsNullOrEmpty(Eval("Title").ToString())== true ? "N.A." : Eval("Title").ToString() %></h5>
                                     </div>
@@ -54,6 +57,8 @@
                                     </div>
                                 </div>
                             </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="Left" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
                         </asp:TemplateField>
                         <%--<asp:TemplateField HeaderText="Task Details" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="105"
                             SortExpression="Status">
@@ -158,7 +163,7 @@
                             <ItemTemplate>
                             </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:TemplateField HeaderText="Assigned" HeaderStyle-Width="15%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top">
+                        <asp:TemplateField HeaderText="Assigned" HeaderStyle-Width="194" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top">
                             <ItemTemplate>
                                 <table>
                                     <tr>
@@ -217,7 +222,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="noborder" width="30%"><b>ITLead</b>
+                                        <td class="noborder" width="30%;"><b>ITLead</b>
                                         </td>
                                         <td class="noborder">
                                             <%# this.IsAdminMode ? (String.IsNullOrEmpty(Eval("AdminOrITLeadEstimatedHours").ToString())== true? "N.A." : Eval("AdminOrITLeadEstimatedHours").ToString() +" Hour(s)" ): "" %>
@@ -230,6 +235,8 @@
                                 </table>
 
                             </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Attachments" HeaderStyle-Width="15%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left"
                             ItemStyle-VerticalAlign="Top" ItemStyle-Width="20%">
@@ -265,8 +272,11 @@
                                 </asp:Repeater>
                                 <asp:CheckBox ID="chkUiRequested" runat="server" Text="Ui Requested?" Checked='<%# Convert.ToBoolean(Eval("IsUiRequested")) %>' AutoPostBack="true" OnCheckedChanged="gvSubTasks_chkUiRequested_CheckedChanged" />
                             </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="88">
+                        <asp:TemplateField HeaderText="" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" 
+                            HeaderStyle-Width="88">
                             <ItemTemplate>
                                 <table>
                                     <tr>
@@ -350,6 +360,8 @@
                                     </tr>
                                 </table>
                             </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="Center" Width="88px" />
+                            <ItemStyle HorizontalAlign="Center" />
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
@@ -593,13 +605,22 @@
         </asp:UpdatePanel>
     </div>
 
-    
+
 
 </div>
 
 
 <%--Popup Ends--%>
+<link rel="stylesheet" type="text/css" href="../css/lightslider.css">
+<script type="text/javascript" src="../js/lightslider.js"></script>
 <script type="text/javascript" src="<%=Page.ResolveUrl("~/js/chosen.jquery.js")%>"></script>
+<script src="../../js/ScrollableGrid.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#<%=gvSubTasks.ClientID %>').Scrollable();
+    }
+    )
+</script>
 
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
@@ -778,9 +799,9 @@
     function hideSubTaskEditView(divid, rowindex) {
 
         $('#<%=hdnCurrentEditingRow.ClientID%>').val('');
-       // $('.edit-subtask > tbody > tr').eq(rowindex + 2).remove();
+        // $('.edit-subtask > tbody > tr').eq(rowindex + 2).remove();
         // $(divid).slideUp('slow');
-        
+
         var row = $('.edit-subtask').find('tr').eq(rowindex + 2);
 
         //alert(row);
@@ -791,12 +812,12 @@
             }, 2000);
 
         }
-        
+
 
     }
 
     function ShowAddNewSubTaskSection(divid) {
-       
+
         $(divid).slideDown('slow');
 
         $('html, body').animate({
@@ -804,5 +825,5 @@
         }, 2000);
 
     }
-    
+
 </script>

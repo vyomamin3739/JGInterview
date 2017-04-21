@@ -14,7 +14,7 @@
                         <div class="grid">
                             <asp:UpdatePanel ID="upTaskUsers" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <table cellspacing="0" rules="rows" border="1" style="background-color: White; width: 100%; border-collapse: collapse;">
+                                    <table cellspacing="0" rules="rows" border="1" style="background-color: White; width: 98%; border-collapse: collapse;">
                                         <tbody>
                                             <tr class="trHeader " style="color: White; background-color: Black;">
                                                 <th scope="col" style="font-size: Small; width: 10%;">User</th>
