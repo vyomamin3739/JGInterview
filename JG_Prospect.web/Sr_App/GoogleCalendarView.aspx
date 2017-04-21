@@ -270,7 +270,7 @@
 
                         </ul>
                     </li>
-                    <li><a href="#">Construction Calendar</a></li>
+                    <li><a href="#">Operations Calendar</a></li>
                     <li><a id="A3" href="~/Sr_App/CallSheet.aspx" runat="server">Call Sheet</a></li>
                     <li><a id="A4" href="SrAnnualCalendar.aspx" runat="server">Annual Event Calendar</a></li>
                 </ul>
