@@ -1414,6 +1414,7 @@
     <Content Include="img\movies-icon.png" />
     <Content Include="img\pdf-icon.png" />
     <Content Include="img\pdf.jpg" />
+    <Content Include="img\placeholder1.png" />
     <Content Include="img\PlusMinus.png" />
     <Content Include="img\Resource.png" />
     <Content Include="img\sign-in-with-google.png" />

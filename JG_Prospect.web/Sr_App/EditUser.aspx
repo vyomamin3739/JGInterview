@@ -197,6 +197,10 @@
             cursor: pointer;
         }
 
+        img.pic{
+            height:95% !important;
+        }
+
     </style>
     <script type="text/javascript">
         function ConfirmDelete() {
@@ -397,6 +401,8 @@
         height: 300px;
         overflow-y: scroll;
         }*/
+
+        span.clsAction{color:#0075cc;}
     </style>
 
     <link href="../Styles/dd.css" rel="stylesheet" />
@@ -701,12 +707,12 @@
                             <PagerSettings Mode="NumericFirstLast" NextPageText="Next" PreviousPageText="Previous" Position="TopAndBottom" />
                             <PagerStyle HorizontalAlign="Right" CssClass="pagination-ys" />
                             <Columns>
-                                <asp:TemplateField HeaderText="Action </br> Picture" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="7%" ItemStyle-Width="7%"
-                                     SortExpression="picture">
+                                <asp:TemplateField HeaderText="<span class='clsAction'>Action </br> <u>Picture</u></span>" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="7%" ItemStyle-Width="7%"
+                                     >
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" Style="z-index: 2; padding: 5px; background: #fff; position: relative; float: left;" />
                                         <br />
-                                        <asp:Image ID="ImgUserPic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture") == "") ? "../img/placeholder.png": Eval("picture")%>' Width="85%" Height="18%" Style="position: relative; top: -25px; padding: 5px;" />
+                                        <asp:Image ID="ImgUserPic" CssClass="pic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture").ToString() == string.Empty) ? "../img/placeholder1.png": Eval("picture")%>' Width="85%" Height="95%" Style="position: relative; top: -25px; padding: 5px;" />
                                         
                                     </ItemTemplate>
                                 </asp:TemplateField>
