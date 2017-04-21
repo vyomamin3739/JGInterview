@@ -708,7 +708,7 @@
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" Style="z-index: 2; padding: 5px; background: #fff; position: relative; float: left;" />
                                         <br />
-                                        <asp:Image ID="ImgUserPic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture") == "") ? "../img/placeholder.png": Eval("picture")%>' Width="85%" Height="18%" Style="position: relative; top: -25px; padding: 5px;" />
+                                        <asp:Image ID="ImgUserPic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture") == "") ? "../img/placeholder1.png": Eval("picture")%>' Width="85%" Height="95%" Style="position: relative; top: -25px; padding: 5px;" />
                                         
                                     </ItemTemplate>
                                 </asp:TemplateField>
