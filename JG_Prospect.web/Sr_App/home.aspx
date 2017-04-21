@@ -99,7 +99,7 @@
                             <li><a href="GoogleCalendarView.aspx" runat="server">Calendars</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Construction Calendar</a></li>
+                    <li><a href="#">Operations Calendar</a></li>
                     <li><a href="CallSheet.aspx">Call Sheet</a></li>
                     <li id="li_AnnualCalender" visible="false" runat="server"><a href="#" runat="server">Annual Event Calendar</a> </li>
                 </ul>
