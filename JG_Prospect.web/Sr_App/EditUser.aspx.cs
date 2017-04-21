@@ -372,7 +372,7 @@ namespace JG_Prospect
             }
             catch (Exception ex)
             {
-                Response.Write("" + ex.Message);
+                //Response.Write("" + ex.Message);
             }
         }
 
