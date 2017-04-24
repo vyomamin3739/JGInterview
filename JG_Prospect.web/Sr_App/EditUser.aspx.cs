@@ -3475,7 +3475,14 @@ namespace JG_Prospect
                     {
                         //Session["UserGridData"] = dtSalesUser_Grid;
                         //BindUsers(dtSalesUser_Grid);
-
+                        foreach (DataRow drSalUserItem in dtSalesUser_Grid.Rows)
+                        {
+                            var picPath = drSalUserItem["picture"].ToString();
+                            if (!File.Exists(Server.MapPath(picPath)))
+                            {
+                                drSalUserItem["picture"] = "../img/placeholder1.png";
+                            }
+                        }
                         grdUsers.DataSource = dtSalesUser_Grid;
                         grdUsers.VirtualItemCount = Convert.ToInt32(dsSalesUserData.Tables[5].Rows[0]["TotalRecordCount"]);
                         grdUsers.DataBind();

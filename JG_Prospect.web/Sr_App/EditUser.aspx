@@ -199,6 +199,9 @@
 
         img.pic{
             height:95% !important;
+            position: relative; 
+            top: -25px; 
+            padding: 5px;
         }
 
     </style>
@@ -712,7 +715,7 @@
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" Style="z-index: 2; padding: 5px; background: #fff; position: relative; float: left;" />
                                         <br />
-                                        <asp:Image ID="ImgUserPic" CssClass="pic" runat="server" ImageUrl='<%#(Eval("picture") == null || Eval("picture").ToString() == string.Empty) ? "../img/placeholder1.png": Eval("picture")%>' Width="85%" Height="95%" Style="position: relative; top: -25px; padding: 5px;" />
+                                        <asp:Image ID="ImgUserPic" CssClass="pic" runat="server" ImageUrl='<%# Eval("picture")%>' Width="85%" Height="95%" />
                                         
                                     </ItemTemplate>
                                 </asp:TemplateField>
