@@ -9,34 +9,34 @@
             <div id="divSubTaskGrid">
                 <asp:GridView ID="gvSubTasks" runat="server" ShowHeaderWhenEmpty="true" AllowSorting="true" EmptyDataRowStyle-HorizontalAlign="Center"
                     HeaderStyle-BackColor="Black" HeaderStyle-ForeColor="White" BackColor="White" EmptyDataRowStyle-ForeColor="Black"
-                    EmptyDataText="No sub task available!" CssClass="table edit-subtask" Width="100%" CellSpacing="0" CellPadding="0"
+                    EmptyDataText="No sub task available!" Width="980"
                     AutoGenerateColumns="False" EnableSorting="true" GridLines="Vertical" DataKeyNames="TaskId,InstallId"
-                    OnRowDataBound="gvSubTasks_RowDataBound"
-                    OnRowCommand="gvSubTasks_RowCommand"
-                    OnSorting="gvSubTasks_Sorting" HorizontalAlign="Left"
-                    style="max-height:500px;">
+                    OnRowDataBound="gvSubTasks_RowDataBound" OnRowCommand="gvSubTasks_RowCommand"
+                    OnSorting="gvSubTasks_Sorting" HorizontalAlign="Left" CssClass="table edit-subtask"
+                    CellSpacing="0" CellPadding="0">
                     <EmptyDataRowStyle ForeColor="White" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="trHeader " />
                     <RowStyle CssClass="FirstRow" />
                     <AlternatingRowStyle CssClass="AlternateRow " />
                     <Columns>
-                        <asp:TemplateField HeaderText="List ID" HeaderStyle-HorizontalAlign="Center" 
-                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Center" 
-                            HeaderStyle-Width="68"
-                            SortExpression="InstallId">
+                        <asp:TemplateField HeaderText="List ID" HeaderStyle-HorizontalAlign="Center"
+                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Center"
+                            SortExpression="InstallId"
+                            >
                             <ItemTemplate>
                                 <asp:Literal ID="ltrlInstallId" runat="server" Text='<%# Eval("InstallId") %>' />
                                 <h5>
                                     <asp:LinkButton ID="lbtnInstallId" CssClass="context-menu" data-highlighter='<%# Eval("TaskId")%>' ForeColor="Blue" runat="server" Text='<%# Eval("InstallId") %>' CommandName="edit-sub-task"
                                         CommandArgument='<%# Container.DataItemIndex  %>' /></h5>
                             </ItemTemplate>
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
+                            <HeaderStyle HorizontalAlign="Left" Width="60"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="60"/>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Task Description" HeaderStyle-HorizontalAlign="Left" 
-                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="400"
+                        <asp:TemplateField HeaderText="Task Description" HeaderStyle-HorizontalAlign="Left"
+                            ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Left"
                             SortExpression="Description">
                             <ItemTemplate>
-                                <div style="background-color: white; border-bottom: 1px solid silver; padding: 3px; max-width:400px;">
+                                <div style="background-color: white; border-bottom: 1px solid silver; padding: 3px;">
                                     <div style="padding-bottom: 5px;">
                                         <h5>Title:&nbsp;<%# String.IsNullOrEmpty(Eval("Title").ToString())== true ? "N.A." : Eval("Title").ToString() %></h5>
                                     </div>
@@ -57,9 +57,10 @@
                                     </div>
                                 </div>
                             </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="Left" />
-                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                            <HeaderStyle HorizontalAlign="Left" Width="480" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="480" />
                         </asp:TemplateField>
+
                         <%--<asp:TemplateField HeaderText="Task Details" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="105"
                             SortExpression="Status">
                             <ItemTemplate>
@@ -163,7 +164,9 @@
                             <ItemTemplate>
                             </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:TemplateField HeaderText="Assigned" HeaderStyle-Width="194" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top">
+                        <asp:TemplateField HeaderText="Assigned"
+                            HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left"
+                            ItemStyle-VerticalAlign="Top">
                             <ItemTemplate>
                                 <table>
                                     <tr>
@@ -188,7 +191,7 @@
                                                 <Style SelectBoxWidth="100" DropDownBoxBoxWidth="100" DropDownBoxBoxHeight="150" />
                                                 <Texts SelectBoxCaption="--Open--" />
                                             </asp:DropDownCheckBoxes>--%>
-                                            <asp:ListBox ID="ddcbAssigned" runat="server" Width="150" SelectionMode="Multiple"
+                                            <asp:ListBox ID="ddcbAssigned" runat="server" SelectionMode="Multiple"
                                                 CssClass="chosen-select" data-placeholder="Select"
                                                 AutoPostBack="true" OnSelectedIndexChanged="gvSubTasks_ddcbAssigned_SelectedIndexChanged"></asp:ListBox>
                                             <asp:Label ID="lblAssigned" runat="server" />
@@ -233,17 +236,17 @@
                                         <td class="noborder"><%# (String.IsNullOrEmpty(Eval("UserEstimatedHours").ToString())==true? "N.A." : Eval("UserEstimatedHours").ToString() + " Hour(s)") %></td>
                                     </tr>
                                 </table>
-
                             </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
-                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                            <HeaderStyle HorizontalAlign="Center" Width="160" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="160" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Attachments" HeaderStyle-Width="15%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left"
-                            ItemStyle-VerticalAlign="Top" ItemStyle-Width="20%">
+                        <asp:TemplateField HeaderText="Attachments"
+                            HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left"
+                            ItemStyle-VerticalAlign="Top">
                             <ItemTemplate>
                                 <asp:Repeater ID="rptAttachment" OnItemCommand="rptAttachment_ItemCommand" OnItemDataBound="rptAttachment_ItemDataBound" runat="server">
                                     <HeaderTemplate>
-                                        <div class="lSSlideOuter sub-task-attachments" style="max-width: 250px;">
+                                        <div class="lSSlideOuter sub-task-attachments">
                                             <div class="lSSlideWrapper usingCss">
                                                 <ul class="gallery list-unstyled cS-hidden sub-task-attachments-list">
                                     </HeaderTemplate>
@@ -272,11 +275,11 @@
                                 </asp:Repeater>
                                 <asp:CheckBox ID="chkUiRequested" runat="server" Text="Ui Requested?" Checked='<%# Convert.ToBoolean(Eval("IsUiRequested")) %>' AutoPostBack="true" OnCheckedChanged="gvSubTasks_chkUiRequested_CheckedChanged" />
                             </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
-                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
+                            <HeaderStyle HorizontalAlign="Center" Width="200" />
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="200" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" 
-                            HeaderStyle-Width="88">
+                        <asp:TemplateField HeaderText="" HeaderStyle-HorizontalAlign="Center"
+                            ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <table>
                                     <tr>
@@ -352,16 +355,16 @@
                                     <tr style="display: none;">
                                         <td colspan="3">
                                             <asp:HiddenField ID="hdnTaskApprovalId" runat="server" Value='<%# Eval("TaskApprovalId") %>' />
-                                            <asp:TextBox ID="txtEstimatedHours" runat="server" data-id="txtEstimatedHours" CssClass="textbox" Width="110"
+                                            <asp:TextBox ID="txtEstimatedHours" runat="server" data-id="txtEstimatedHours" CssClass="textbox"
                                                 placeholder="Estimate" Text='<%# Eval("TaskApprovalEstimatedHours") %>' />
                                             <asp:TextBox ID="txtPasswordToFreezeSubTask" runat="server" TextMode="Password" data-id="txtPasswordToFreezeSubTask"
-                                                AutoPostBack="true" CssClass="textbox" Width="110" OnTextChanged="gvSubTasks_txtPasswordToFreezeSubTask_TextChanged" />
+                                                AutoPostBack="true" CssClass="textbox" OnTextChanged="gvSubTasks_txtPasswordToFreezeSubTask_TextChanged" />
                                         </td>
                                     </tr>
                                 </table>
                             </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="Center" Width="88px" />
-                            <ItemStyle HorizontalAlign="Center" />
+                            <HeaderStyle HorizontalAlign="Center" Width="75" />
+                            <ItemStyle HorizontalAlign="Center" Width="75" />
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
@@ -427,7 +430,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">Attachment(s):
-                                <div style="max-height: 300px; clear: both; background-color: white; overflow-y: auto; overflow-x: hidden;">
+                                <div style="clear: both; background-color: white; overflow-y: auto; overflow-x: hidden;">
                                     <asp:UpdatePanel ID="upnlAttachments" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
                                             <asp:Repeater ID="rptSubTaskAttachments" runat="server"
@@ -615,9 +618,13 @@
 <script type="text/javascript" src="../js/lightslider.js"></script>
 <script type="text/javascript" src="<%=Page.ResolveUrl("~/js/chosen.jquery.js")%>"></script>
 <script src="../../js/ScrollableGrid.js"></script>
+<%--<script src="../../js/ScrollableGridPlugin_ASP.NetAJAX_2.0.js"></script>--%>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#<%=gvSubTasks.ClientID %>').Scrollable();
+        var options = {
+            ScrollHeight: 600
+        };
+        $('#<%=gvSubTasks.ClientID %>').Scrollable(options);
     }
     )
 </script>

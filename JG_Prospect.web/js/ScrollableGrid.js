@@ -15,6 +15,7 @@
             grid.parentNode.appendChild(document.createElement("div"));
             var parentDiv = grid.parentNode;
 
+            // Create new table
             var table = document.createElement("table");
             for (i = 0; i < grid.attributes.length; i++) {
                 if (grid.attributes[i].specified && grid.attributes[i].name != "id") {
@@ -24,20 +25,23 @@
             table.style.cssText = grid.style.cssText;
             table.style.width = gridWidth + "px";
             table.appendChild(document.createElement("tbody"));
+
+            // Get header row and append to the newly created table
             table.getElementsByTagName("tbody")[0].appendChild(grid.getElementsByTagName("TR")[0]);
             var cells = table.getElementsByTagName("TH");
 
             var gridRow = grid.getElementsByTagName("TR")[0];
             for (var i = 0; i < cells.length; i++) {
                 var width;
-                if (headerCellWidths[i] > gridRow.getElementsByTagName("TD")[i].offsetWidth) {
-                    width = headerCellWidths[i];
-                }
-                else {
-                    width = gridRow.getElementsByTagName("TD")[i].offsetWidth;
-                }
-                cells[i].style.width = parseInt(width - 3) + "px";
-                gridRow.getElementsByTagName("TD")[i].style.width = parseInt(width - 3) + "px";
+                width = headerCellWidths[i];
+                //if (headerCellWidths[i] > gridRow.getElementsByTagName("TD")[i].offsetWidth) {
+                //    width = headerCellWidths[i];
+                //}
+                //else {
+                //    width = gridRow.getElementsByTagName("TD")[i].offsetWidth;
+                //}
+                cells[i].style.width = parseInt(width -10) + "px";
+                gridRow.getElementsByTagName("TD")[i].style.width = parseInt(width -10) + "px";
             }
             parentDiv.removeChild(grid);
 

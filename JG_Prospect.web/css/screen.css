@@ -1570,6 +1570,9 @@ input.fz-user, .fz-user > input {
     margin: 0 0 0 0;
 }
 
+.FirstRow {
+    height: 50px;
+}
 .AlternateRow h5 {
     margin: 0 0 0 0;
 }
@@ -1721,4 +1724,9 @@ display: block;
 
 .display_none{
     display:none !important;
+}
+
+.FixedHeader {
+    position: absolute;
+    font-weight: bold;
 }
