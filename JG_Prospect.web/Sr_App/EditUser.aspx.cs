@@ -982,6 +982,7 @@ namespace JG_Prospect
             string HireDate = "";
             string EmpType = "";
             string PayRates = "";
+            string gitusername = string.Empty;
 
 
             //string InterviewDate = dtInterviewDate.Text;
@@ -1013,12 +1014,21 @@ namespace JG_Prospect
                     {
                         PayRates = Convert.ToString(ds.Tables[0].Rows[0][3]);
                     }
+                    if (ds.Tables[0].Rows[0]["GitUserName"] != null)
+                    {
+                        gitusername = ds.Tables[0].Rows[0]["GitUserName"].ToString();
+                    }
                 }
             }
 
             SendEmail(email, Convert.ToString(Session["FirstNameNewSC"]), Convert.ToString(Session["LastNameNewSC"]),
                 "Interview Date Auto Email", txtReason.Text, Convert.ToString(Session["DesignitionSC"]).Trim(), HireDate, EmpType, PayRates, HTMLTemplates.InterviewDateAutoEmail
                 , null, ddlUsers.SelectedItem != null ? ddlUsers.SelectedItem.Text : "");
+
+            if (!string.IsNullOrEmpty(gitusername))
+            {
+                AddUserAsGitcollaborator(gitusername);
+            }
 
             //AssignedTask if any or Default
             AssignedTaskToUser(Convert.ToInt32(Session["EditId"]), ddlTechTask, ddlTechSubTask);
@@ -3786,6 +3796,30 @@ namespace JG_Prospect
                                                  ),
                                     true
                                 );
+        }
+
+        /// <summary>
+        /// Add a GitHub user as Collaborator in repo        
+        /// </summary>
+        /// <param name="gitUserName"></param>
+        private  async void AddUserAsGitcollaborator(string gitUserName)
+        {
+            try
+            {
+                var reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
+                var adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
+                var adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
+                var adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
+                var client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("my-cool-app"));
+                var basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
+                client.Credentials = basicAuth;
+                await client.Repository.Collaborator.Add(adminname, reponame, gitUserName);
+            }
+            catch (Exception ex)
+            {
+                //Log exception 
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
         }
 
         #region 'Assigned Task ToUser'

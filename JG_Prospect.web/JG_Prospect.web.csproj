@@ -209,6 +209,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NReco.PdfGenerator.1.1.10.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.24.0\lib\net45\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="Org.Mentalis.Security.Cryptography, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\Org.Mentalis.Security.Cryptography.dll</HintPath>
@@ -2960,7 +2963,9 @@
     <None Include="img\notes\review.jpg.mno" />
     <Content Include="Sr_App\SR_app.Master" />
     <Content Include="Installer\InstallerMaster.Master" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="JGCalender\Customer.ashx" />
     <Content Include="JGCalender\fullcalendar\fullcalendar.css.bkp" />
     <Content Include="JGCalender\jquery\jquery-2.1.1.min.map" />
