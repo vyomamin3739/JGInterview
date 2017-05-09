@@ -884,9 +884,11 @@ namespace JG_Prospect.Sr_App
                         dtResignation.Text = ds.Tables[0].Rows[0][45].ToString();
                         ddlWorkerCompCode.SelectedValue = ds.Tables[0].Rows[0][46].ToString();
                         dtReviewDate.Text = ds.Tables[0].Rows[0][47].ToString();
+                       // ddlmaritalstatus.SelectedValue = ds.Tables[0].Rows[0][35].ToString();
+                     
                         if (!String.IsNullOrEmpty(ds.Tables[0].Rows[0]["EmpType"].ToString()))
                         {
-                            System.Web.UI.WebControls.ListItem lstEmpType = ddlEmpType.Items.FindByValue(ds.Tables[0].Rows[0]["EmpType"].ToString());
+                            System.Web.UI.WebControls.ListItem lstEmpType = ddlEmpType.Items.FindByValue(ds.Tables[0].Rows[0]["EmpType"].ToString().Trim());
 
                             if (lstEmpType != null)
                             {
@@ -6038,7 +6040,7 @@ namespace JG_Prospect.Sr_App
             {
                 DsTouchPointLog = InstallUserBLL.Instance.GetTouchPointLogDataByGUID(hidTouchPointGUID.Value);
             }
-
+              
             gvTouchPointLog.DataSource = DsTouchPointLog;
             gvTouchPointLog.DataBind();
         }

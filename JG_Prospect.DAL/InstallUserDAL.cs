@@ -358,6 +358,25 @@ namespace JG_Prospect.DAL
                 return null;
             }
         }
+        public DataSet GetTouchPointLogDataByUserID_New(int userID)
+        {
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    returndata = new DataSet();
+                    DbCommand command = database.GetStoredProcCommand("Sp_GetTouchPointLogDataByUserID_New");
+                    database.AddInParameter(command, "@userID", DbType.Int32, userID);
+                    command.CommandType = CommandType.StoredProcedure;
+                    returndata = database.ExecuteDataSet(command);
+                    return returndata;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public DataSet GetTouchPointLogDataByGUID(string strGUID)
         {
