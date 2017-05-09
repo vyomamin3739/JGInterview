@@ -283,7 +283,6 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\DropDownCheckBoxes.dll" />
-    <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\EPPlus.dll" />
     <Content Include="bin\Google.GData.AccessControl.dll" />
     <Content Include="bin\Google.GData.Calendar.dll" />
