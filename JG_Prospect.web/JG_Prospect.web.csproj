@@ -288,7 +288,6 @@
     <Content Include="bin\Ionic.Zip.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xmlworker.dll" />
-    <Content Include="bin\MailApi.dll" />
     <Content Include="bin\MailServerApi.dll" />
     <Content Include="bin\Microsoft.Data.Edm.dll" />
     <Content Include="bin\Microsoft.Data.OData.dll" />
@@ -306,7 +305,6 @@
     <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.Interception.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
     <Content Include="bin\Mono.Math.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
@@ -322,13 +320,8 @@
     <Content Include="bin\System.Web.Http.OData.dll" />
     <Content Include="bin\System.Web.Http.Tracing.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\Telerik.Web.UI.DLL" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="calendar\calendar.aspx" />
