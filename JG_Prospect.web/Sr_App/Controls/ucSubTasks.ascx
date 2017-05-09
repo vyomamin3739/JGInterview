@@ -158,14 +158,6 @@
     }
 </style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
-</script>
-<script>
-    $(window).scroll(function () {
-        $("#Heading11").css("top", Math.max(0, 1049 - $(this).scrollTop()));
-    });
-
-</script>
 
 
 
