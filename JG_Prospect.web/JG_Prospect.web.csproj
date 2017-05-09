@@ -146,10 +146,6 @@
     <Reference Include="itextsharp.xmlworker">
       <HintPath>External Dependencies\itextsharp.xmlworker.dll</HintPath>
     </Reference>
-    <Reference Include="MailApi, Version=6.0.2.220, Culture=neutral, PublicKeyToken=cd85b70fb26f9fc1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>External Dependencies\MailApi.dll</HintPath>
-    </Reference>
     <Reference Include="MailServerApi, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7795db04536a1a7a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\MailServerApi.dll</HintPath>
