@@ -288,7 +288,6 @@
     <Content Include="bin\Ionic.Zip.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xmlworker.dll" />
-    <Content Include="bin\MailServerApi.dll" />
     <Content Include="bin\Microsoft.Data.Edm.dll" />
     <Content Include="bin\Microsoft.Data.OData.dll" />
     <Content Include="bin\Microsoft.Owin.dll" />
