@@ -1672,9 +1672,6 @@
     <Content Include="js\jquery.ui.position.min.js" />
     <Content Include="js\lightslider.js" />
     <Content Include="js\TimerFunctions.js" />
-    <Content Include="Location_img\Jellyfish.jpg" />
-    <Content Include="Location_img\Lighthouse.jpg" />
-    <Content Include="Location_img\Tulips.jpg" />
     <Content Include="MCQTest\ExamSummary.aspx" />
     <Content Include="MCQTest\McqTestPage.aspx" />
     <Content Include="MCQTest\ObjectiveExamSummary.aspx" />
@@ -1910,7 +1907,6 @@
     <Content Include="Sr_App\Header.ascx" />
     <Content Include="Sr_App\home.aspx" />
     <Content Include="Sr_App\LeftPanel.ascx" />
-    <Content Include="Location_img\Chrysanthemum.jpg" />
     <Content Include="Sr_App\Literature.aspx" />
     <Content Include="Sr_App\MaterialConfirmation.aspx" />
     <Content Include="Sr_App\new_customer.aspx" />
@@ -3021,6 +3017,7 @@
     <Folder Include="fileman\Uploads\FLV\" />
     <Folder Include="fileman\Uploads\Images\" />
     <Folder Include="InvoicePdf\" />
+    <Folder Include="Location_img\" />
     <Folder Include="Resources\" />
     <Folder Include="Sr_App\MailDocument\MailAttachments\" />
     <Folder Include="Sr_App\UploadedFile\" />
