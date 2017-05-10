@@ -269,6 +269,21 @@ namespace JG_Prospect.BLL
             return InstallUserDAL.Instance.DeactivateInstallUsers(lstIDs);
         }
 
+        public bool BookmarkInstallUsers(List<Int32> ids, string status, int bookmarkedUserId)
+        {
+            return InstallUserDAL.Instance.BookmarkInstallUsers(ids,status,bookmarkedUserId);
+        }
+
+        public bool RemoveBookmarkInstallUser(int id)
+        {
+            return InstallUserDAL.Instance.RemoveBookmarkInstallUsers(id);
+        }
+
+        public DataSet getBookmarkDetails(int id)
+        {
+            return InstallUserDAL.Instance.getBookmarkDetails(id);
+        }
+
         public bool DeleteInstallUsers(List<Int32> lstIDs)
         {
             return InstallUserDAL.Instance.DeleteInstallUsers(lstIDs);

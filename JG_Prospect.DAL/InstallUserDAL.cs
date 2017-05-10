@@ -251,6 +251,11 @@ namespace JG_Prospect.DAL
                     database.AddInParameter(command, "@IsTextContactPreference", DbType.Boolean, objuser.IsTextContactPreference);
                     database.AddInParameter(command, "@IsMailContactPreference", DbType.Boolean, objuser.IsMailContactPreference);
 
+                    database.AddInParameter(command, "@PreviousStatus", DbType.String, objuser.NameMiddleInitial);
+                    database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, objuser.IsEmailPrimaryEmail);
+                    database.AddInParameter(command, "@BookmarkedDate", DbType.String, objuser.IsPhonePrimaryPhone);
+                    database.AddInParameter(command, "@BookmarkedTime", DbType.String, objuser.IsEmailContactPreference);
+
                     database.AddOutParameter(command, "@result", DbType.Int32, 1);
                     database.AddOutParameter(command, "@Id", DbType.Int32, 0);
 
@@ -1450,6 +1455,11 @@ namespace JG_Prospect.DAL
                     database.AddInParameter(command, "@PhoneISDCode", DbType.String, objuser.PhoneISDCode);
                     database.AddInParameter(command, "@PhoneExtNo", DbType.String, objuser.PhoneExtNo);
                     database.AddInParameter(command, "@CountryCode", DbType.String, objuser.CountryCode);
+                    
+                    database.AddInParameter(command, "@PreviousStatus", DbType.String, objuser.NameMiddleInitial);
+                    database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, objuser.IsEmailPrimaryEmail);
+                    database.AddInParameter(command, "@BookmarkedDate", DbType.String, objuser.IsPhonePrimaryPhone);
+                    database.AddInParameter(command, "@BookmarkedTime", DbType.String, objuser.IsEmailContactPreference);
 
                     database.AddInParameter(command, "@NameMiddleInitial", DbType.String, objuser.NameMiddleInitial);
                     database.AddInParameter(command, "@IsEmailPrimaryEmail", DbType.Boolean, objuser.IsEmailPrimaryEmail);
@@ -1740,6 +1750,82 @@ namespace JG_Prospect.DAL
             }
         }
 
+        public bool BookmarkInstallUsers(List<Int32> lstIDs, string previousStatus, int bookmarkedUserId)
+        {
+            try
+            {
+                DataTable dtIDs = new DataTable();
+                dtIDs.Columns.Add(new DataColumn("ID", typeof(Int32)));
+
+                foreach (var item in lstIDs)
+                {
+                    dtIDs.Rows.Add(item);
+                }
+                var bookmarkedDate = DateTime.Today.ToShortDateString();
+                var bookmarkedTime = DateTime.Now.ToShortTimeString();
+                
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    DbCommand command = database.GetStoredProcCommand("BookmarkInstallUsers");
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+
+                    database.AddInParameter(command, "@IDs", SqlDbType.Structured, dtIDs);
+                    database.AddInParameter(command, "@BookmarkStatus", DbType.String, Convert.ToByte(JGConstant.InstallUserStatus.Bookmarked).ToString());
+                    database.AddInParameter(command, "@PreviousStatus", DbType.String, previousStatus);
+                    database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, bookmarkedUserId);
+                    database.AddInParameter(command, "@BookmarkedDate", DbType.String, bookmarkedDate);
+                    database.AddInParameter(command, "@BookmarkedTime", DbType.String, bookmarkedTime);
+                    database.ExecuteNonQuery(command);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveBookmarkInstallUsers(int id)
+        {
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    DbCommand command = database.GetStoredProcCommand("RemoveBookmarkInstallUser");
+                    command.CommandType = CommandType.StoredProcedure;
+                    database.AddInParameter(command, "@ID", DbType.Int32, id);
+                    database.ExecuteNonQuery(command);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public DataSet getBookmarkDetails(int id)
+        {
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    returndata = new DataSet();
+                    DbCommand command = database.GetStoredProcCommand("GetBookmarkDetails");
+                    command.CommandType = CommandType.StoredProcedure;
+                    database.AddInParameter(command, "@id", DbType.Int32, id);
+                    returndata = database.ExecuteDataSet(command);
+
+                    return returndata;
+                }
+            }
+            catch (Exception)
+            {
+                return null;                
+            }
+        }
         public bool DeleteInstallUsers(List<Int32> lstIDs)
         {
             try

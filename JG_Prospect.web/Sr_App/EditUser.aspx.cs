@@ -92,6 +92,16 @@ namespace JG_Prospect
             }
         }
 
+        /// <summary>
+        /// Gets or sets the bookmark details.
+        /// </summary>
+        private List<string> BookmarkDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating user has permission to remove bookmark.
+        /// </summary>
+        private bool HasRemoveBookmarkPermission { get; set; }
+
         #endregion
 
         #region '--Page Events--'
@@ -271,7 +281,10 @@ namespace JG_Prospect
                     if (Status != "")
                     {
                         ddlStatus.Items.FindByValue(Status).Selected = true;
-
+                        var checkedStar = e.Row.Controls[0].Controls[9];
+                        checkedStar.Visible = false;
+                        var uncheckedStar = e.Row.Controls[0].Controls[11];
+                        uncheckedStar.Visible = true;
                         switch ((JGConstant.InstallUserStatus)Convert.ToByte(Status))
                         {
                             case JGConstant.InstallUserStatus.Applicant:
@@ -327,6 +340,15 @@ namespace JG_Prospect
                             case JGConstant.InstallUserStatus.Deleted:
                                 {
                                     e.Row.Attributes["style"] = "background-color: #565656";
+                                    break;
+                                }
+                            case JGConstant.InstallUserStatus.Bookmarked:
+                                {
+                                    e.Row.Attributes["style"] = "background-color: #228B22";
+                                    var checkedStar = e.Row.Controls[0].Controls[9];
+                                    checkedStar.Visible = true;
+                                    var uncheckedStar = e.Row.Controls[0].Controls[11];
+                                    uncheckedStar.Visible = false;
                                     break;
                                 }
                             default:
@@ -451,6 +473,28 @@ namespace JG_Prospect
                 if (InstallUserBLL.Instance.DeactivateInstallUsers(lstIds))
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('User Deactivated Successfully');", true);
+                    GetSalesUsersStaticticsAndData();
+                }
+            }
+            else if (e.CommandName == "BookmarkSalesUser")
+            {
+                string[] args = e.CommandArgument.ToString().Split(',');
+                var ids = new List<Int32>() { Convert.ToInt32(args[0])};
+                var status = Convert.ToInt32(args[1]).ToString();
+                var bookmarkedUserId = Convert.ToInt32(Session[SessionKey.Key.UserId.ToString()]);                
+                if (InstallUserBLL.Instance.BookmarkInstallUsers(ids, status, bookmarkedUserId))
+                {
+                    setBookmarkDetails(ids[0]);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('User Bookmarked Successfully');", true);
+                    GetSalesUsersStaticticsAndData();
+                }
+            }
+            else if (e.CommandName == "RemoveBookmarkSalesUser" && HasRemoveBookmarkPermission)
+            {
+                var id = Convert.ToInt32(e.CommandArgument.ToString());
+                if (InstallUserBLL.Instance.RemoveBookmarkInstallUser(id))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('Removed bookmark successfully.')", true);
                     GetSalesUsersStaticticsAndData();
                 }
             }
@@ -4174,6 +4218,50 @@ namespace JG_Prospect
 
         #endregion
 
+        #endregion
+
+        #region star checkbox
+        protected void star_click(object sender, ImageClickEventArgs e)
+        {
+            var btn = (ImageButton)sender;                        
+            var currentUser = Session[SessionKey.Key.UserId.ToString()].ToString();
+            if (btn.ID== "imgStar_checked")
+            {
+                var lbl = (Label)btn.Parent.Parent.Controls[1].Controls[1];
+                var id = Convert.ToInt32(lbl.Text);
+                setBookmarkDetails(id);
+                var bookmarkedUserId = BookmarkDetails[1];
+                if ((currentUser == bookmarkedUserId) || Convert.ToString(Session["usertype"]).Contains("Admin"))
+                {
+                    HasRemoveBookmarkPermission = true;
+                    btn.Visible = false;
+                    var uncheckedStar = btn.Parent.Controls[11];
+                    uncheckedStar.Visible = true;                    
+                }
+                else
+                {
+                    HasRemoveBookmarkPermission = false;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('You do not have permissions to remove this bookmark.')", true);
+                }
+            }
+            else
+            {
+                btn.Visible = false;
+                var checkedStar = btn.Parent.Controls[9];
+                checkedStar.Visible = true;
+            }
+        }
+
+        private void setBookmarkDetails(int id)
+        {
+            var details = new List<string>();
+            DataSet ds = InstallUserBLL.Instance.getBookmarkDetails(id);
+            details.Add((ds.Tables[0].Rows[0]["PreviousStatus"]).ToString());
+            details.Add((ds.Tables[0].Rows[0]["BookmarkedUserId"]).ToString());
+            details.Add((ds.Tables[0].Rows[0]["BookmarkedDate"]).ToString());
+            details.Add((ds.Tables[0].Rows[0]["BookmarkedTime"]).ToString());
+            BookmarkDetails= details;
+        }
         #endregion
     }
 }

@@ -192,6 +192,10 @@ namespace JG_Prospect.Common.modal
         public bool IsTextContactPreference;
         public bool IsMailContactPreference;
 
+        public string PreviousStatus;
+        public int BookmarkedUserId;
+        public string BookmarkedDate;
+        public string BookmarkedTime;
     }
 
     public class user1
