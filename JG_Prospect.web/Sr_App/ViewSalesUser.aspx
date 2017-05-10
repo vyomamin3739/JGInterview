@@ -1668,7 +1668,7 @@
                                 <tr>
                                     <td colspan="1" style="vertical-align: top;">
                                         <label>Designation<span>*</span></label>
-                                        <asp:DropDownList Width="160px" ID="ddldesignation" TabIndex="508" runat="server" ClientIDMode="Static" AutoPostBack="True" OnSelectedIndexChanged="ddldesignation_SelectedIndexChanged1">
+                                        <asp:DropDownList Width="160px" ID="ddldesignation" TabIndex="508" runat="server" ClientIDMode="Static" AutoPostBack="True" AppendDataBoundItems="True" OnSelectedIndexChanged="ddldesignation_SelectedIndexChanged1">
                                         </asp:DropDownList>
 
                                         <asp:RequiredFieldValidator ID="rqDesignition" runat="server" ControlToValidate="ddldesignation"
@@ -1715,16 +1715,16 @@
                                         <asp:DropDownList ID="ddlEmpType" runat="server" Width="170px" AutoPostBack="true" OnSelectedIndexChanged="ddlEmpType_SelectedIndexChanged">
                                             <%--TabIndex="155"--%>
                                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                            <asp:ListItem Text="Temp" Value="6"></asp:ListItem>
-                                            <asp:ListItem Text="Internship" Value="5"></asp:ListItem>
-                                            <asp:ListItem Text="Part Time - Remote" Value="1"></asp:ListItem>
-                                            <asp:ListItem Text="Part Time - Onsite" Value="3"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time - Remote" Value="2"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time - Onsite" Value="4"></asp:ListItem>
+                                            <asp:ListItem Text="Temp" Value="Temp"></asp:ListItem>
+                                            <asp:ListItem Text="Internship" Value="Internship"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Remote" Value="Part Time - Remote"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Onsite" Value="Part Time - Onsite"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Remote" Value="Full Time - Remote"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Onsite" Value="Full Time - Onsite"></asp:ListItem>
                                             <asp:ListItem Text="Full Time Hourly" Value="Full Time Hourly"></asp:ListItem>
                                             <asp:ListItem Text="Full Time Salary" Value="Full Time Salary"></asp:ListItem>
                                             <asp:ListItem Text="Part Time" Value="Part Time"></asp:ListItem>
-                                            <asp:ListItem Text="Sub" Value="7"></asp:ListItem>
+                                            <asp:ListItem Text="Sub" Value="Sub"></asp:ListItem>
                                         </asp:DropDownList>
 
                                         <asp:RequiredFieldValidator ID="rqEmpType" runat="server" ControlToValidate="ddlEmpType"
@@ -1790,6 +1790,11 @@
                                                 <asp:TemplateField HeaderText="Note / Status" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
                                                     <ItemTemplate>
                                                         <%#Eval("LogDescription")%>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="City" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
+                                                    <ItemTemplate>
+                                                        <%#Eval("City")%> 
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

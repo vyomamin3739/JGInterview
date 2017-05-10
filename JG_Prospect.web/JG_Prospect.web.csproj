@@ -58,6 +58,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="aspsnippets.facebookapi">
       <HintPath>External Dependencies\aspsnippets.facebookapi.dll</HintPath>
     </Reference>
@@ -141,6 +146,13 @@
     <Reference Include="itextsharp.xmlworker">
       <HintPath>External Dependencies\itextsharp.xmlworker.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
+=======
+    <Reference Include="MailServerApi, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7795db04536a1a7a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dependencies\MailServerApi.dll</HintPath>
+    </Reference>
+>>>>>>> 23d4a5261243ac6f95f1eac347cc8d075a29944c
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -270,7 +282,6 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\DropDownCheckBoxes.dll" />
-    <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\EPPlus.dll" />
     <Content Include="bin\Google.GData.AccessControl.dll" />
     <Content Include="bin\Google.GData.Calendar.dll" />
@@ -280,8 +291,6 @@
     <Content Include="bin\Ionic.Zip.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xmlworker.dll" />
-    <Content Include="bin\MailApi.dll" />
-    <Content Include="bin\MailServerApi.dll" />
     <Content Include="bin\Microsoft.Data.Edm.dll" />
     <Content Include="bin\Microsoft.Data.OData.dll" />
     <Content Include="bin\Microsoft.Owin.dll" />
@@ -298,7 +307,6 @@
     <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.Interception.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
     <Content Include="bin\Mono.Math.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
@@ -314,13 +322,8 @@
     <Content Include="bin\System.Web.Http.OData.dll" />
     <Content Include="bin\System.Web.Http.Tracing.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\Telerik.Web.UI.DLL" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="calendar\calendar.aspx" />
@@ -1666,9 +1669,6 @@
     <Content Include="js\jquery.ui.position.min.js" />
     <Content Include="js\lightslider.js" />
     <Content Include="js\TimerFunctions.js" />
-    <Content Include="Location_img\Jellyfish.jpg" />
-    <Content Include="Location_img\Lighthouse.jpg" />
-    <Content Include="Location_img\Tulips.jpg" />
     <Content Include="MCQTest\ExamSummary.aspx" />
     <Content Include="MCQTest\McqTestPage.aspx" />
     <Content Include="MCQTest\ObjectiveExamSummary.aspx" />
@@ -1904,7 +1904,6 @@
     <Content Include="Sr_App\Header.ascx" />
     <Content Include="Sr_App\home.aspx" />
     <Content Include="Sr_App\LeftPanel.ascx" />
-    <Content Include="Location_img\Chrysanthemum.jpg" />
     <Content Include="Sr_App\Literature.aspx" />
     <Content Include="Sr_App\MaterialConfirmation.aspx" />
     <Content Include="Sr_App\new_customer.aspx" />
@@ -1929,8 +1928,6 @@
     <Content Include="Synapse.aspx" />
     <Content Include="TestGoogleMap.aspx" />
     <Content Include="upload.aspx" />
-    <Content Include="UploadedFiles\7162015111634AMKoala.jpg" />
-    <Content Include="UploadedFiles\7162015111655AMJellyfish.jpg" />
     <Content Include="UserControl\UCAddress.ascx" />
     <Content Include="UserControl\ucAuditTrailByUser.ascx" />
     <Content Include="UserControl\ucRenewSession.ascx" />
@@ -3016,9 +3013,11 @@
     <Folder Include="fileman\Uploads\FLV\" />
     <Folder Include="fileman\Uploads\Images\" />
     <Folder Include="InvoicePdf\" />
+    <Folder Include="Location_img\" />
     <Folder Include="Resources\" />
     <Folder Include="Sr_App\MailDocument\MailAttachments\" />
     <Folder Include="Sr_App\UploadedFile\" />
+    <Folder Include="UploadedFiles\" />
     <Folder Include="UploadeProfile\" />
     <Folder Include="UserImages\" />
   </ItemGroup>

@@ -23,6 +23,7 @@ JG_Prospect.web/UploadedExcel/
 JG_Prospect.web/MCQTest_Old/
 JG_Prospect.web/Properties/PublishProfiles/LocalLive.pubxml.user
 JG_Prospect.web/Properties/PublishProfiles/LivePublish.pubxml.user
+<<<<<<< HEAD
 packages/Octokit.0.24.0/LICENSE.txt
 packages/Octokit.0.24.0/Octokit.0.24.0.nupkg
 packages/Octokit.0.24.0/README.md
@@ -40,3 +41,6 @@ packages/Octokit.0.24.0/linqpad-samples/6-create-repository.linq
 packages/Octokit.0.24.0/linqpad-samples/7-search-for-repos.linq
 packages/Octokit.0.24.0/linqpad-samples/8-gists.linq
 packages/Octokit.0.24.0/linqpad-samples/9-issues.linq
+=======
+packages/
+>>>>>>> 23d4a5261243ac6f95f1eac347cc8d075a29944c
