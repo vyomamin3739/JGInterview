@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="../css/lightslider.css">
 <script type="text/javascript" src="../js/lightslider.js"></script>
 <style type="text/css">
+
+
     .installidright {
         text-align: right;
         width: 80px;
@@ -26,6 +28,13 @@
         width: 80px;
         display: block;
     }
+
+    .navbar-fixed {
+    top: 0;
+    z-index: 100;
+  position: fixed;
+    width:inherit;
+}
 
 
     .taskdesc a {
@@ -151,7 +160,7 @@
         height: 270px !important;
     }
 </style>
-
+<div id="output"></div>
 <fieldset class="tasklistfieldset">
     <legend>Task List</legend>
 
@@ -355,9 +364,10 @@
                 </div>
 
                 <div id="divSubTasks_List" runat="server">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table edit-subtask">
-                        <thead>
-                            <tr class="trHeader">
+                    <table width="100%" id="fixed_bar" border="0" cellspacing="0" cellpadding="0" class="table edit-subtask" style="padding-left:0px;">
+
+                        <thead  class="table edit-subtask" ">
+                            <tr class="trHeader" >
                                 <th width="10%" class="subtask-actionid">Action-ID#</th>
                                 <th width="45%" class="subtask-taskdetails">Task Details</th>
                                 <th width="15%" class="subtask-assign">Assigned</th>
@@ -368,11 +378,11 @@
                         </tbody>
                     </table>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table edit-subtask">
-                        <tbody>
+                        <tbody  id="base_width">
                             <asp:Repeater ID="repSubTasks" runat="server" OnItemDataBound="repSubTasks_ItemDataBound">
                                 <ItemTemplate>
-                                    <tr id="trItem" runat="server">
-                                        <td style="padding: 0px;">
+                                    <tr id="trItem" runat="server"> 
+                                        <td style="padding: 0px;"  >
                                             <asp:HiddenField ID="hdnTaskId" runat="server" Value='<%# Eval("TaskId") %>' ClientIDMode="AutoID" />
                                             <asp:HiddenField ID="hdnInstallId" runat="server" Value='<%# Eval("InstallId") %>' ClientIDMode="AutoID" />
 
@@ -384,10 +394,10 @@
                                                         <ItemTemplate>
                                                             <tr id="trSubTask" data-task-level='<%#Eval("NestLevel")%>' runat="server" data-taskid='<%# Eval("TaskId")%>' data-parent-taskid='<%# Eval("ParentTaskId")%>'>
                                                                 <td width="10%" class='<%# "sbtlevel"+Eval("NestLevel").ToString()%>'>
-                                                                    <asp:HiddenField ID="hdTitle" runat="server" Value='<%# Eval("Title")%>' ClientIDMode="AutoID" />
-                                                                    <asp:HiddenField ID="hdURL" runat="server" Value='<%# Eval("URL")%>' ClientIDMode="AutoID" />
-                                                                    <asp:HiddenField ID="hdTaskLevel" runat="server" Value='<%# Eval("TaskLevel")%>' ClientIDMode="AutoID" />
-                                                                    <asp:HiddenField ID="hdTaskId" runat="server" Value='<%# Eval("TaskId")%>' ClientIDMode="AutoID" />
+                                                                     <asp:HiddenField ID="hdTitle" runat="server" Value='<%# Eval("Title")%>' ClientIDMode="AutoID" />
+                                                                     <asp:HiddenField ID="hdURL" runat="server" Value='<%# Eval("URL")%>' ClientIDMode="AutoID" />
+                                                                     <asp:HiddenField ID="hdTaskLevel" runat="server" Value='<%# Eval("TaskLevel")%>' ClientIDMode="AutoID" />
+                                                                     <asp:HiddenField ID="hdTaskId" runat="server" Value='<%# Eval("TaskId")%>' ClientIDMode="AutoID" />
 
                                                                     <h5 class='<%#Eval("NestLevel").ToString() == "3"? "hide":"" %>'>
                                                                         <input type="checkbox" name="bulkaction" />
@@ -2162,6 +2172,39 @@
             }
         });
     }
-    //--------------- End DP ---------------
-
+    
+    $(document).ready(function () {
+        window.onload = function getInnerWidth() {
+            window.temp = parseFloat(window.getComputedStyle(document.getElementById("base_width")).width);
+            console.log(temp);
+            return temp;
+        }
+        window.onresize = function getInnerWidth() {
+            window.temp = parseFloat(window.getComputedStyle(document.getElementById("base_width")).width);
+            console.log(temp);
+           setTimeout($('#fixed_bar').width(temp), 200);
+        }
+        
+        var distance, $window = $(window);
+        distance = $('#fixed_bar').offset().top;
+    
+      
+        $window.scroll(function () {
+            if ($window.scrollTop() >= distance) {
+                $('#fixed_bar').addClass('navbar-fixed');
+                $('#fixed_bar').width(temp);
+              
+            }
+        });
+        
+        $(window).scroll(function () {
+            if ($(window).scrollTop() < distance) {
+                $('#fixed_bar').removeClass('navbar-fixed');
+                $('#fixed_bar').width(temp);
+            }
+        
+        });
+        });
+        //--------------- End DP ---------------
+    
 </script>
