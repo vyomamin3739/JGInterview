@@ -1020,6 +1020,22 @@ namespace JG_Prospect
             }
         }
 
+        public static string LastName
+        {
+            get
+            {
+                if (HttpContext.Current.Session["LastName"] == null)
+                {
+                    return null;
+                }
+                return Convert.ToString(HttpContext.Current.Session["LastName"]);
+            }
+            set
+            {
+                HttpContext.Current.Session["LastName"] = value;
+            }
+        }
+
         public static string GuIdAtLogin
         {
             get
