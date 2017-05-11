@@ -18,7 +18,7 @@
         </form>
     </div>
     <div style="padding: 10px;">
-        Please wait...
+        Please wait..
     </div>
     <script type="text/javascript">
         document.frmJabbRChatLogin.submit();
