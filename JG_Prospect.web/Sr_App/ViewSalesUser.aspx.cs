@@ -885,7 +885,7 @@ namespace JG_Prospect.Sr_App
                         ddlWorkerCompCode.SelectedValue = ds.Tables[0].Rows[0][46].ToString();
                         dtReviewDate.Text = ds.Tables[0].Rows[0][47].ToString();
                        // ddlmaritalstatus.SelectedValue = ds.Tables[0].Rows[0][35].ToString();
-                     
+                      //  ddlEmpType.SelectedValue = ds.Tables[0].Rows[0][48].ToString();
                         if (!String.IsNullOrEmpty(ds.Tables[0].Rows[0]["EmpType"].ToString()))
                         {
                             System.Web.UI.WebControls.ListItem lstEmpType = ddlEmpType.Items.FindByValue(ds.Tables[0].Rows[0]["EmpType"].ToString().Trim());
@@ -893,6 +893,12 @@ namespace JG_Prospect.Sr_App
                             if (lstEmpType != null)
                             {
                                 ddlEmpType.SelectedIndex = ddlEmpType.Items.IndexOf(lstEmpType);
+                            }
+                            System.Web.UI.WebControls.ListItem lstEmpTypeText = ddlEmpType.Items.FindByText(ds.Tables[0].Rows[0]["EmpType"].ToString().Trim());
+
+                            if (lstEmpTypeText != null)
+                            {
+                                ddlEmpType.SelectedIndex = ddlEmpType.Items.IndexOf(lstEmpTypeText);
                             }
                         }
                         dtLastDate.Text = ds.Tables[0].Rows[0][49].ToString();
