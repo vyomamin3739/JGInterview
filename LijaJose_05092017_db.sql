@@ -18,7 +18,6 @@ ALTER PROCEDURE [dbo].[BookmarkInstallUsers]
 	@BookmarkStatus Varchar(5) = '12',
 	@PreviousStatus varchar(20) ='',
 	@BookmarkedUserId int = 0,
-	@BookmarkedName VARCHAR(50) = '',
 	@BookmarkedDate date ='',
 	@BookmarkedTime varchar(50) =''
 AS
@@ -28,7 +27,6 @@ BEGIN
 	SET [Status] = @BookmarkStatus,
 		PreviousStatus = @PreviousStatus,
 		BookmarkedUserId = @BookmarkedUserId,
-		BookmarkedName = @BookmarkedName,
 		BookmarkedDate = @BookmarkedDate,
 		BookmarkedTime = @BookmarkedTime
 	WHERE Id IN (SELECT Id FROM @IDs)  
@@ -39,7 +37,7 @@ END
 USE [JGBS_Interview]
 GO
 ALTER TABLE [dbo].[tblInstallUsers]
-ADD PreviousStatus VARCHAR(20) NULL, BookmarkedUserId INT NULL,BookmarkedName VARCHAR(50) NULL,BookmarkedDate DATE NULL, BookmarkedTime VARCHAR(50); 
+ADD PreviousStatus VARCHAR(20) NULL, BookmarkedUserId INT NULL,BookmarkedDate DATE NULL, BookmarkedTime VARCHAR(50); 
 
 ---------------Updated below procedures with new columns added  in tblInstallUsers
 
@@ -68,7 +66,6 @@ BEGIN
 	SELECT 
 	PreviousStatus,
 	BookmarkedUserId,
-	BookmarkedName,
 	BookmarkedDate,
 	BookmarkedTime
 	from tblInstallUsers

@@ -139,6 +139,10 @@ namespace JG_Prospect
                 lbtnDeleteSelected.Visible = false;
             }
 
+            //TODO: Task#398: Need to place below attributes after BookmarkDetails property has values for tooltip on hover.
+            //imgStar_checked.Attributes.Add("onmouseover", "ToolTip='"+ getTooltipBookmarkedUser()+"'");
+            //imgStar_checked.Attributes.Add("onmouseout", "ToolTip='Remove Bookmark'");
+
             if (!IsPostBack)
             {
                 CalendarExtender1.StartDate = DateTime.Now;
@@ -276,19 +280,14 @@ namespace JG_Prospect
 
                     if (lblPrimaryPhone.Text.IndexOf(chaDelimiter) > 0)
                         lblPrimaryPhone = ManiPulatePrimaryPhone(lblPrimaryPhone, chaDelimiter);
-                                        
-                    var checkedStar = (ImageButton)e.Row.FindControl("imgStar_checked");
-                    var uncheckedStar = (ImageButton)e.Row.FindControl("imgStar_unchecked");
 
-                    var hidden = (HiddenField)e.Row.FindControl("hdnBookmarkDetails");
-                    getBookmarkDetails(Convert.ToInt32(hidden.Value));
-                    hidden.Value = getBookmarkTooltip();
-                    checkedStar.Attributes["onmouseover"] = "ShowBookmarkDetails(this,'" + hidden.ClientID + "');";
 
                     if (Status != "")
                     {
-                        ddlStatus.Items.FindByValue(Status).Selected = true;                        
-                        checkedStar.Visible = false;                        
+                        ddlStatus.Items.FindByValue(Status).Selected = true;
+                        var checkedStar = e.Row.Controls[0].Controls[9];
+                        checkedStar.Visible = false;
+                        var uncheckedStar = e.Row.Controls[0].Controls[11];
                         uncheckedStar.Visible = true;
                         switch ((JGConstant.InstallUserStatus)Convert.ToByte(Status))
                         {
@@ -484,10 +483,10 @@ namespace JG_Prospect
                 string[] args = e.CommandArgument.ToString().Split(',');
                 var ids = new List<Int32>() { Convert.ToInt32(args[0])};
                 var status = Convert.ToInt32(args[1]).ToString();
-                var bookmarkedUserId = Convert.ToInt32(Session[SessionKey.Key.UserId.ToString()]);
-                var bookmarkedName = Session["Username"].ToString() +" "+ Session["LastName"].ToString();
-                if (InstallUserBLL.Instance.BookmarkInstallUsers(ids, status, bookmarkedUserId, bookmarkedName))
+                var bookmarkedUserId = Convert.ToInt32(Session[SessionKey.Key.UserId.ToString()]);                
+                if (InstallUserBLL.Instance.BookmarkInstallUsers(ids, status, bookmarkedUserId))
                 {
+                    setBookmarkDetails(ids[0]);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('User Bookmarked Successfully');", true);
                     GetSalesUsersStaticticsAndData();
                 }
@@ -4232,7 +4231,7 @@ namespace JG_Prospect
             {
                 var lbl = (Label)btn.Parent.Parent.Controls[1].Controls[1];
                 var id = Convert.ToInt32(lbl.Text);
-                getBookmarkDetails(id);
+                setBookmarkDetails(id);
                 var bookmarkedUserId = BookmarkDetails[1];
                 if ((currentUser == bookmarkedUserId) || Convert.ToString(Session["usertype"]).Contains("Admin"))
                 {
@@ -4255,25 +4254,24 @@ namespace JG_Prospect
             }
         }
 
-        private void getBookmarkDetails(int id)
+        private void setBookmarkDetails(int id)
         {
             var details = new List<string>();
             DataSet ds = InstallUserBLL.Instance.getBookmarkDetails(id);
             details.Add((ds.Tables[0].Rows[0]["PreviousStatus"]).ToString());
             details.Add((ds.Tables[0].Rows[0]["BookmarkedUserId"]).ToString());
-            details.Add((ds.Tables[0].Rows[0]["BookmarkedName"]).ToString());
             details.Add((ds.Tables[0].Rows[0]["BookmarkedDate"]).ToString());
             details.Add((ds.Tables[0].Rows[0]["BookmarkedTime"]).ToString());
             BookmarkDetails= details;
         }
 
-        private string getBookmarkTooltip()
-        {
-            var date = BookmarkDetails[3].Split(' ');
-            var str = "Bookmark By:\n User Id: " + BookmarkDetails[1] + "\n User Name: " + BookmarkDetails[2];
-                str+= "\n On: " + date[0] + "\n At: " + BookmarkDetails[4];
-            return str;
-        }
+        //TODO: Task#398-Need to call this method such that BookmarkDetails has values to display tooltip on hover.
+        //private string getTooltipBookmarkedUser()
+        //{
+        //    var str = "";
+        //    str += BookmarkDetails[1] + "-" + BookmarkDetails[2] + " " + BookmarkDetails[3];
+        //    return str;
+        //}
 
         #endregion
     }

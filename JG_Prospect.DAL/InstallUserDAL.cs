@@ -250,7 +250,12 @@ namespace JG_Prospect.DAL
                     database.AddInParameter(command, "@IsCallContactPreference", DbType.Boolean, objuser.IsCallContactPreference);
                     database.AddInParameter(command, "@IsTextContactPreference", DbType.Boolean, objuser.IsTextContactPreference);
                     database.AddInParameter(command, "@IsMailContactPreference", DbType.Boolean, objuser.IsMailContactPreference);
-                    
+
+                    database.AddInParameter(command, "@PreviousStatus", DbType.String, objuser.NameMiddleInitial);
+                    database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, objuser.IsEmailPrimaryEmail);
+                    database.AddInParameter(command, "@BookmarkedDate", DbType.String, objuser.IsPhonePrimaryPhone);
+                    database.AddInParameter(command, "@BookmarkedTime", DbType.String, objuser.IsEmailContactPreference);
+
                     database.AddOutParameter(command, "@result", DbType.Int32, 1);
                     database.AddOutParameter(command, "@Id", DbType.Int32, 0);
 
@@ -1470,6 +1475,11 @@ namespace JG_Prospect.DAL
                     database.AddInParameter(command, "@PhoneExtNo", DbType.String, objuser.PhoneExtNo);
                     database.AddInParameter(command, "@CountryCode", DbType.String, objuser.CountryCode);
                     
+                    database.AddInParameter(command, "@PreviousStatus", DbType.String, objuser.NameMiddleInitial);
+                    database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, objuser.IsEmailPrimaryEmail);
+                    database.AddInParameter(command, "@BookmarkedDate", DbType.String, objuser.IsPhonePrimaryPhone);
+                    database.AddInParameter(command, "@BookmarkedTime", DbType.String, objuser.IsEmailContactPreference);
+
                     database.AddInParameter(command, "@NameMiddleInitial", DbType.String, objuser.NameMiddleInitial);
                     database.AddInParameter(command, "@IsEmailPrimaryEmail", DbType.Boolean, objuser.IsEmailPrimaryEmail);
                     database.AddInParameter(command, "@IsPhonePrimaryPhone", DbType.Boolean, objuser.IsPhonePrimaryPhone);                    
@@ -1759,7 +1769,7 @@ namespace JG_Prospect.DAL
             }
         }
 
-        public bool BookmarkInstallUsers(List<Int32> lstIDs, string previousStatus, int bookmarkedUserId, string bookmarkedName)
+        public bool BookmarkInstallUsers(List<Int32> lstIDs, string previousStatus, int bookmarkedUserId)
         {
             try
             {
@@ -1784,7 +1794,6 @@ namespace JG_Prospect.DAL
                     database.AddInParameter(command, "@BookmarkStatus", DbType.String, Convert.ToByte(JGConstant.InstallUserStatus.Bookmarked).ToString());
                     database.AddInParameter(command, "@PreviousStatus", DbType.String, previousStatus);
                     database.AddInParameter(command, "@BookmarkedUserId", DbType.Int32, bookmarkedUserId);
-                    database.AddInParameter(command, "@BookmarkedName", DbType.String, bookmarkedName);
                     database.AddInParameter(command, "@BookmarkedDate", DbType.String, bookmarkedDate);
                     database.AddInParameter(command, "@BookmarkedTime", DbType.String, bookmarkedTime);
                     database.ExecuteNonQuery(command);

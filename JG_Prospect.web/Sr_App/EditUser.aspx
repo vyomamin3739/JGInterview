@@ -673,8 +673,7 @@
                                             CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
                                         <br />
                                         <asp:LinkButton ID="lnkDelete" Text="Delete" CommandName="DeleteSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to delete this user?')"
-                                            CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>                                        
-                                        <asp:HiddenField id="hdnBookmarkDetails" Value='<%# Eval("Id") %>' runat="server" ClientIDMode="Static"/>
+                                            CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
                                         <asp:ImageButton ID="imgStar_checked" ImageUrl="~/img/black_star_checked.png" Visible=false runat="server" Height="15px" Width="15px" 
                                             OnClick="star_click" align="right" ToolTip="Remove Bookmark" 
                                             CommandArgument='<%#Eval("Id")%>' CommandName="RemoveBookmarkSalesUser"/>
@@ -1534,12 +1533,4 @@
         }
 
     </script>
-    <script type="text/javascript">
-
-        function ShowBookmarkDetails(ctrl, hiddenId) {            
-            var hidden = document.getElementById(hiddenId);
-            ctrl.title = hidden.value;            
-        }
-    
-</script>
 </asp:Content>
