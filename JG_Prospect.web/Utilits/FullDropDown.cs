@@ -119,11 +119,6 @@ namespace JG_Prospect.Utilits
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Bookmarked";
-            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Bookmarked).ToString();
-            lstUserStatus.Add(objUserStatus);
-
-            objUserStatus = new UserStatus();
             objUserStatus.Status = "Install Prospect";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InstallProspect).ToString();
             lstUserStatus.Add(objUserStatus);

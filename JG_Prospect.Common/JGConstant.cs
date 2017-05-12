@@ -213,11 +213,7 @@ namespace JG_Prospect.Common
             Rejected = 9
                 ,
             ReferralApplicant = 10
-                ,
-            Deleted = 11
-                ,
-            Bookmarked=12
-
+                , Deleted = 11
         }
 
         public enum UserRoles

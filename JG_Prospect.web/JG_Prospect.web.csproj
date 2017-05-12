@@ -1436,8 +1436,6 @@
     <Content Include="img\Bar1.png" />
     <Content Include="img\Bar2.png" />
     <Content Include="img\Bar3.png" />
-    <Content Include="img\black_star_checked.png" />
-    <Content Include="img\black_star_unchecked.png" />
     <Content Include="img\btn1.png" />
     <Content Include="img\chosen-sprite%402x.png" />
     <Content Include="img\chosen-sprite.png" />

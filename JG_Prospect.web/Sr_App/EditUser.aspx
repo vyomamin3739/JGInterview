@@ -674,12 +674,6 @@
                                         <br />
                                         <asp:LinkButton ID="lnkDelete" Text="Delete" CommandName="DeleteSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to delete this user?')"
                                             CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
-                                        <asp:ImageButton ID="imgStar_checked" ImageUrl="~/img/black_star_checked.png" Visible=false runat="server" Height="15px" Width="15px" 
-                                            OnClick="star_click" align="right" ToolTip="Remove Bookmark" 
-                                            CommandArgument='<%#Eval("Id")%>' CommandName="RemoveBookmarkSalesUser"/>
-                                        <asp:ImageButton ID="imgStar_unchecked" ImageUrl="~/img/black_star_unchecked.png" visible=false runat="server" Height="15px" Width="15px" 
-                                            OnClick="star_click" align="right" ToolTip="Bookmark"
-                                            CommandArgument='<%#Eval("Id")+ "," + Eval("Status")%>' CommandName="BookmarkSalesUser" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="True" HeaderText="Id# <br /> Designation" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" ControlStyle-ForeColor="Black"
