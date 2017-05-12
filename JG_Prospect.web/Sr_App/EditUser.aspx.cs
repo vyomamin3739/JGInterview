@@ -139,10 +139,6 @@ namespace JG_Prospect
                 lbtnDeleteSelected.Visible = false;
             }
 
-            //TODO: Task#398: Need to place below attributes after BookmarkDetails property has values for tooltip on hover.
-            //imgStar_checked.Attributes.Add("onmouseover", "ToolTip='"+ getTooltipBookmarkedUser()+"'");
-            //imgStar_checked.Attributes.Add("onmouseout", "ToolTip='Remove Bookmark'");
-
             if (!IsPostBack)
             {
                 CalendarExtender1.StartDate = DateTime.Now;
@@ -348,8 +344,10 @@ namespace JG_Prospect
                                 }
                             case JGConstant.InstallUserStatus.Bookmarked:
                                 {
-                                    e.Row.Attributes["style"] = "background-color: #228B22";                                    
+                                    e.Row.Attributes["style"] = "background-color: #228B22";
+                                    var checkedStar = e.Row.Controls[0].Controls[9];
                                     checkedStar.Visible = true;
+                                    var uncheckedStar = e.Row.Controls[0].Controls[11];
                                     uncheckedStar.Visible = false;
                                     break;
                                 }
@@ -4264,15 +4262,6 @@ namespace JG_Prospect
             details.Add((ds.Tables[0].Rows[0]["BookmarkedTime"]).ToString());
             BookmarkDetails= details;
         }
-
-        //TODO: Task#398-Need to call this method such that BookmarkDetails has values to display tooltip on hover.
-        //private string getTooltipBookmarkedUser()
-        //{
-        //    var str = "";
-        //    str += BookmarkDetails[1] + "-" + BookmarkDetails[2] + " " + BookmarkDetails[3];
-        //    return str;
-        //}
-
         #endregion
     }
 }
