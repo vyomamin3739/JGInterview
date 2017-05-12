@@ -596,7 +596,7 @@ namespace JG_Prospect.BLL
 
         public DataSet GetTouchPointLogDataByUserID(int UserID)
         {
-            return InstallUserDAL.Instance.GetTouchPointLogDataByUserID_New(UserID);
+            return InstallUserDAL.Instance.GetTouchPointLogDataByUserID(UserID);
         }
 
         public DataSet GetTouchPointLogDataByGUID(string StrGUID)

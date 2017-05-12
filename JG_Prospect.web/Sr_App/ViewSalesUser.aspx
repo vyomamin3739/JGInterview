@@ -1715,16 +1715,16 @@
                                         <asp:DropDownList ID="ddlEmpType" runat="server" Width="170px" AutoPostBack="true" OnSelectedIndexChanged="ddlEmpType_SelectedIndexChanged">
                                             <%--TabIndex="155"--%>
                                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                            <asp:ListItem Text="Temp" Value="Temp"></asp:ListItem>
-                                            <asp:ListItem Text="Internship" Value="Internship"></asp:ListItem>
-                                            <asp:ListItem Text="Part Time - Remote" Value="Part Time - Remote"></asp:ListItem>
-                                            <asp:ListItem Text="Part Time - Onsite" Value="Part Time - Onsite"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time - Remote" Value="Full Time - Remote"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time - Onsite" Value="Full Time - Onsite"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time Hourly" Value="Full Time Hourly"></asp:ListItem>
-                                            <asp:ListItem Text="Full Time Salary" Value="Full Time Salary"></asp:ListItem>
-                                            <asp:ListItem Text="Part Time" Value="Part Time"></asp:ListItem>
-                                            <asp:ListItem Text="Sub" Value="Sub"></asp:ListItem>
+                                            <asp:ListItem Text="Temp" Value="1"></asp:ListItem>
+                                            <asp:ListItem Text="Internship" Value="2"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Remote" Value="3"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Onsite" Value="4"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Remote" Value="5"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Onsite" Value="6"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time Hourly" Value="7"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time Salary" Value="8"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time" Value="9"></asp:ListItem>
+                                            <asp:ListItem Text="Sub" Value="10"></asp:ListItem>
                                         </asp:DropDownList>
 
                                         <asp:RequiredFieldValidator ID="rqEmpType" runat="server" ControlToValidate="ddlEmpType"
@@ -1792,11 +1792,11 @@
                                                         <%#Eval("LogDescription")%>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="City" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
+                                                <%--<asp:TemplateField HeaderText="City" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
                                                     <ItemTemplate>
                                                         <%#Eval("City")%> 
                                                     </ItemTemplate>
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
                                             </Columns>
                                         </asp:GridView>
                                     </div>

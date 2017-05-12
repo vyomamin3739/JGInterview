@@ -1679,6 +1679,7 @@
     <Content Include="Sr_App\add-edit-aptitude-test.aspx" />
     <Content Include="Sr_App\AddEvents.aspx" />
     <Content Include="Sr_App\ajaxcalls.aspx" />
+    <Content Include="Sr_App\AnnualEventWebService.asmx" />
     <Content Include="Sr_App\AttachQuotes.aspx" />
     <Content Include="Sr_App\CallSheet.aspx" />
     <Content Include="Sr_App\ConstructionCalendar.aspx" />
@@ -2021,6 +2022,10 @@
     </Compile>
     <Compile Include="Sr_App\add-edit-aptitude-test.aspx.designer.cs">
       <DependentUpon>add-edit-aptitude-test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sr_App\AnnualEventWebService.asmx.cs">
+      <DependentUpon>AnnualEventWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Sr_App\Controls\ucSubTasks.ascx.cs">
       <DependentUpon>ucSubTasks.ascx</DependentUpon>
@@ -2714,6 +2719,7 @@
     </Compile>
     <Compile Include="Sr_App\EditUser.aspx.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sr_App\EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
