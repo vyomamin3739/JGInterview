@@ -191,6 +191,12 @@
             color: #fff;
             cursor: pointer;
         }
+        .btnBookmark {
+            border: 0 !important;
+            padding: 2px !important;
+            float: right;
+            position: relative;
+        }
     </style>
     <script type="text/javascript">
 
@@ -674,6 +680,8 @@
                                         <br />
                                         <asp:LinkButton ID="lnkDelete" Text="Delete" CommandName="DeleteSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to delete this user?')"
                                             CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
+                                        <br />
+                                        <asp:ImageButton ID="imgBookmark" runat="server" CssClass="btnBookmark" BorderWidth="0"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="True" HeaderText="Id# <br /> Designation" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" ControlStyle-ForeColor="Black"

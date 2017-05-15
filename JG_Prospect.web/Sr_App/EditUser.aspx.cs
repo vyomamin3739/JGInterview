@@ -248,6 +248,31 @@ namespace JG_Prospect
                     DropDownList ddlContactType = (e.Row.FindControl("ddlContactType") as DropDownList);
                     HyperLink hypTechTask = e.Row.FindControl("hypTechTask") as HyperLink;
                     LinkButton lnkDelete = e.Row.FindControl("lnkDelete") as LinkButton;
+                    ImageButton imgBookmark = e.Row.FindControl("imgBookmark") as ImageButton;
+
+                    if (!string.IsNullOrEmpty(DataBinder.Eval(e.Row.DataItem, "BookmarkByInstallUserId").ToString()))
+                    {
+                        imgBookmark.ImageUrl = "~/Sr_App/img/starGreen.png";
+                        imgBookmark.Attributes["title"] = DataBinder.Eval(e.Row.DataItem, "BookmarkByInstallUserId").ToString() + "-"
+                            + DataBinder.Eval(e.Row.DataItem, "BookmarkBy").ToString() + " & "
+                            + DataBinder.Eval(e.Row.DataItem, "BookmarkTime").ToString();
+                        if (Convert.ToString(Session["usertype"]).Contains("Admin") || Convert.ToString(Session["usertype"]).Contains("SM")
+                            || Convert.ToString(Session["UserId"]) == DataBinder.Eval(e.Row.DataItem, "BookmarkByInstallUserId").ToString())
+                        {
+                            imgBookmark.CommandName = "UnStarUser";
+                            imgBookmark.CommandArgument = DataBinder.Eval(e.Row.DataItem, "Id").ToString();
+                        }
+                        else
+                        {
+                            imgBookmark.OnClientClick = "return false;";
+                        }
+                    }
+                    else
+                    {
+                        imgBookmark.ImageUrl = "~/Sr_App/img/starGray.png";
+                        imgBookmark.CommandName = "BookmarkUser";
+                        imgBookmark.CommandArgument = DataBinder.Eval(e.Row.DataItem, "Id").ToString();
+                    }
 
                     ddlStatus = JG_Prospect.Utilits.FullDropDown.FillUserStatus(ddlStatus);
 
@@ -517,6 +542,16 @@ namespace JG_Prospect
             else if (e.CommandName == "send-email")
             {
                 LoadEmailContentToSentToUser(grdUsers.Rows[Convert.ToInt32(e.CommandArgument)]);
+            }
+            else if (e.CommandName == "BookmarkUser")
+            {
+                BookmarkUnStarInstallUser(Convert.ToInt32(e.CommandArgument), Convert.ToInt32(Session["UserId"]), "BookmarkUser");
+                GetSalesUsersStaticticsAndData();
+            }
+            else if (e.CommandName == "UnStarUser")
+            {
+                BookmarkUnStarInstallUser(Convert.ToInt32(e.CommandArgument), Convert.ToInt32(Session["UserId"]), "UnStarUser");
+                GetSalesUsersStaticticsAndData();
             }
         }
 
@@ -3993,6 +4028,11 @@ namespace JG_Prospect
             {
                 return "<div style=\"color: blue;font-weight:bold;text-align: center;font-size: 20px;\">x</div>";
             }
+        }
+
+        private void BookmarkUnStarInstallUser(int UserId, int BookmarkById, string action)
+        {
+            InstallUserBLL.Instance.BookmarkUnStarInstallUser(UserId, BookmarkById, action);
         }
 
         /// <summary>
