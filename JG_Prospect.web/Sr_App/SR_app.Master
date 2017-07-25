@@ -389,7 +389,7 @@
                 </div>
             </div>
             <div class="content_panel">
-                <div class="left_panel">
+                <div class="left_panel" id="leftmenudiv" runat="server">
                     <div class="arrowlistmenu">
                         <h4>Customer</h4>
                         <uc2:LeftPanel ID="LeftPanel1" runat="server" />

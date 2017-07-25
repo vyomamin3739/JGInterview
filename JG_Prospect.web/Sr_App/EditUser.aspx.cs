@@ -22,7 +22,7 @@ using System.Xml;
 using JG_Prospect.App_Code;
 using OfficeOpenXml;
 using Newtonsoft.Json;
-
+using System.Globalization;
 
 namespace JG_Prospect
 {
@@ -3712,7 +3712,19 @@ namespace JG_Prospect
                     {
                         //Session["UserGridData"] = dtSalesUser_Grid;
                         //BindUsers(dtSalesUser_Grid);
+                        foreach (DataRow dr in dtSalesUser_Grid.Rows)
+                        {
+                            string countryCode = string.Empty;
+                            string country = string.Empty;
 
+                            countryCode = dr["CountryCode"].ToString();
+                            if (countryCode.Length > 0)
+                            {
+                                var ri = new RegionInfo(countryCode);
+                                country = ri.EnglishName;
+                                dr["Country"] = country;
+                            }
+                        }
                         grdUsers.DataSource = dtSalesUser_Grid;
                         grdUsers.VirtualItemCount = Convert.ToInt32(dsSalesUserData.Tables[5].Rows[0]["TotalRecordCount"]);
                         grdUsers.DataBind();

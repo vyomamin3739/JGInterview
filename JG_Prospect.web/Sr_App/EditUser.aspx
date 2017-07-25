@@ -191,11 +191,20 @@
             color: #fff;
             cursor: pointer;
         }
+
         .btnBookmark {
             border: 0 !important;
             padding: 2px !important;
             float: right;
             position: relative;
+        }
+        /*Code change by Deep*/
+        .scroll tbody {
+            height: 1275px !important;
+        }
+
+        .right_panel_edituser {
+            margin: 0 0 0 0 !important;
         }
     </style>
     <script type="text/javascript">
@@ -392,7 +401,7 @@
     <link href="../css/dropzone/css/dropzone.css" rel="stylesheet" />
     <script type="text/javascript" src="../js/dropzone.js"></script>
     <script src="../ckeditor/ckeditor.js"></script>
-    <div class="right_panel">
+    <div class="right_panel_edituser">
         <!-- appointment tabs section start -->
         <ul class="appointment_tab">
             <li><a href="HRReports.aspx">HR Reports</a></li>
@@ -643,7 +652,7 @@
                 <asp:UpdatePanel ID="upUsers" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
 
-                        <div style="float: left; padding-top: 10px; /*margin-bottom: -40px;*/">
+                        <div style="float: left; padding-top: 10px; /*margin-bottom: -40px; */">
 
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="textbox" placeholder="search users" MaxLength="15" />
                             <asp:Button ID="btnSearchGridData" runat="server" Text="Search" Style="display: none;" class="btnSearc" OnClick="btnSearchGridData_Click" />
@@ -681,7 +690,7 @@
                                         <asp:LinkButton ID="lnkDelete" Text="Delete" CommandName="DeleteSalesUser" runat="server" OnClientClick="return confirm('Are you sure you want to delete this user?')"
                                             CommandArgument='<%#Eval("Id")%>'></asp:LinkButton>
                                         <br />
-                                        <asp:ImageButton ID="imgBookmark" runat="server" CssClass="btnBookmark" BorderWidth="0"/>
+                                        <asp:ImageButton ID="imgBookmark" runat="server" CssClass="btnBookmark" BorderWidth="0" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="True" HeaderText="Id# <br /> Designation" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10%" ItemStyle-Width="10%" ControlStyle-ForeColor="Black"
@@ -828,7 +837,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Country-Zip-City<br/>Type-Apptitude Test %<br/>Resume Attachment" HeaderStyle-Width="15%" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" SortExpression="Zip" ControlStyle-CssClass="wordBreak">
                                     <ItemTemplate>
-                                        <div style='<%# string.IsNullOrEmpty(Eval("CountryCode").ToString()) == true ? "": "background-image:url(img/flags24.png);background-repeat:no-repeat;float:left;height:22px;width:24px;margin-top:-5px;" %>' class='<%#Eval("CountryCode").ToString().ToLower()%>'>
+                                        <div runat="server" title='<%#Eval("Country") %>' style='<%# string.IsNullOrEmpty(Eval("CountryCode").ToString()) == true ? "": "background-image:url(img/flags24.png);background-repeat:no-repeat;float:left;height:22px;width:24px;margin-top:-5px;" %>' class='<%#Eval("CountryCode").ToString().ToLower()%>'>
                                         </div>
                                         <asp:Label ID="lblCity" runat="server" Text='<%#Eval("City") %>'></asp:Label>
                                         <%--<span><%# Eval("Zip") %></span>--%>
@@ -836,9 +845,24 @@
 
                                         <br />
                                         <br />
-                                        <span><%# (Eval("EmpType").ToString() =="0")?"Not Selected -":Eval("EmpType") +" -" %></span>
-                                        <span><%#(string.IsNullOrEmpty(Eval("Aggregate").ToString()))?"N/A":string.Format("{0:#,##}",Eval("Aggregate"))+ "%" %></span>
 
+                                        <asp:DropDownList ID="ddlEmpType" Style="width: 95%;" AutoPostBack="true" runat="server">
+                                            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                            <asp:ListItem Text="Temp" Value="1"></asp:ListItem>
+                                            <asp:ListItem Text="Internship" Value="2"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Remote" Value="3"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time - Onsite" Value="4"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Remote" Value="5"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time - Onsite" Value="6"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time Hourly" Value="7"></asp:ListItem>
+                                            <asp:ListItem Text="Full Time Salary" Value="8"></asp:ListItem>
+                                            <asp:ListItem Text="Part Time" Value="9"></asp:ListItem>
+                                            <asp:ListItem Text="Sub" Value="10"></asp:ListItem>
+                                        </asp:DropDownList><br />
+
+                                        <span><%# (Eval("EmpType").ToString() =="0")?"Not Selected -":Eval("EmpType") +" -" %></span>
+
+                                        <span><%#(string.IsNullOrEmpty(Eval("Aggregate").ToString()))?"N/A":string.Format("{0:#,##}",Eval("Aggregate"))+ "%" %></span>
                                         <br />
                                         <a href='<%# Eval("Resumepath") %>' id="aReasumePath" runat="server" target="_blank"><%# System.IO.Path.GetFileName(Eval("Resumepath").ToString()) %></a>
                                         <%--<span><%# Eval("EmpType") %></span> <span> - <span><%#(string.IsNullOrEmpty(Eval("Aggregate").ToString()))?"N/A":string.Format("{0:#,##}",Eval("Aggregate"))+ "%" %></span>--%>
@@ -865,7 +889,7 @@
                     </td>
                     <td>
                         <div style="float: left;">
-                            <div id="divBulkUploadFile" class="dropzone work-file" data-hidden="<%=hdnBulkUploadFile.ClientID%>" 
+                            <div id="divBulkUploadFile" class="dropzone work-file" data-hidden="<%=hdnBulkUploadFile.ClientID%>"
                                 data-accepted-files=".csv,.xlsx" data-upload-path-code="1">
                                 <div class="fallback">
                                     <input name="WorkFile" type="file" />
@@ -876,13 +900,15 @@
                             </div>
                         </div>
                         <div class="btn_sec" style="float: left;">
-                            <asp:Button ID="btnUploadNew" runat="server" Text="Upload" OnClick="btnUploadNew_Click" CssClass="ui-button" style="padding:0px 10px 0px 10px!important;" />
+                            <asp:Button ID="btnUploadNew" runat="server" Text="Upload" OnClick="btnUploadNew_Click" CssClass="ui-button" Style="padding: 0px 10px 0px 10px!important;" />
                         </div>
                         <div class="hide">
                             <input id="hdnBulkUploadFile" runat="server" type="hidden" />
                             <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClientClick="return ValidateFile()" OnClick="btnUpload_Click" />
-                            
-                            <label>Upload Prospects using xlsx file: <asp:FileUpload ID="BulkProspectUploader" runat="server" /></label>
+
+                            <label>
+                                Upload Prospects using xlsx file:
+                                <asp:FileUpload ID="BulkProspectUploader" runat="server" /></label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="BulkProspectUploader" runat="server" ErrorMessage="Select file to import data." ValidationGroup="BulkImport"></asp:RequiredFieldValidator>
                         </div>
                     </td>
@@ -1142,14 +1168,9 @@
 
         <asp:Panel ID="pnlUploadBulk" runat="server">
             <style>
-                kTab {
-                    :;
-                }
-
-                {
-                    x;
-                }
-                /* END EXT
+                 {
+                   
+                    ND EXT
             </style>
             <div id="lightUploadBulk" class="white_content" style="text-align: center">
                 <a class="close" href="#" onclick="CloseAddUserPopUp()">&times;</a>
@@ -1231,11 +1252,11 @@
     <%--Popup Stars--%>
     <div class="hide">
         <div id="divBulkUploadUserErrors" runat="server" title="Information" data-width="900px">
-            <div style="padding:5px 10px;">
-                Below records contain empty values for mandatory fields. Please update cells marked by <span style="color: blue;font-weight:bold;text-align: center;font-size: 20px;">x</span> below in your file and upload again. If you see several empty rows at the end of the records, please delete those empty lines from your file.
+            <div style="padding: 5px 10px;">
+                Below records contain empty values for mandatory fields. Please update cells marked by <span style="color: blue; font-weight: bold; text-align: center; font-size: 20px;">x</span> below in your file and upload again. If you see several empty rows at the end of the records, please delete those empty lines from your file.
             </div>
-            <div style="max-height:500px; height:500px; overflow: auto;">
-                <asp:GridView ID="grdBulkUploadUserErrors" runat="server" AutoGenerateColumns="false" 
+            <div style="max-height: 500px; height: 500px; overflow: auto;">
+                <asp:GridView ID="grdBulkUploadUserErrors" runat="server" AutoGenerateColumns="false"
                     CssClass="table" Width="100%" CellSpacing="0" CellPadding="0" GridLines="Vertical">
                     <EmptyDataRowStyle ForeColor="White" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="trHeader " />
@@ -1267,7 +1288,7 @@
                                 <%#grdBulkUploadUserErrors_GetCellText(Eval("Status")) %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Source*"  HeaderStyle-Width="60" ItemStyle-Width="60">
+                        <asp:TemplateField HeaderText="Source*" HeaderStyle-Width="60" ItemStyle-Width="60">
                             <ItemTemplate>
                                 <%#grdBulkUploadUserErrors_GetCellText(Eval("Source")) %>
                             </ItemTemplate>
