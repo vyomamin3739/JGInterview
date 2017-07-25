@@ -245,6 +245,7 @@ namespace JG_Prospect
                 {
                     Label lblPrimaryPhone = (e.Row.FindControl("lblPrimaryPhone") as Label);
                     DropDownList ddlStatus = (e.Row.FindControl("ddlStatus") as DropDownList);//Find the DropDownList in the Row
+                    DropDownList ddlEmployeeType = (e.Row.FindControl("ddlEmployeeType") as DropDownList);//Find the DropDownList in the Row
                     DropDownList ddlContactType = (e.Row.FindControl("ddlContactType") as DropDownList);
                     HyperLink hypTechTask = e.Row.FindControl("hypTechTask") as HyperLink;
                     LinkButton lnkDelete = e.Row.FindControl("lnkDelete") as LinkButton;
@@ -292,6 +293,23 @@ namespace JG_Prospect
                     if (lblPrimaryPhone.Text.IndexOf(chaDelimiter) > 0)
                         lblPrimaryPhone = ManiPulatePrimaryPhone(lblPrimaryPhone, chaDelimiter);
 
+                    string employeeType = Convert.ToString((e.Row.FindControl("lblEmployeeType") as HiddenField).Value);
+                    if(employeeType != "")
+                    {
+                       
+                        System.Web.UI.WebControls.ListItem lstEmpType = ddlEmployeeType.Items.FindByValue(employeeType);
+
+                        if (lstEmpType != null)
+                        {
+                            ddlEmployeeType.SelectedIndex = ddlEmployeeType.Items.IndexOf(lstEmpType);
+                        }
+                        System.Web.UI.WebControls.ListItem lstEmpTypeText = ddlEmployeeType.Items.FindByText(employeeType);
+
+                        if (lstEmpTypeText != null)
+                        {
+                            ddlEmployeeType.SelectedIndex = ddlEmployeeType.Items.IndexOf(lstEmpTypeText);
+                        }
+                    }
 
                     if (Status != "")
                     {
@@ -3708,6 +3726,7 @@ namespace JG_Prospect
                     }
                     #endregion
 
+                    // Code Change by Deep
                     if (dtSalesUser_Grid.Rows.Count > 0)
                     {
                         //Session["UserGridData"] = dtSalesUser_Grid;
@@ -4227,5 +4246,15 @@ namespace JG_Prospect
         #endregion
 
         #endregion
+
+        protected void ddlEmpType_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlEmpType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
