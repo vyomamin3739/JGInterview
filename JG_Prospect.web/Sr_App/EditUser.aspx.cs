@@ -716,7 +716,7 @@ namespace JG_Prospect
                 ddlInsteviewtime.DataSource = GetTimeIntervals();
                 ddlInsteviewtime.DataBind();
                 dtInterviewDate.Text = DateTime.Now.AddDays(1).ToShortDateString();
-                ddlInsteviewtime.SelectedValue = "10:00";
+                ddlInsteviewtime.SelectedValue = "10:00 AM";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "overlayInterviewDate()", true);
                 return;
             }
@@ -4074,12 +4074,12 @@ namespace JG_Prospect
         {
             try
             {
-                var reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
-                var adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
-                var adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
-                var adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
-                var client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("my-cool-app"));
-                var basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
+                String reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
+                String adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
+                String adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
+                String adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
+                Octokit.GitHubClient client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(ConfigurationManager.AppSettings["GitAppName"].ToString()));
+                Octokit.Credentials basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
                 client.Credentials = basicAuth;
                 await client.Repository.Collaborator.Add(adminname, reponame, gitUserName);
             }
