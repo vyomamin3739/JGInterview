@@ -27,6 +27,30 @@ namespace JG_Prospect.App_Code
         }
 
         /// <summary>
+        /// Add a GitHub user as Collaborator in repo        
+        /// </summary>
+        /// <param name="gitUserName"></param>
+        public static async void AddUserAsGitcollaborator(string gitUserName)
+        {
+            try
+            {
+                String reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
+                String adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
+                String adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
+                String adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
+                Octokit.GitHubClient client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(ConfigurationManager.AppSettings["GitAppName"].ToString()));
+                Octokit.Credentials basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
+                client.Credentials = basicAuth;
+                await client.Repository.Collaborator.Add(adminname, reponame, gitUserName);
+            }
+            catch (Exception ex)
+            {
+                //Log exception 
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
+        }
+
+        /// <summary>
         /// Call to show javascript alert message from page.
         /// </summary>
         /// <param name="page">Pass page obect of current page. i.e. this.Page</param>
