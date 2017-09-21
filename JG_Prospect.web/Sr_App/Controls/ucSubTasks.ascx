@@ -182,22 +182,8 @@
             <table class="tablealign fullwidth">
                 <tr>
                     <td>ListID:
-                               
-                               
-
-                               
-
-
-
                         <asp:TextBox ID="txtTaskListID" runat="server" Enabled="false" />
                         &nbsp;
-                               
-                               
-
-                               
-
-
-
                         <small>
                             <a href="javascript:void(0);" style="color: #06c;" id="lnkidopt" onclick="copytoListID(this);">
                                 <asp:Literal ID="listIDOpt" runat="server" />
@@ -205,25 +191,11 @@
                         </small>
                         <asp:CheckBox ID="chkTechTask" runat="server" Text=" Tech Task?" Checked="false" />
                     </td>
-                    <td>Type <span style="color: red;">*</span>:
-                               
-                               
-
-                               
-
-
-
+                    <td>Type <span style="color: red;">*</span>: 
                         <asp:DropDownList ID="ddlTaskType" AutoPostBack="false" runat="server" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="None" ValidationGroup="vgSubTask"
                             ControlToValidate="ddlTaskType" ErrorMessage="Please enter Task Type." />
                         &nbsp;&nbsp;Priority <span style="color: red;">*</span>:
-                               
-                               
-
-                               
-
-
-
                         <asp:DropDownList ID="ddlSubTaskPriority" runat="server" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="None" ValidationGroup="vgSubTask"
                             ControlToValidate="ddlSubTaskPriority" ErrorMessage="Please enter Task Priority." />
@@ -231,13 +203,6 @@
                 </tr>
                 <tr>
                     <td>Title <span style="color: red;">*</span>:
-                               
-                               
-
-                               
-
-
-
                         <br />
                         <asp:TextBox ID="txtSubTaskTitle" Text="" runat="server" Width="98%" CssClass="textbox" TextMode="SingleLine" />
                         <asp:RequiredFieldValidator ID="rfvTitle" runat="server" Display="None" ValidationGroup="vgSubTask"
@@ -572,9 +537,17 @@
                                                                 <td width="15%">
                                                                     <ul class='<%#Eval("NestLevel").ToString() == "3"? "hide":"stulli" %>'>
                                                                         <li>
-                                                                            <asp:CheckBox ID="chkTechTask" runat="server" Text=" Tech Task?" ClientIDMode="AutoID"
+                                                                           <%-- Commented by Dipika to remove OnCheckedChanged Event from checkbox..
+                                                                               s
+                                                                                <asp:CheckBox ID="chkTechTask" runat="server" Text=" Tech Task?" ClientIDMode="AutoID"
                                                                                 Checked='<%# String.IsNullOrEmpty(Eval("IsTechTask").ToString())==true? false: Convert.ToBoolean(Eval("IsTechTask")) %>'
-                                                                                AutoPostBack="true" OnCheckedChanged="repSubTasksNested_chkTechTask_CheckedChanged" />
+                                                                                AutoPostBack="true" OnCheckedChanged="repSubTasksNested_chkTechTask_CheckedChanged" />--%>
+                                                                           
+                                                                              <asp:CheckBox class="chkTechTask" 
+                                                                                  data-taskid='<%# Eval("TaskId")%>' data-parent-taskid='<%# Eval("ParentTaskId")%>'
+                                                                                  data-parent-commentid="0" data-startindex="0" data-pagesize="2"
+                                                                                   ID="chkTechTask" runat="server" Text=" Tech Task?" ClientIDMode="AutoID"
+                                                                                Checked='<%# String.IsNullOrEmpty(Eval("IsTechTask").ToString())==true? false: Convert.ToBoolean(Eval("IsTechTask")) %>'/>
                                                                         </li>
                                                                         <li></li>
                                                                         <li>Priority
@@ -1247,6 +1220,21 @@
     $(document).ready(function () {
         SetUserAutoSuggestion();
         SetUserAutoSuggestionUI();
+        /// Created by Dipika For implementing Task 418
+        
+        $('.chkTechTask').on('click', function (e) {
+            var me = $(this);
+            var strTaskId = me.attr('data-taskid');
+            var IsTech = me.find('input[type="checkbox"]').prop('checked');
+            var postData = {
+                "TaskId": strTaskId,
+                "TechStatus": IsTech
+            };
+            CallJGWebService('UpdateTaskTechTask', postData,function (data) { });
+
+            //SetSubTaskDetails(intTaskId);
+
+        });
 
         $('#<%=ddlTaskType.ClientID%>').change(function () {
             if ($("#<%=ddlTaskType.ClientID%>").val() == 3) {
@@ -2204,7 +2192,9 @@
             }
         
         });
+       
         });
         //--------------- End DP ---------------
-    
+
+   
 </script>

@@ -688,6 +688,18 @@ namespace JG_Prospect.WebServices
             return TaskGeneratorBLL.Instance.SetTaskStatus(intTaskId, TaskStatus);
         }
 
+        /// <summary>
+        /// Function created by Dipika. This function updates about which task is Tech Task or not.
+        /// </summary>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+
+        [WebMethod]
+        public void UpdateTaskTechTask(int TaskId, bool TechStatus)
+        {
+            TaskGeneratorBLL.Instance.UpdateTaskTechTask(TaskId, TechStatus);
+        }
+
         #endregion
 
         #region '--Private Methods--'

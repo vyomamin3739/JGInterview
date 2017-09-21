@@ -911,23 +911,25 @@ namespace JG_Prospect.Sr_App.Controls
             }
         }
 
-        protected void repSubTasksNested_chkTechTask_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox chkTechTask = sender as CheckBox;
-            RepeaterItem objRepeaterItem = chkTechTask.NamingContainer as RepeaterItem;
+        /// Commented By Dipika for implementing this function in ajax side.
 
-            if (objRepeaterItem != null)
-            {
-                HiddenField hdTaskId = objRepeaterItem.FindControl("hdTaskId") as HiddenField;
-                Int32 intTaskId = Convert.ToInt32(hdTaskId.Value.ToString());
-                TaskGeneratorBLL.Instance.UpdateTaskTechTask(intTaskId, chkTechTask.Checked);
-                SetSubTaskDetails(intTaskId);
-            }
-            else
-            {
-                SetSubTaskDetails();
-            }
-        }
+        //protected void repSubTasksNested_chkTechTask_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    CheckBox chkTechTask = sender as CheckBox;
+        //    RepeaterItem objRepeaterItem = chkTechTask.NamingContainer as RepeaterItem;
+
+        //    if (objRepeaterItem != null)
+        //    {
+        //        HiddenField hdTaskId = objRepeaterItem.FindControl("hdTaskId") as HiddenField;
+        //        Int32 intTaskId = Convert.ToInt32(hdTaskId.Value.ToString());
+        //        TaskGeneratorBLL.Instance.UpdateTaskTechTask(intTaskId, chkTechTask.Checked);
+        //        SetSubTaskDetails(intTaskId);
+        //    }
+        //    else
+        //    {
+        //        SetSubTaskDetails();
+        //    }
+        //}
 
         #endregion
 

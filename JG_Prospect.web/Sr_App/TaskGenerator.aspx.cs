@@ -315,7 +315,6 @@ namespace JG_Prospect.Sr_App
             if (ValidateTaskStatus())
             {
                 InsertUpdateTask();
-
                 RedirectToViewTasks();
             }
         }
