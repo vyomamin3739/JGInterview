@@ -45,7 +45,7 @@
                               <b> Used For Designation:</b><br />
                                 <asp:DropDownList ID="ddlDesignation" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" />
                                 <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation"
-                                    InitialValue="0" ValidationGroup="vgTemplate" Display="None"
+                                    InitialValue="0" ValidationGroup="vgTemplate" Visible="false" Display="None"
                                     ErrorMessage="Please select designation." />
                                 <br />
                                 <small>Save a separate copy, if you want, for individual designations. Master copy will be used if designation specific copy is not available.</small>

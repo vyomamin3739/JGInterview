@@ -137,6 +137,27 @@ namespace JG_Prospect.DAL
             }
         }
 
+        public DataSet GetEmailTemplateById(int htmlTemplateID)
+        {
+            DataSet result = new DataSet();
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    DbCommand command = database.GetStoredProcCommand("USP_GetEmailTemplateById");
+                    command.CommandType = CommandType.StoredProcedure;
+                    database.AddInParameter(command, "@HTMLTemplateID", DbType.Int32, htmlTemplateID);
+                    result = database.ExecuteDataSet(command);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //LogManager.Instance.WriteToFlatFile(ex);
+                return null;
+            }
+        }
+
         public DataSet GetJobInformation(String pSoldJobID, Int32 pProductCatID, Int32 pVendorID)
         {
             DataSet result = new DataSet();

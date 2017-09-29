@@ -410,6 +410,29 @@ namespace JG_Prospect.DAL
             }
         }
 
+        public DataSet getInstalluserDetails(int id)
+        {
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {
+                    returndata = new DataSet();
+
+                    DbCommand command = database.GetSqlStringCommand("SELECT * from tblInstallusers WHERE Id="+id);
+                    command.CommandType = CommandType.Text;
+                    returndata = database.ExecuteDataSet(command);
+
+                    return returndata;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return null;
+                //LogManager.Instance.WriteToFlatFile(ex);
+            }
+        }
+
 
         public DataSet getSSEuserdetails(int id)
         {
@@ -1513,5 +1536,6 @@ namespace JG_Prospect.DAL
                 //LogManager.Instance.WriteToFlatFile(ex);
             }
         }
+
     }
 }

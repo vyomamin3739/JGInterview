@@ -92,7 +92,7 @@ namespace JG_Prospect.Sr_App
                 }
             }
 
-            if (this.HTMLTemplateType.HasValue && this.HTMLTemplateType.Value == HTMLTemplateTypes.Template) 
+            if (this.HTMLTemplateType.HasValue && this.HTMLTemplateType.Value == HTMLTemplateTypes.Template)
             {
                 trCategory.Visible =
                 trSubject.Visible = false;
@@ -125,41 +125,77 @@ namespace JG_Prospect.Sr_App
         {
             DesignationHTMLTemplate objDesignationHTMLTemplate = new DesignationHTMLTemplate();
             objDesignationHTMLTemplate.HTMLTemplatesMasterId = (byte)this.HTMLTemplate.Value;
-            objDesignationHTMLTemplate.Designation = ddlDesignation.SelectedValue;
 
-            byte? intMasterCategory = null;
-            // category field is visible and used only for auto email template type.
-            // so, we are setting it to 0 for rest of the types.
-            if (ddlCategory.SelectedIndex > 0)
+            if (ddlDesignation.SelectedIndex > 0)// update individual designation html template.
             {
-                intMasterCategory = Convert.ToByte(ddlCategory.SelectedValue);
-            }
+                objDesignationHTMLTemplate.Designation = ddlDesignation.SelectedValue;
 
-            objDesignationHTMLTemplate.Subject = txtSubject.Text;
-            objDesignationHTMLTemplate.Header = txtHeader.Content;
-            objDesignationHTMLTemplate.Body = txtBody.Content;
-            objDesignationHTMLTemplate.Footer = txtFooter.Content;
-            if (HTMLTemplateBLL.Instance.SaveDesignationHTMLTemplate(objDesignationHTMLTemplate, intMasterCategory))
-            {
-                CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template updated.");
-                Response.Redirect(Request.Url.ToString());
+                byte? intMasterCategory = null;
+                // category field is visible and used only for auto email template type.
+                // so, we are setting it to 0 for rest of the types.
+                if (ddlCategory.SelectedIndex > 0)
+                {
+                    intMasterCategory = Convert.ToByte(ddlCategory.SelectedValue);
+                }
+
+                objDesignationHTMLTemplate.Subject = txtSubject.Text;
+                objDesignationHTMLTemplate.Header = txtHeader.Content;
+                objDesignationHTMLTemplate.Body = txtBody.Content;
+                objDesignationHTMLTemplate.Footer = txtFooter.Content;
+
+                if (HTMLTemplateBLL.Instance.SaveDesignationHTMLTemplate(objDesignationHTMLTemplate, intMasterCategory))
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template updated.");
+                    Response.Redirect(Request.Url.ToString());
+                }
+                else
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template can not be updated! Please try again later.");
+                } 
             }
-            else
+            else // update master html template.
             {
-                CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template can not be updated! Please try again later.");
+                objDesignationHTMLTemplate.Subject = txtSubject.Text;
+                objDesignationHTMLTemplate.Header = txtHeader.Content;
+                objDesignationHTMLTemplate.Body = txtBody.Content;
+                objDesignationHTMLTemplate.Footer = txtFooter.Content;
+
+                if (HTMLTemplateBLL.Instance.SaveMasterHTMLTemplate(objDesignationHTMLTemplate))
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Master template updated successfully.");
+                    Response.Redirect(Request.Url.ToString());
+                }
+                else
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Master template can not be updated right now! Please try again later.");
+                }
             }
         }
 
         protected void btnRevertToMaster_Click(object sender, EventArgs e)
         {
-            if (HTMLTemplateBLL.Instance.DeleteDesignationHTMLTemplate(this.HTMLTemplate.Value, ddlDesignation.SelectedValue))
+            if (ddlDesignation.SelectedIndex > 0)
             {
-                CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template deleted.");
-                Response.Redirect(Request.Url.ToString());
+                if (HTMLTemplateBLL.Instance.DeleteDesignationHTMLTemplate(this.HTMLTemplate.Value, ddlDesignation.SelectedValue))
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template deleted.");
+                    Response.Redirect(Request.Url.ToString());
+                }
+                else
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template can not be deleted! Please try again later.");
+                }
             }
             else
             {
-                CommonFunction.ShowAlertFromUpdatePanel(this, "Designation template can not be deleted! Please try again later.");
+                if (HTMLTemplateBLL.Instance.RevertDesignationHTMLTemplatesByMasterTemplateId(Convert.ToInt32(this.HTMLTemplate.Value)))
+                {                
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "All Designation templates are updated to Master HTML template.");
+                }
+                else
+                {
+                    CommonFunction.ShowAlertFromUpdatePanel(this, "Sorry error occured while updating Designation templates to Master HTML template.");
+                }
             }
         }
 

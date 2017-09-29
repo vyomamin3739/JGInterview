@@ -38,7 +38,7 @@ namespace JG_Prospect.Sr_App
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "alert('You have to login first');", true);
                     Response.Redirect("~/login.aspx?returnurl=" + Request.Url.PathAndQuery);
                 }
-                else if (Session["usertype"] != null && Session["usertype"].ToString() != "Admin")
+                else if (Session["DesigNew"] != null && Session["DesigNew"].ToString() != "ITLead" && Session["DesigNew"].ToString() != "Admin")
                 {
                     Response.Redirect("~/home.aspx", true);
                 }

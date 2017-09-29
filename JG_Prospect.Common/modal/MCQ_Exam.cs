@@ -15,6 +15,6 @@ namespace JG_Prospect.Common.modal
         public long CourseID { get; set; }
         public int ExamDuration { get; set; }
         public float PassPercentage { get; set; }
-        public int DesignationID { get; set; }
+        public string DesignationID { get; set; }
     }
 }

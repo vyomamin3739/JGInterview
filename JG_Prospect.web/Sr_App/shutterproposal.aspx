@@ -14,7 +14,7 @@
         $(document).ready(function () {
             $("ol").attr('class', '');
             $(".date").datepicker();
-            $('.time').ptTimeSelect();
+            //$('.time').ptTimeSelect();
             $('#trauthpass').hide();
             $('#trcheque').hide();
             $('#trcard').hide();
@@ -200,6 +200,10 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:UpdatePanel ID="updpnlMain" runat="server">
+        <ContentTemplate>
+
+        
     <div class="right_panel">
         <ul class="appointment_tab">
             <li><a href="home.aspx">Personal Appointment</a></li>
@@ -1110,5 +1114,6 @@
             </tr>
         </table>
     </asp:Panel>
-
+</ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>

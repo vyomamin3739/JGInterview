@@ -26,7 +26,7 @@ namespace JG_Prospect.Common.modal
         public Int16? TaskType;
         public byte? TaskPriority;
         public bool IsTechTask;
-
+        public Int64? Sequence;
         public int? AdminUserId { get; set; }
         public int? TechLeadUserId { get; set; }
         public int? OtherUserId { get; set; }

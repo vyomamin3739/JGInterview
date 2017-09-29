@@ -166,24 +166,6 @@ namespace JG_Prospect.Sr_App.Product_Line {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvworkarea;
         
         /// <summary>
-        /// ajaxFileUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AsyncFileUpload ajaxFileUpload;
-        
-        /// <summary>
-        /// btnImageUploadClick control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImageUploadClick;
-        
-        /// <summary>
         /// pnlUpdate control.
         /// </summary>
         /// <remarks>
@@ -193,13 +175,31 @@ namespace JG_Prospect.Sr_App.Product_Line {
         protected global::System.Web.UI.UpdatePanel pnlUpdate;
         
         /// <summary>
-        /// gvCategory control.
+        /// hdnWorkFiles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdnWorkFiles;
+        
+        /// <summary>
+        /// btnSaveGridAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveGridAttachment;
+        
+        /// <summary>
+        /// rptAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptAttachment;
         
         /// <summary>
         /// hidCount control.

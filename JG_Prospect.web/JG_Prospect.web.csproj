@@ -14,11 +14,13 @@
     <RootNamespace>JG_Prospect</RootNamespace>
     <AssemblyName>JG_Prospect</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -30,8 +32,6 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <UseGlobalApplicationHostFile />
-    <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,11 +57,6 @@
     <Reference Include="AjaxControlToolkit, Version=3.5.60501.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\AjaxControlToolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="aspsnippets.facebookapi">
       <HintPath>External Dependencies\aspsnippets.facebookapi.dll</HintPath>
@@ -145,6 +140,10 @@
     </Reference>
     <Reference Include="itextsharp.xmlworker">
       <HintPath>External Dependencies\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="MailApi, Version=6.0.2.220, Culture=neutral, PublicKeyToken=cd85b70fb26f9fc1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Dependencies\MailApi.dll</HintPath>
     </Reference>
     <Reference Include="MailServerApi, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7795db04536a1a7a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -230,6 +229,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External Dependencies\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PhoneNumbers, Version=8.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\libphonenumber-csharp.8.3.1.1\lib\PhoneNumbers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -279,6 +282,7 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\DropDownCheckBoxes.dll" />
+    <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\EPPlus.dll" />
     <Content Include="bin\Google.GData.AccessControl.dll" />
     <Content Include="bin\Google.GData.Calendar.dll" />
@@ -288,6 +292,8 @@
     <Content Include="bin\Ionic.Zip.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\itextsharp.xmlworker.dll" />
+    <Content Include="bin\MailApi.dll" />
+    <Content Include="bin\MailServerApi.dll" />
     <Content Include="bin\Microsoft.Data.Edm.dll" />
     <Content Include="bin\Microsoft.Data.OData.dll" />
     <Content Include="bin\Microsoft.Owin.dll" />
@@ -304,6 +310,7 @@
     <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.Interception.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
     <Content Include="bin\Mono.Math.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
@@ -319,8 +326,13 @@
     <Content Include="bin\System.Web.Http.OData.dll" />
     <Content Include="bin\System.Web.Http.Tracing.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\Telerik.Web.UI.DLL" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="calendar\calendar.aspx" />
@@ -1023,11 +1035,358 @@
     <Content Include="ckeditor\skins\moono\images\refresh.png" />
     <Content Include="ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="Communication\webphone\css\click2call\click2call.css" />
+    <Content Include="Communication\webphone\css\index.css" />
+    <Content Include="Communication\webphone\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="Communication\webphone\css\jquery.mobile.css" />
+    <Content Include="Communication\webphone\css\jquery.mobile.structure-1.4.2.css" />
+    <Content Include="Communication\webphone\css\mainlayout.css" />
+    <Content Include="Communication\webphone\css\pmodal.css" />
+    <Content Include="Communication\webphone\css\techdemo_example\techdemo_example.css" />
+    <Content Include="Communication\webphone\css\themes\images\ajax-loader.gif" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\action-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\action-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\alert-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\alert-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-l-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-l-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-r-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-r-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-d-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-l-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-l-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-r-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-r-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-l-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-l-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-r-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-r-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\arrow-u-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\audio-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\audio-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\back-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\back-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\bars-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\bars-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\bullets-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\bullets-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\calendar-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\calendar-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\camera-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\camera-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-d-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-d-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-l-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-l-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-r-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-r-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-u-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\carat-u-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\check-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\check-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\clock-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\clock-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\cloud-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\cloud-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\comment-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\comment-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\delete-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\delete-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\edit-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\edit-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\eye-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\eye-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\forbidden-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\forbidden-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\forward-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\forward-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\gear-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\gear-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\grid-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\grid-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\heart-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\heart-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\home-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\home-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\info-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\info-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\location-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\location-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\lock-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\lock-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\mail-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\mail-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\minus-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\minus-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\navigation-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\navigation-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\phone-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\phone-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\plus-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\plus-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\power-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\power-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\recycle-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\recycle-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\refresh-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\refresh-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\search-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\search-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\shop-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\shop-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\star-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\star-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\tag-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\tag-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\user-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\user-white.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\video-black.png" />
+    <Content Include="Communication\webphone\css\themes\images\icons-png\video-white.png" />
+    <Content Include="Communication\webphone\css\themes\jquery.mobile.icons.min.css" />
+    <Content Include="Communication\webphone\css\themes\wphone_1.0.css" />
+    <Content Include="Communication\webphone\favicon.ico" />
+    <Content Include="Communication\webphone\iframe_helper.js" />
+    <Content Include="Communication\webphone\images\ajax-loader.gif" />
+    <Content Include="Communication\webphone\images\android_frame.png" />
+    <Content Include="Communication\webphone\images\body_bg.png" />
+    <Content Include="Communication\webphone\images\btn_add_contact_txt.png" />
+    <Content Include="Communication\webphone\images\btn_backspace_txt.png" />
+    <Content Include="Communication\webphone\images\btn_backspace_txt_grey.png" />
+    <Content Include="Communication\webphone\images\btn_backspace_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_back_txt.png" />
+    <Content Include="Communication\webphone\images\btn_back_txt_old.png" />
+    <Content Include="Communication\webphone\images\btn_callforward_txt.png" />
+    <Content Include="Communication\webphone\images\btn_call_quick_txt.png" />
+    <Content Include="Communication\webphone\images\btn_call_txt.png" />
+    <Content Include="Communication\webphone\images\btn_call_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_chat_txt.png" />
+    <Content Include="Communication\webphone\images\btn_close_txt.png" />
+    <Content Include="Communication\webphone\images\btn_conference_txt.png" />
+    <Content Include="Communication\webphone\images\btn_conference_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_end_accept_txt.png" />
+    <Content Include="Communication\webphone\images\btn_hangup_txt.png" />
+    <Content Include="Communication\webphone\images\btn_hold_accept_txt.png" />
+    <Content Include="Communication\webphone\images\btn_hold_txt.png" />
+    <Content Include="Communication\webphone\images\btn_hold_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_ignore_txt.png" />
+    <Content Include="Communication\webphone\images\btn_mute_txt.png" />
+    <Content Include="Communication\webphone\images\btn_mute_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_numpad_txt.png" />
+    <Content Include="Communication\webphone\images\btn_numpad_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_speaker_txt.png" />
+    <Content Include="Communication\webphone\images\btn_speaker_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_star_off_normal_holo_light.png" />
+    <Content Include="Communication\webphone\images\btn_star_on_normal_holo_light.png" />
+    <Content Include="Communication\webphone\images\btn_transfer_txt.png" />
+    <Content Include="Communication\webphone\images\btn_transfer_txt__old.png" />
+    <Content Include="Communication\webphone\images\btn_video_txt.png" />
+    <Content Include="Communication\webphone\images\btn_voicemail_txt.png" />
+    <Content Include="Communication\webphone\images\btn_voicemail_txt_big.png" />
+    <Content Include="Communication\webphone\images\btn_voicemail_txt__old.png" />
+    <Content Include="Communication\webphone\images\checkbox_false.png" />
+    <Content Include="Communication\webphone\images\checkbox_true.png" />
+    <Content Include="Communication\webphone\images\default_contact_img.png" />
+    <Content Include="Communication\webphone\images\icon.png" />
+    <Content Include="Communication\webphone\images\icon_block.png" />
+    <Content Include="Communication\webphone\images\icon_call.png" />
+    <Content Include="Communication\webphone\images\icon_call_incoming.png" />
+    <Content Include="Communication\webphone\images\icon_call_missed.png" />
+    <Content Include="Communication\webphone\images\icon_call_outgoing.png" />
+    <Content Include="Communication\webphone\images\icon_call__old.png" />
+    <Content Include="Communication\webphone\images\icon_collapse.png" />
+    <Content Include="Communication\webphone\images\icon_encrypt.png" />
+    <Content Include="Communication\webphone\images\icon_hangup.png" />
+    <Content Include="Communication\webphone\images\icon_help_mark.png" />
+    <Content Include="Communication\webphone\images\icon_medium.png" />
+    <Content Include="Communication\webphone\images\icon_message.png" />
+    <Content Include="Communication\webphone\images\icon_message__old.png" />
+    <Content Include="Communication\webphone\images\icon_recharge_dollar.png" />
+    <Content Include="Communication\webphone\images\icon_sendfile.png" />
+    <Content Include="Communication\webphone\images\icon_small.png" />
+    <Content Include="Communication\webphone\images\icon_warning.png" />
+    <Content Include="Communication\webphone\images\logo.png" />
+    <Content Include="Communication\webphone\images\menu.png" />
+    <Content Include="Communication\webphone\images\presence_available.png" />
+    <Content Include="Communication\webphone\images\presence_away.png" />
+    <Content Include="Communication\webphone\images\presence_green.png" />
+    <Content Include="Communication\webphone\images\presence_grey.png" />
+    <Content Include="Communication\webphone\images\presence_idle.png" />
+    <Content Include="Communication\webphone\images\presence_offline.png" />
+    <Content Include="Communication\webphone\images\presence_orange.png" />
+    <Content Include="Communication\webphone\images\presence_red.png" />
+    <Content Include="Communication\webphone\images\presence_white.png" />
+    <Content Include="Communication\webphone\images\presence_yellow.png" />
+    <Content Include="Communication\webphone\images\smiley\Angel.gif" />
+    <Content Include="Communication\webphone\images\smiley\btn_smiley.png" />
+    <Content Include="Communication\webphone\images\smiley\Cool.gif" />
+    <Content Include="Communication\webphone\images\smiley\Crying.gif" />
+    <Content Include="Communication\webphone\images\smiley\Idea.gif" />
+    <Content Include="Communication\webphone\images\smiley\Kiss.gif" />
+    <Content Include="Communication\webphone\images\smiley\Laughing.gif" />
+    <Content Include="Communication\webphone\images\smiley\Sad.gif" />
+    <Content Include="Communication\webphone\images\smiley\Smiling.gif" />
+    <Content Include="Communication\webphone\images\smiley\StraightFace.gif" />
+    <Content Include="Communication\webphone\images\smiley\Surprised.gif" />
+    <Content Include="Communication\webphone\images\smiley\Thinking.gif" />
+    <Content Include="Communication\webphone\images\smiley\Winking.gif" />
+    <Content Include="Communication\webphone\images\smiley\Worried.gif" />
+    <Content Include="Communication\webphone\images\tab_callog.png" />
+    <Content Include="Communication\webphone\images\tab_contacts.png" />
+    <Content Include="Communication\webphone\images\tab_dialpad.png" />
+    <Content Include="Communication\webphone\images\tab_speeddial.png" />
+    <Content Include="Communication\webphone\images\texture_bg_accept.png" />
+    <Content Include="Communication\webphone\images\texture_bg_dial.png" />
+    <Content Include="Communication\webphone\images\texture_bg_endcall.png" />
+    <Content Include="Communication\webphone\images\texture_bg_grey.png" />
+    <Content Include="Communication\webphone\index.html" />
+    <Content Include="Communication\webphone\js\click2call\click2call.js" />
+    <Content Include="Communication\webphone\js\lib\adapter.js" />
+    <Content Include="Communication\webphone\js\lib\api_helper.js" />
+    <Content Include="Communication\webphone\js\lib\jquery.mobile-1.4.2.min.js" />
+    <Content Include="Communication\webphone\js\lib\lib_softphone.js" />
+    <Content Include="Communication\webphone\js\lib\mwpdeploy.js" />
+    <Content Include="Communication\webphone\js\lib\picoModal.js" />
+    <Content Include="Communication\webphone\js\lib\require.js" />
+    <Content Include="Communication\webphone\js\linkify\linkify.js" />
+    <Content Include="Communication\webphone\js\softphone\stringres.js" />
+    <Content Include="Communication\webphone\js\softphone\themes.js" />
+    <Content Include="Communication\webphone\js\softphone\_addeditcontact.js" />
+    <Content Include="Communication\webphone\js\softphone\_call.js" />
+    <Content Include="Communication\webphone\js\softphone\_callhistorydetails.js" />
+    <Content Include="Communication\webphone\js\softphone\_callhistorylist.js" />
+    <Content Include="Communication\webphone\js\softphone\_contactdetails.js" />
+    <Content Include="Communication\webphone\js\softphone\_contactslist.js" />
+    <Content Include="Communication\webphone\js\softphone\_dialpad.js" />
+    <Content Include="Communication\webphone\js\softphone\_filetransfer.js" />
+    <Content Include="Communication\webphone\js\softphone\_filters.js" />
+    <Content Include="Communication\webphone\js\softphone\_internalbrowser.js" />
+    <Content Include="Communication\webphone\js\softphone\_logview.js" />
+    <Content Include="Communication\webphone\js\softphone\_message.js" />
+    <Content Include="Communication\webphone\js\softphone\_messagelist.js" />
+    <Content Include="Communication\webphone\js\softphone\_newuser.js" />
+    <Content Include="Communication\webphone\js\softphone\_settings.js" />
+    <Content Include="Communication\webphone\js\techdemo_example\jquery-1.9.1.min.js" />
+    <Content Include="Communication\webphone\js\techdemo_example\picoModal.js" />
+    <Content Include="Communication\webphone\js\techdemo_example\stringres.js" />
+    <Content Include="Communication\webphone\js\techdemo_example\techdemo_example.js" />
+    <Content Include="Communication\webphone\native\expressInstall.swf" />
+    <Content Include="Communication\webphone\native\flashphone.swf" />
+    <Content Include="Communication\webphone\native\mediaench.dll" />
+    <Content Include="Communication\webphone\native\mediaenchx64.dll" />
+    <Content Include="Communication\webphone\native\opx32.dll" />
+    <Content Include="Communication\webphone\native\opx64.dll" />
+    <Content Include="Communication\webphone\native\readme.txt" />
+    <Content Include="Communication\webphone\native\ring.wav" />
+    <Content Include="Communication\webphone\native\webphone.jar" />
+    <Content Include="Communication\webphone\native\WebPhoneService_Install.exe" />
+    <Content Include="Communication\webphone\oldapi_support.js" />
+    <Content Include="Communication\webphone\oldieskin\images\bg.gif" />
+    <Content Include="Communication\webphone\oldieskin\images\bg_old.gif" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_0.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_0_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_1.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_10.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_10_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_11.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_11_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_1_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_2.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_2_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_3.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_3_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_4.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_4_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_5.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_5_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_6.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_6_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_7.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_7_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_8.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_8_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_9.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_9_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_accept.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_accept_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_call.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_call_disabled.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_call_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_chat.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_chat_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_conference.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_conference_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_connect.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_connect2.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_connect_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_hangup.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_hangup_disabled.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_hangup_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_hold.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_hold_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_main.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_main_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_main_hover_old.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_redial.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_redial_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_reject.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_reject_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_transfer.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_transfer_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_voicemail.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\btn_voicemail_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\logout.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\logout_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\microphone.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\speaker.jpg" />
+    <Content Include="Communication\webphone\oldieskin\images\speaker_hover.jpg" />
+    <Content Include="Communication\webphone\oldieskin\js\jquery-1.8.3.min.js" />
+    <Content Include="Communication\webphone\oldieskin\js\wp_api.js" />
+    <Content Include="Communication\webphone\oldieskin\js\wp_common.js" />
+    <Content Include="Communication\webphone\oldieskin\readme.txt" />
+    <Content Include="Communication\webphone\oldieskin\style.css" />
+    <Content Include="Communication\webphone\oldieskin\wphone.htm" />
+    <Content Include="Communication\webphone\readme.txt" />
+    <Content Include="Communication\webphone\samples\basic_example.html" />
+    <Content Include="Communication\webphone\samples\click2call_example.html" />
+    <Content Include="Communication\webphone\samples\full_example.html" />
+    <Content Include="Communication\webphone\samples\incoming_example.html" />
+    <Content Include="Communication\webphone\samples\linkify_example.html" />
+    <Content Include="Communication\webphone\samples\minimal_example.html" />
+    <Content Include="Communication\webphone\samples\mobile_example.html" />
+    <Content Include="Communication\webphone\samples\multipage_example.html" />
+    <Content Include="Communication\webphone\samples\softphone_launch.html" />
+    <Content Include="Communication\webphone\samples\techdemo_example.html" />
+    <Content Include="Communication\webphone\softphone.html" />
+    <Content Include="Communication\webphone\sound\beep-01.wav" />
+    <Content Include="Communication\webphone\sound\DTMF0.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF1.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF2.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF3.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF4.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF5.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF6.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF7.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF8.mp3" />
+    <Content Include="Communication\webphone\sound\DTMF9.mp3" />
+    <Content Include="Communication\webphone\sound\DTMFdiez.mp3" />
+    <Content Include="Communication\webphone\sound\DTMFx.mp3" />
+    <Content Include="Communication\webphone\sound\flash_ringing.mp3" />
+    <Content Include="Communication\webphone\sound\rtc_dtmf.wav" />
+    <Content Include="Communication\webphone\sound\rtc_ringbacktone.wav" />
+    <Content Include="Communication\webphone\sound\rtc_ringtone.wav" />
+    <Content Include="Communication\webphone\sound\rtc_ringtone_orig.wav" />
+    <Content Include="Communication\webphone\webphone_api.js" />
+    <Content Include="Content\ui-grid.css" />
+    <Content Include="Content\ui-grid.min.css" />
+    <Content Include="Content\ui-grid.svg" />
     <Content Include="Controls\CustomPager.ascx" />
     <Content Include="Controls\Header.ascx" />
     <Content Include="Controls\left.ascx" />
     <Content Include="Controls\LeftMenu_home.ascx" />
     <Content Include="CreateUser.aspx" />
+    <Content Include="css\bootstrap-datepicker.css" />
     <Content Include="css\chosen.css" />
     <Content Include="css\connected-carousel.css" />
     <Content Include="css\dropzone\css\basic.css" />
@@ -1037,6 +1396,9 @@
     <Content Include="css\dropzone\images\upload.png" />
     <Content Include="css\dropzone\images\uploadJg.png" />
     <Content Include="css\flags24.css" />
+    <Content Include="css\flipclock.css" />
+    <Content Include="css\flipclock_old.css" />
+    <Content Include="css\handle-counter.min.css" />
     <Content Include="css\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="css\img\flags%402x.png" />
     <Content Include="css\img\flags.png" />
@@ -1045,12 +1407,14 @@
     <Content Include="css\jquery-ui.css" />
     <Content Include="css\jquery.contextMenu.min.css" />
     <Content Include="css\jquery.multiselect.css" />
+    <Content Include="css\jquery.timepicker.css" />
     <Content Include="css\lightslider.css" />
     <Content Include="css\magnific-popup.css" />
     <Content Include="css\msdropdown\dd.css" />
     <Content Include="css\msdropdown\dd_arrow.gif" />
     <Content Include="css\msdropdown\title-bg.gif" />
     <Content Include="css\pgwslideshow.min.css" />
+    <Content Include="css\TimeCircles.css" />
     <Content Include="Database Scripts\Bhavik\Dec\Dec_P2.sql" />
     <Content Include="Database Scripts\Bhavik\Dec\Dec_P2_Insert_Country.sql" />
     <Content Include="Database Scripts\Bhavik\Dec\Dec_P2_V2.sql" />
@@ -1069,6 +1433,8 @@
     <Content Include="Database Scripts\executed\Jaylem\Script Nov_ITJN014_V1.sql" />
     <Content Include="Database Scripts\executed\Jaylem\Script Nov_ITJN019_V1.sql" />
     <Content Include="Database Scripts\executed\shekhar\DB_Table_SP_Creation_With_Data_Nov_2016_ITSN0145_v1.0.sql" />
+    <Content Include="Database Scripts\executed\yogesh\script April v0.1.sql" />
+    <Content Include="Database Scripts\executed\yogesh\Script July v0.1.sql" />
     <Content Include="Database Scripts\executed\yogesh\scripts oct v0.1.sql" />
     <Content Include="Database Scripts\executed\shekhar\DB_Script_All_Only_Edit_User_Related_SQL_Changes_Needs_Deployment_20161130_Nov_2016_ITSN043_v1.1.sql" />
     <Content Include="Database Scripts\executed\shekhar\DB_Script_All_Only_Vendor_Related_SQL_Changes_Needs_Deployment_20161130_Nov_2016_ITSN043_v1.1.sql" />
@@ -1080,6 +1446,31 @@
     <Content Include="Database Scripts\executed\Jaylem\Script Dec_ITJN016_II_b_V1.sql" />
     <Content Include="Database Scripts\executed\Jaylem\Script Nov_ITJN005_I_V1.sql" />
     <Content Include="Database Scripts\executed\Jaylem\Script Dec_ITJN016_II_b_V2.sql" />
+    <Content Include="Communication\webphone\Documentation.chm" />
+    <Content Include="Communication\webphone\Documentation.pdf" />
+    <Content Include="Communication\webphone\native\flashphone.mxml" />
+    <Content Include="Communication\webphone\native\mediaench.dylib" />
+    <Content Include="Communication\webphone\native\mediaenchx64.dylib" />
+    <Content Include="Communication\webphone\native\opx32.jnilib" />
+    <Content Include="Communication\webphone\native\opx32.so" />
+    <Content Include="Communication\webphone\native\opx64.so" />
+    <Content Include="Communication\webphone\native\webrtcplugin.pkg" />
+    <Content Include="Communication\webphone\oldieskin\images\Thumbs.db" />
+    <Content Include="Communication\webphone\sound\DTMF0.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF1.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF2.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF3.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF4.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF5.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF6.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF7.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF8.ogg" />
+    <Content Include="Communication\webphone\sound\DTMF9.ogg" />
+    <Content Include="Communication\webphone\sound\DTMFdiez.ogg" />
+    <Content Include="Communication\webphone\sound\DTMFx.ogg" />
+    <Content Include="Content\ui-grid.woff" />
+    <Content Include="Content\ui-grid.ttf" />
+    <Content Include="Content\ui-grid.eot" />
     <None Include="Database Scripts\executed\yogesh\scripts dec v0.1.sql" />
     <Content Include="Database Scripts\executed\Jaylem\Scripts_Dec_2016_ITSN043_I_f_v0.1.sql" />
     <Content Include="Database Scripts\executed\Jaylem\Scripts_Dec_2016_ITSN047_I_b_v0.1.sql" />
@@ -1095,7 +1486,15 @@
     <Content Include="Database Scripts\KetankumarGodhani\OLD\12 Apr 2017.sql" />
     <Content Include="Database Scripts\KetankumarGodhani\OLD\14 Apr 2017.sql" />
     <Content Include="Database Scripts\KetankumarGodhani\OLD\Ketankumar_03262017_db_FrozenTaskSP.sql" />
-    <Content Include="Database Scripts\yogesh\script April v0.1.sql" />
+    <Content Include="Database Scripts\nandc\ITJN028-II-II - c  F&amp;L Name Column Upgrade v1.0.sql" />
+    <Content Include="Database Scripts\nandc\nandkumarchavan_04222017_db.sql" />
+    <Content Include="Database Scripts\nandc\Script HR Edit Page ITJN028-VII v1.0.sql" />
+    <Content Include="Database Scripts\nandc\Scripts App Status - ITSN042-IV  v1.0.sql" />
+    <Content Include="Database Scripts\nandc\Scripts REC001-XIII v 1.0.sql" />
+    <Content Include="Database Scripts\executed\yogesh\script May v0.1.sql" />
+    <Content Include="Database Scripts\Leo\Scripts_May-2017_GitUserNameColumn Added.sql" />
+    <Content Include="Database Scripts\executed\yogesh\Script July v0.1.sql" />
+    <Content Include="Database Scripts\yogesh\Script August v0.1.sql" />
     <Content Include="datetime\jq\jquery.ui.position.min.js" />
     <Content Include="datetime\jq\jquery.ui.timepicker.css" />
     <Content Include="datetime\jq\jquery.ui.timepicker.js" />
@@ -1428,6 +1827,7 @@
     <Content Include="img\22222.png" />
     <Content Include="img\33333.png" />
     <Content Include="img\4444.png" />
+    <Content Include="img\ajax-loader.gif" />
     <Content Include="img\audio-icon.png" />
     <Content Include="img\Bar.png" />
     <Content Include="img\Bar1.png" />
@@ -1533,11 +1933,20 @@
     <Content Include="JGCalender\SalesCalender.aspx" />
     <Content Include="JGCalender\scripts\calendarscript.js" />
     <Content Include="JrAnnualCalendar.aspx" />
+    <Content Include="js\angular\scripts\jgappfactories.js" />
+    <Content Include="js\angular\scripts\edituser-angular.js" />
+    <Content Include="js\angular\scripts\TaskSequence-UiGrid.js" />
+    <Content Include="js\angular\templates\sequence-header-template.html" />
+    <Content Include="js\angular\templates\pager-template.html" />
+    <Content Include="js\edituser.js" />
+    <Content Include="js\flipclock.min.js" />
+    <Content Include="js\angular\scripts\jgapp.js" />
     <Content Include="js\chosen.jquery.js" />
     <Content Include="js\clipboard.min.js" />
     <Content Include="js\connected-jcarousel.js" />
     <Content Include="js\Custom\JgPopUp.js" />
     <Content Include="js\dropzone.js" />
+    <Content Include="js\handleCounter.js" />
     <Content Include="js\ice\ice-master.min.js" />
     <Content Include="js\ice\lib\tinymce\changelog.txt" />
     <Content Include="js\ice\lib\tinymce\jscripts\tiny_mce\langs\en.js" />
@@ -1659,31 +2068,44 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.MultiFile.js" />
     <Content Include="js\jquery.multiselect.js" />
+    <Content Include="js\jquery.timepicker.js" />
+    <Content Include="js\jquery.timepicker.min.js" />
+    <Content Include="js\jquery.timepicker.min_old.js" />
     <Content Include="js\jquery.ui.core.js" />
     <Content Include="js\jquery.ui.core.old.js" />
     <Content Include="js\jquery.ui.position.min.js" />
     <Content Include="js\lightslider.js" />
+    <Content Include="js\angular\scripts\TaskSequence.js" />
+    <Content Include="js\TaskSequencing.js" />
+    <Content Include="js\TimeCircles.js" />
     <Content Include="js\TimerFunctions.js" />
+    <Content Include="Location_img\Jellyfish.jpg" />
+    <Content Include="Location_img\Lighthouse.jpg" />
+    <Content Include="Location_img\Tulips.jpg" />
     <Content Include="MCQTest\ExamSummary.aspx" />
     <Content Include="MCQTest\McqTestPage.aspx" />
     <Content Include="MCQTest\ObjectiveExamSummary.aspx" />
     <Content Include="MCQTest\StartExam.aspx" />
     <Content Include="MCQTest\ViewResults.aspx" />
     <Content Include="Properties\PublishProfiles\DeveloperProfile.pubxml.user" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\jquery.magnific-popup.min.js" />
     <Content Include="Scripts\jquery.MultiFile.js" />
+    <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Services\service.aspx" />
     <Content Include="ShowResourcesJr.aspx" />
     <Content Include="Sr_App\add-edit-aptitude-test.aspx" />
     <Content Include="Sr_App\AddEvents.aspx" />
     <Content Include="Sr_App\ajaxcalls.aspx" />
-    <Content Include="Sr_App\AnnualEventWebService.asmx" />
     <Content Include="Sr_App\AttachQuotes.aspx" />
     <Content Include="Sr_App\CallSheet.aspx" />
     <Content Include="Sr_App\ConstructionCalendar.aspx" />
     <Content Include="Sr_App\ContractFooter.aspx" />
     <Content Include="Sr_App\Controls\AddProductLinesControl.ascx" />
-    <Content Include="Sr_App\Controls\TaskGenerator.ascx" />
+    <Content Include="Controls\TaskGenerator.ascx" />
     <Content Include="Sr_App\Controls\ucSubTasks.ascx" />
     <Content Include="Sr_App\Controls\ucTaskHistory.ascx" />
     <Content Include="Sr_App\Controls\ucTaskWorkSpecifications.ascx" />
@@ -1696,9 +2118,11 @@
     <Content Include="Sr_App\DepartmentList.aspx" />
     <Content Include="Sr_App\DesignationAddEdit.aspx" />
     <Content Include="Sr_App\DesignationList.aspx" />
+    <Content Include="Sr_App\edit-sms-template.aspx" />
     <Content Include="Sr_App\edit-html-template.aspx" />
     <Content Include="Sr_App\EditEmailTemplate.aspx" />
     <Content Include="Sr_App\EditInstallUser.aspx" />
+    <Content Include="Sr_App\email-template-maintainance.aspx" />
     <Content Include="Sr_App\html-template-maintainance.aspx" />
     <Content Include="Sr_App\EmailTemplateForVendorCategories.aspx" />
     <Content Include="Sr_App\EmailTemplateForVendors.aspx" />
@@ -1767,6 +2191,7 @@
     <Content Include="Sr_App\TaskList.aspx" />
     <Content Include="Sr_App\Time_Material.aspx" />
     <Content Include="Sr_App\UploadFile.aspx" />
+    <Content Include="Sr_App\UploadFileCustomerDocs.aspx" />
     <Content Include="Sr_App\userbulkupload.aspx" />
     <Content Include="Sr_App\view-aptitude-test.aspx" />
     <Content Include="Sr_App\ViewSalesUser.aspx" />
@@ -1897,9 +2322,10 @@
     <Content Include="login.aspx" />
     <Content Include="ProgressReport.aspx" />
     <Content Include="Prospectmaster.aspx" />
-    <Content Include="Sr_App\Header.ascx" />
+    <Content Include="Sr_App\SRAppHeader.ascx" />
     <Content Include="Sr_App\home.aspx" />
     <Content Include="Sr_App\LeftPanel.ascx" />
+    <Content Include="Location_img\Chrysanthemum.jpg" />
     <Content Include="Sr_App\Literature.aspx" />
     <Content Include="Sr_App\MaterialConfirmation.aspx" />
     <Content Include="Sr_App\new_customer.aspx" />
@@ -1913,6 +2339,8 @@
     <Content Include="Sr_App\TrainingTools.aspx" />
     <Content Include="Sr_App\Vendors.aspx" />
     <Content Include="Sr_App\video.aspx" />
+    <Content Include="js\angular\templates\expandableRowTemplate.html" />
+    <Content Include="unsubscribe.aspx" />
     <Content Include="stafflogin.aspx" />
     <Content Include="StaticReport.aspx" />
     <Content Include="Styles\dd.css" />
@@ -1924,6 +2352,9 @@
     <Content Include="Synapse.aspx" />
     <Content Include="TestGoogleMap.aspx" />
     <Content Include="upload.aspx" />
+    <Content Include="UploadedFiles\7162015111634AMKoala.jpg" />
+    <Content Include="UploadedFiles\7162015111655AMJellyfish.jpg" />
+    <Content Include="UploadeProfile\default.jpg" />
     <Content Include="UserControl\UCAddress.ascx" />
     <Content Include="UserControl\ucAuditTrailByUser.ascx" />
     <Content Include="UserControl\ucRenewSession.ascx" />
@@ -1942,6 +2373,7 @@
     <Content Include="ProspectReport.aspx" />
     <Content Include="Webmail\checkemail.aspx" />
     <Content Include="WebServices\JGWebService.asmx" />
+    <Content Include="Scripts\angular.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation.aspx.cs">
@@ -2021,10 +2453,6 @@
     <Compile Include="Sr_App\add-edit-aptitude-test.aspx.designer.cs">
       <DependentUpon>add-edit-aptitude-test.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sr_App\AnnualEventWebService.asmx.cs">
-      <DependentUpon>AnnualEventWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Sr_App\Controls\ucSubTasks.ascx.cs">
       <DependentUpon>ucSubTasks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2067,12 +2495,26 @@
     <Compile Include="Sr_App\DesignationList.aspx.designer.cs">
       <DependentUpon>DesignationList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sr_App\edit-sms-template.aspx.cs">
+      <DependentUpon>edit-sms-template.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sr_App\edit-sms-template.aspx.designer.cs">
+      <DependentUpon>edit-sms-template.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sr_App\edit-html-template.aspx.cs">
       <DependentUpon>edit-html-template.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sr_App\edit-html-template.aspx.designer.cs">
       <DependentUpon>edit-html-template.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sr_App\email-template-maintainance.aspx.cs">
+      <DependentUpon>email-template-maintainance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sr_App\email-template-maintainance.aspx.designer.cs">
+      <DependentUpon>email-template-maintainance.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sr_App\html-template-maintainance.aspx.cs">
       <DependentUpon>html-template-maintainance.aspx</DependentUpon>
@@ -2123,6 +2565,10 @@
     <Compile Include="Sr_App\UploadFile.aspx.designer.cs">
       <DependentUpon>UploadFile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sr_App\UploadFileCustomerDocs.aspx.cs">
+      <DependentUpon>UploadFileCustomerDocs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Sr_App\userbulkupload.aspx.cs">
       <DependentUpon>userbulkupload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2143,6 +2589,13 @@
     </Compile>
     <Compile Include="Sr_App\ViewSalesUser.aspx.designer.cs">
       <DependentUpon>ViewSalesUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="unsubscribe.aspx.cs">
+      <DependentUpon>unsubscribe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="unsubscribe.aspx.designer.cs">
+      <DependentUpon>unsubscribe.aspx</DependentUpon>
     </Compile>
     <Compile Include="stafflogin.aspx.cs">
       <DependentUpon>stafflogin.aspx</DependentUpon>
@@ -2406,11 +2859,11 @@
     <Compile Include="Sr_App\Controls\AddProductLinesControl.ascx.designer.cs">
       <DependentUpon>AddProductLinesControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Sr_App\Controls\TaskGenerator.ascx.cs">
+    <Compile Include="Controls\TaskGenerator.ascx.cs">
       <DependentUpon>TaskGenerator.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sr_App\Controls\TaskGenerator.ascx.designer.cs">
+    <Compile Include="Controls\TaskGenerator.ascx.designer.cs">
       <DependentUpon>TaskGenerator.ascx</DependentUpon>
     </Compile>
     <Compile Include="Sr_App\Controls\ucTaskWorkSpecifications.ascx.cs">
@@ -2717,7 +3170,6 @@
     </Compile>
     <Compile Include="Sr_App\EditUser.aspx.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sr_App\EditUser.aspx.designer.cs">
       <DependentUpon>EditUser.aspx</DependentUpon>
@@ -2811,12 +3263,12 @@
     <Compile Include="Prospectmaster.aspx.designer.cs">
       <DependentUpon>Prospectmaster.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sr_App\Header.ascx.cs">
-      <DependentUpon>Header.ascx</DependentUpon>
+    <Compile Include="Sr_App\SRAppHeader.ascx.cs">
+      <DependentUpon>SRAppHeader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sr_App\Header.ascx.designer.cs">
-      <DependentUpon>Header.ascx</DependentUpon>
+    <Compile Include="Sr_App\SRAppHeader.ascx.designer.cs">
+      <DependentUpon>SRAppHeader.ascx</DependentUpon>
     </Compile>
     <Compile Include="Sr_App\home.aspx.cs">
       <DependentUpon>home.aspx</DependentUpon>
@@ -3004,9 +3456,12 @@
     <Folder Include="CustomerDocs\VendorEmailDocument\" />
     <Folder Include="CustomerDocs\VendorQuotes\" />
     <Folder Include="Database Scripts\Bhavik\Nov\" />
+    <Folder Include="Database Scripts\Deep\" />
     <Folder Include="Database Scripts\Dipavali\" />
     <Folder Include="Database Scripts\Jaylem\" />
     <Folder Include="Database Scripts\Shekhar\" />
+    <Folder Include="Employee\ProfilePictures\" />
+    <Folder Include="Employee\Resume\" />
     <Folder Include="fileman\aspnet_client\system_web\2_0_50727\" />
     <Folder Include="fileman\aspnet_client\system_web\4_0_30319\" />
     <Folder Include="fileman\tmp\" />
@@ -3014,12 +3469,9 @@
     <Folder Include="fileman\Uploads\FLV\" />
     <Folder Include="fileman\Uploads\Images\" />
     <Folder Include="InvoicePdf\" />
-    <Folder Include="Location_img\" />
     <Folder Include="Resources\" />
     <Folder Include="Sr_App\MailDocument\MailAttachments\" />
     <Folder Include="Sr_App\UploadedFile\" />
-    <Folder Include="UploadedFiles\" />
-    <Folder Include="UploadeProfile\" />
     <Folder Include="UserImages\" />
   </ItemGroup>
   <ItemGroup>
@@ -3104,12 +3556,26 @@
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\JG_Prospect.BLL\JG_Prospect.BLL.csproj">
-      <Project>{B99F65CE-3A46-4081-9404-902B25F3D653}</Project>
+      <Project>{b99f65ce-3a46-4081-9404-902b25f3d653}</Project>
       <Name>JG_Prospect.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\JG_Prospect.Common\JG_Prospect.Common.csproj">
-      <Project>{A445BB8A-2C2E-4144-93E8-6E6D79EDA646}</Project>
+      <Project>{a445bb8a-2c2e-4144-93e8-6e6d79eda646}</Project>
       <Name>JG_Prospect.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\JG_Prospect.DAL\JG_Prospect.DAL.csproj">
@@ -3132,7 +3598,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1660/</IISUrl>
+          <IISUrl>http://localhost:2724/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

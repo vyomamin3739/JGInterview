@@ -50,6 +50,11 @@ namespace JG_Prospect.BLL
             return CustomDAL.Instance.DeleteCustomMaterialList(id);//, productTypeId, estimateId);
         }
 
+        public bool DeleteCustomerLocationPicsByName(string picname)
+        {
+            return CustomDAL.Instance.DeleteCustomerLocationPicsByName(picname);
+        }
+
         public bool DeleteWorkorders(string soldJobId)
         {
             return CustomDAL.Instance.DeleteWorkorders(soldJobId);

@@ -15,9 +15,6 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using JG_Prospect.App_Code;
 using JG_Prospect.Common;
-using System.Data.Common;
-using JG_Prospect.DAL.Database;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace JG_Prospect.Sr_App
 {
@@ -46,7 +43,6 @@ namespace JG_Prospect.Sr_App
             CommonFunction.AuthenticateUser();
 
             RadWindow2.VisibleOnPageLoad = false;
-
             if (!IsPostBack)
             {
                 //Hide Insert,Edit Delete.....
@@ -63,7 +59,7 @@ namespace JG_Prospect.Sr_App
                     if (usertType == Admin)
                     {
                         btnAddEvent.Visible = true;
-                        //A4.Visible = false;
+                        A4.Visible = false;
                         //  Response.Redirect("/home.aspx");
                     }
                     else if (Session["loginid"] != null)
@@ -72,26 +68,7 @@ namespace JG_Prospect.Sr_App
                     }
                 }
                 Session["AppType"] = "SrApp";
-                //LoadCalendar();
-
-
-                //----- Start DP ------
-
-                
-                if (!IsPostBack)
-                {
-                    drpTimeZone.DataSource = TimeZoneInfo.GetSystemTimeZones();
-                    drpTimeZone.DataTextField = "DisplayName";
-                    drpTimeZone.DataValueField = "Id";
-                    drpTimeZone.DataBind();
-
-
-                    FillMyCalendarDropDown();
-                    FillInviteUserDropDown();
-                    BindEventCalendar();
-                }
-                //------ End DP -----
-                
+                LoadCalendar();
             }
 
         }
@@ -99,11 +76,6 @@ namespace JG_Prospect.Sr_App
         #endregion
 
         #region '--Control Events--'
-
-        protected void drpMyCalendar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindEventByCalendar(Convert.ToInt32(drpMyCalendar.SelectedValue));
-        }
 
         protected void lbtCustomerID_Click(object sender, EventArgs e)
         {
@@ -114,45 +86,45 @@ namespace JG_Prospect.Sr_App
 
         protected void btnsave_Click(object sender, EventArgs e)
         {
-            //AnnualEvent a = new AnnualEvent();
-            //a.EventName = txtEventName.Text;
-            //a.Eventdate = txtHolidayDate.Text;
-            //a.id = Convert.ToInt32(lbtCustomerID.Text);
-            //new_customerBLL.Instance.UpdateAnnualEvent(a);
-            //BindCalendar();
+            AnnualEvent a = new AnnualEvent();
+            a.EventName = txtEventName.Text;
+            a.Eventdate = txtHolidayDate.Text;
+            a.id = Convert.ToInt32(lbtCustomerID.Text);
+            new_customerBLL.Instance.UpdateAnnualEvent(a);
+            BindCalendar();
 
-            //int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-            //ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Updated Successfully');", true);
-            //RadWindow2.VisibleOnPageLoad = false;
-            ///*
-            //            try
-            //            { 
-            //                //Adding Record to Database through Stored Procedure
-            //                con = new SqlConnection(strcon);
-            //                cmd = new SqlCommand("UpdateAnnualEvent", con);
-            //                cmd.CommandType = CommandType.StoredProcedure;
+            int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Updated Successfully');", true);
+            RadWindow2.VisibleOnPageLoad = false;
+            /*
+                        try
+                        { 
+                            //Adding Record to Database through Stored Procedure
+                            con = new SqlConnection(strcon);
+                            cmd = new SqlCommand("UpdateAnnualEvent", con);
+                            cmd.CommandType = CommandType.StoredProcedure;
 
 
-            //                cmd.Parameters.AddWithValue("@Eventname", txtEventName.Text);
-            //                cmd.Parameters.AddWithValue("@EventDate", txtHolidayDate.Text);
-            //                cmd.Parameters.AddWithValue("@ID", lbtCustomerID.Text);
+                            cmd.Parameters.AddWithValue("@Eventname", txtEventName.Text);
+                            cmd.Parameters.AddWithValue("@EventDate", txtHolidayDate.Text);
+                            cmd.Parameters.AddWithValue("@ID", lbtCustomerID.Text);
                 
-            //                con.Open();
-            //                cmd.ExecuteNonQuery();
-            //                con.Close();
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
 
-            //                BindCalendar();
-            //                //Clear All Data after submitting.....               
-            //                ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Updated Successfully');", true);
-            //                RadWindow2.VisibleOnPageLoad = false;
-            //            }
+                            BindCalendar();
+                            //Clear All Data after submitting.....               
+                            ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Updated Successfully');", true);
+                            RadWindow2.VisibleOnPageLoad = false;
+                        }
 
-            //            catch
-            //            {
-            //                //return 0;
-            //                //LogManager.Instance.WriteToFlatFile(ex);
-            //            }
-            //           */
+                        catch
+                        {
+                            //return 0;
+                            //LogManager.Instance.WriteToFlatFile(ex);
+                        }
+                       */
 
         }
 
@@ -161,437 +133,121 @@ namespace JG_Prospect.Sr_App
             RadWindow2.VisibleOnPageLoad = false;
         }
 
-          protected void btnCreateCal_Click(object sender, EventArgs e)
-        {
-            mpCalendar.Show();
-        }
-
-
-        protected void btnCalClose_Click(object sender, EventArgs e)
-        {
-            mpCalendar.Hide();
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "al1", "$('#btnCreateEvent').click(function () {callpopupscript();   });", true);
-
-        }
-        protected void btnAddCalendar_Click(object sender, EventArgs e)
-        {
-            EventCalendar a = new EventCalendar();
-            a.CalendarName = txtCalName.Text;
-            a.InsertionDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
-            //For checking duplicate calendar name....
-            DataSet ds = new DataSet();
-            ds = new_customerBLL.Instance.CheckDuplicateCalendarEvent(a);
-            if (ds.Tables[0].Rows.Count == 0)
-            {
-                int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-                a.UserId = userId;
-        
-              if (userId == 0)
-              {
-                  Response.Redirect("../stafflogin.aspx");
-              }
-                // -------- insert record  ----------
-                new_customerBLL.Instance.AddEventCalendar(a);
-                //FillMyCalendarDropDown();
-                Response.Redirect("GoogleCalendarView.aspx");
-                //ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Calendar Added Successfully');", true);
-            }
-            else
-            {
-                //If duplicate Calendar......
-                ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Calendar Name is already exist');", true);
-                ScriptManager.RegisterStartupScript(this.Page, GetType(), "al1", "$('#btnCreateEvent').click(function () {callpopupscript();   });", true);
-
-            }
-        }
-        protected void btnEventSubmit_Click(object sender, EventArgs e)
-        {
-            string NewImageName="";
-            AnnualEvent a = new AnnualEvent();
-
-            a.RecurrenceRule = "";
-            a.EventName = txtEventName.Text;
-            a.Eventdate = txtEventStartDate.Text;
-            a.EventEndDate = txtEventEndDate.Text;
-
-            a.EventStartTime = txtEventStartTime.Text;
-            if (txtEventEndTime.Text == "") {
-                a.EventEndTime ="";
-            }else{
-                a.EventEndTime = txtEventEndTime.Text;
-            }
-            a.EventFile = "";
-            a.TimeZone = drpTimeZone.SelectedValue;
-            a.EventLoc = txtEventLoc.Text;
-            a.EventDesc = txtEventDesc.Text;
-            a.EventCal = Convert.ToInt32(drpEventCalender.SelectedValue);
-            a.EventColor = txtEventColor.Value ;
-            a.EventId = 0;
-            a.MaxOccurance =Convert.ToInt32( txtMaxOccu.Text);
-            a.Interval =Convert.ToInt32( txtInterval.Text);
-
-            if (rdoRepeatEvent.SelectedValue == "")
-            {
-                a.EventRepeat = 0;
-            }
-            else
-            {
-                a.EventRepeat = Convert.ToInt32(rdoRepeatEvent.SelectedValue);
-            }
-            if (chkEventType.SelectedValue == "")
-            {
-                a.EventType = 0;
-            }
-            else
-            {
-                a.EventType = Convert.ToInt32(chkEventType.SelectedValue);
-                                //****************** start DP 19-Jan-17 ******************			
-                if (a.EventType == 2)			
-                {			
-                    DateTime vStartDate = Convert.ToDateTime(txtEventStartDate.Text);			
-                    DateTime vEndDate = Convert.ToDateTime(txtEventEndDate.Text);			
-                    string rrule = "";			
-                    rrule = rrule + "DTSTART:" + vStartDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventStartTime.Text).ToString("hhmmss") + "Z";			
-                    rrule = rrule + "\n\rDTEND:" + vStartDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventEndTime.Text).ToString("hhmmss") + "Z";			
-                    int vMaxOcc = 1;			
-                    int vInterval = 1;			
-                    if (txtMaxOccu.Text != "")			
-                    {			
-                        vMaxOcc = Convert.ToInt16(txtMaxOccu.Text);			
-                    }			
-                    if (txtInterval.Text != "")			
-                    {			
-                        vInterval = Convert.ToInt16(txtInterval.Text);			
-                    }
-                    if (rdoRepeatEvent.SelectedValue == "1")
-                    {
-                        if (txtEventEndDate.Text != "" && txtMaxOccu.Text == "")
-                        {
-                            rrule = rrule + "\n\rRRULE:FREQ=DAILY;UNTIL=" + vEndDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventEndTime.Text).ToString("hhmmss") + "Z" + ";INTERVAL=" + vInterval + ";BYDAY=MO,TU,WE,TH,FR,SA,SU";
-                        }
-                        else
-                        {
-                            rrule = rrule + "\n\rRRULE:FREQ=DAILY;COUNT=" + vMaxOcc + ";INTERVAL=" + vInterval + ";BYDAY=MO,TU,WE,TH,FR,SA,SU";
-                        }
-                    }	
-                    else if (rdoRepeatEvent.SelectedValue == "2")			
-                    {			
-                        if (txtEventEndDate.Text != "" && txtMaxOccu.Text == "")			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=WEEKLY;UNTIL=" + vEndDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventEndTime.Text).ToString("hhmmss") + "Z" + ";INTERVAL=" + vInterval + ";BYDAY=" + vStartDate.ToString("ddd").Substring(0, 2).ToUpper();			
-                        }			
-                        else			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=WEEKLY;COUNT=" + vMaxOcc + ";INTERVAL=" + vInterval + ";BYDAY=" + vStartDate.ToString("ddd").Substring(0, 2).ToUpper();			
-                        }			                        
-                    }			
-                    else if (rdoRepeatEvent.SelectedValue == "3")			
-                    {			
-                        if (txtEventEndDate.Text != "" && txtMaxOccu.Text == "")			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=MONTHLY;UNTIL=" + vEndDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventEndTime.Text).ToString("hhmmss") + "Z" + ";INTERVAL=" + vInterval + ";BYMONTHDAY=" + vStartDate.Day.ToString();			
-                        }			
-                        else			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=MONTHLY;COUNT=" + vMaxOcc + ";INTERVAL=" + vInterval + ";BYMONTHDAY=" + vStartDate.Day.ToString();			
-                        }			                       
-                    }			
-                    else if (rdoRepeatEvent.SelectedValue == "4")			
-                    {			
-                        if (txtEventEndDate.Text != "" && txtMaxOccu.Text == "")			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=YEARLY;UNTIL=" + vEndDate.ToString("yyyyMMdd") + "T" + Convert.ToDateTime(txtEventEndTime.Text).ToString("hhmmss") + "Z" + ";INTERVAL=" + vInterval + ";BYMONTHDAY=" + vStartDate.Day.ToString() + ";BYMONTH=" + vStartDate.Month.ToString();			
-                        }			
-                        else			
-                        {			
-                            rrule = rrule + "\n\rRRULE:FREQ=YEARLY;COUNT=" + vMaxOcc + ";INTERVAL=" + vInterval + ";BYMONTHDAY=" + vStartDate.Day.ToString() + ";BYMONTH=" + vStartDate.Month.ToString();			
-                        }			                        
-                    }			
-			
-                    a.RecurrenceRule = rrule;
-                }			
-                //****************** end DP 19-Jan-17 ******************			
-
-            }
-            int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-            if (userId == 0)
-            {
-                Response.Redirect("../stafflogin.aspx");
-            }
-
-            string strInviteUsers = txtinvite.Value;
-
-            int vMAxEventId = 0;
-            if (hdEventId.Value == "")
-            {
-                DataSet result = new DataSet();
-                try
-                {
-                    SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
-                    {
-                        DbCommand command = database.GetStoredProcCommand("GetMaxNo");
-                        command.CommandType = CommandType.StoredProcedure;
-                        database.AddInParameter(command, "@colname", DbType.String, "ID");
-                        database.AddInParameter(command, "@tblname", DbType.String, "tbl_AnnualEvents");
-                        result = database.ExecuteDataSet(command);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //LogManager.Instance.WriteToFlatFile(ex);
-                }
-                if (result.Tables[0].Rows.Count > 0)
-                {
-                    vMAxEventId = Convert.ToInt32(result.Tables[0].Rows[0]["maxno"].ToString()) + 1;
-                }
-                result.Dispose();
-            }
-            else
-            {
-                a.EventId = Convert.ToInt32(hdEventId.Value);
-                vMAxEventId = Convert.ToInt32(hdEventId.Value);
-                a.EventFile = hdEventFile.Value;
-
-            }
-            //For checking duplicate event....
-            DataSet ds = new DataSet();
-            ds = new_customerBLL.Instance.CheckDuplicateAnnualEvent(a);
-            if (ds.Tables[0].Rows.Count == 0)
-            {
-                a.EventAddedBy = userId;
-
-                try
-                {
-                   if (flEventFile.HasFile)
-                    {
-                        var originalDirectory = new DirectoryInfo(Server.MapPath(JGConstant.EventCalendar_Upload_Folder));
-
-                        string imageName = Path.GetFileName(flEventFile.FileName);
-                        NewImageName =vMAxEventId+"_"+ userId + "_"+imageName;
-                        a.EventFile = NewImageName;
-                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), NewImageName);
-                        bool isExists = System.IO.Directory.Exists(originalDirectory.ToString());
-
-                        if (!isExists)
-                            System.IO.Directory.CreateDirectory(originalDirectory.ToString());
-
-                        flEventFile.SaveAs(pathString);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // error
-                }
-                try
-                {
-                    // add-edit annual events
-                    new_customerBLL.Instance.AddAnnualEvent(a);
-
-                    if (strInviteUsers != "")
-                    {
-                        // send an email to invites
-                        string strbody = "";
-                        strbody = strbody + "<p class='MsoNormal'><span style='font-size: 13.3333px;'>Dear User,On behalf of JMGrove Construction &amp; Supply LLC, I would like to invite you for this Event.</span></p>";
-                        strbody = strbody + " <p class='MsoNormal'><span style='font-size: 13.3333px;'><br /></span></p> ";
-                        strbody = strbody + " <p class='MsoNormal'><span style='font-size: 13.3333px;'>If you have any questions please contact the HR department at</span></p> ";
-                        strbody = strbody + " <p class='MsoNormal'><span style='font-size: 13.3333px;'>hr@jmgroveconstructions.com</span></p> ";
-                        strbody = strbody + "  <p class='MsoNormal' style='font-size: 13.3333px;'><br /></p> ";
-
-                        string strHeader = " <div style='font-size: 13.3333px;'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/header.jpg' /></div>";
-                        strHeader = strHeader + "<div style='font-size: 13.3333px;'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/logo.gif' /></div>";
-
-                        string strFooter = "";
-                        strFooter = strFooter + " <br />";
-                        strFooter = strFooter + " <div> ";
-                        strFooter = strFooter + " <p style='font-size: 13.3333px;'>J.M. Grove - Construction &amp; Supply&nbsp;<br /> ";
-                        strFooter = strFooter + " <a href='http://web.jmgrovebuildingsupply.com/Sr_App/jmgroveconstruction.com'>jmgroveconstruction.com&nbsp;</a><br /> ";
-                        strFooter = strFooter + " <a href='http://jmgrovebuildingsupply.com/'>http://jmgrovebuildingsupply.com/</a><br />";
-                        strFooter = strFooter + " <a href='http://web.jmgrovebuildingsupply.com/login.aspx'>http://web.jmgrovebuildingsupply.com/login.aspx</a><br />";
-                        strFooter = strFooter + " <a href='http://jmgroverealestate.com/'>http://jmgroverealestate.com/</a><br />";
-                        strFooter = strFooter + " <br />";
-                        strFooter = strFooter + " 72 E Lancaster Ave<br />";
-                        strFooter = strFooter + " Malvern, Pa 19355<br />";
-                        strFooter = strFooter + " Human Resources<br />";
-                        strFooter = strFooter + " Office:(215) 274-5182 Ext. 4<br />";
-                        strFooter = strFooter + " <a href='mailto:Hr@jmgroveconstruction.com'>Hr@jmgroveconstruction.com</a></p> ";
-                        strFooter = strFooter + " <div style='font-size: 13.3333px;'><a href='https://www.facebook.com/JMGrove1com/'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/fb.png' /></a><a href='http://s49.photobucket.com/user/jmg1/media/twitter_zpsiiplyhiq.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/tw.png' /></a><a href='http://s49.photobucket.com/user/jmg1/media/236e0d0b-832c-4543-81a6-f6c460d302f0_zpsl4nh3ane.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/gpls.png' /></a><a href='http://s49.photobucket.com/user/jmg1/media/pinterest_zpspioq6pve.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/pint.png' /></a><br />";
-                        strFooter = strFooter + " <a href='http://s49.photobucket.com/user/jmg1/media/twitter_zpsiiplyhiq.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/hbt.png' /></a><a href='http://s49.photobucket.com/user/jmg1/media/youtube_zpsxyhfmm1b.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/yt.png' /></a><a href='http://s49.photobucket.com/user/jmg1/media/c3894afd-7a37-43e2-917c-5ffb7a5036a2_zpschul0pqd.png.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/houzz.png' /></a>&nbsp;<a href='http://s49.photobucket.com/user/jmg1/media/4478596b-67f4-444e-992a-624af3e56255_zpsoi8p1uyv.jpg.html'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/linkin.jpg' /></a></div>";
-                        strFooter = strFooter + " <div style='font-size: 13.3333px;'><img src='http://web.jmgrovebuildingsupply.com/CustomerDocs/DefaultEmailContents/footer.png' /></div></div>";
-
-                    
-
-                        foreach (string useremail in strInviteUsers.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            string emailId = useremail.ToString();
-                           
-                            string strsubject = "An Event Invite";
-                            string emailbody="";
-                            emailbody = strHeader + strbody + strFooter;
-
-                            List<Attachment> lstAttachments = new List<Attachment>();
-                            // your remote SMTP server IP.
-                            
-                            string sourceDir = Server.MapPath(JGConstant.EventCalendar_Upload_Folder);
-                            if (File.Exists(sourceDir))
-                            {
-                                Attachment attachment = new Attachment(System.IO.Path.Combine(sourceDir, NewImageName));
-                                attachment.Name = Path.GetFileName(System.IO.Path.Combine(sourceDir, NewImageName));
-                                lstAttachments.Add(attachment);
-                            }
-                            
-                            CommonFunction.SendEmail("", emailId, strsubject, emailbody, lstAttachments);
-                        }
-                    }
-                    Response.Redirect("GoogleCalendarView.aspx");
-                    //ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Added Successfully');", true);
-                }
-                catch(Exception ex)
-                {
-                    // insert event error
-                }
-            }
-            else
-            {
-                //If duplicate Event......
-                ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Name for paricular date is already exist');", true);
-            }
-        }
-        
-
-        //--------- Start DP ---------      
-        protected void rsAppointments_OnNavigationCommand(object sender, SchedulerNavigationCommandEventArgs e)
-        {
-            BindEventCalendar();
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "al1", "$('#btnCreateEvent').click(function () {callpopupscript();   });", true);
-        }
-        protected void rsAppointments_AppointmentDataBound(object sender, SchedulerEventArgs e)
-        {
-            string col = e.Appointment.Attributes["EventColor"];
-            if (col != "")
-            {
-                System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(col);
-                e.Appointment.BackColor = color;
-            }
-        }
-        //------- End DP --------
-
         protected void rsAppointments_AppointmentClick(object sender, SchedulerEventArgs e)
         {
-            string hEvId = e.Appointment.Attributes["ID"];
-            ScriptManager.RegisterStartupScript(Page, GetType(), "script2", "populateEvent(" + hEvId + ");", true);
-            //if (usertType == Admin)
-            //{
-            //    con = new SqlConnection(strcon);
-            //    int ID = Convert.ToInt32(e.Appointment.ID);
-            //    string Even = e.Appointment.Subject;
-            //    string[] str = Even.Split(' ');
-            //    string strResult = str[0];
-            //    ViewState["ID"] = ID;
-            //    string year = Convert.ToString(System.DateTime.Now.Year);
+            if (usertType == Admin)
+            {
+                con = new SqlConnection(strcon);
+                int ID = Convert.ToInt32(e.Appointment.ID);
+                string Even = e.Appointment.Subject;
+                string[] str = Even.Split(' ');
+                string strResult = str[0];
+                ViewState["ID"] = ID;
+                string year = Convert.ToString(System.DateTime.Now.Year);
 
-            //    if (strResult != "InterViewDetails")
-            //    {
-            //        lblDesigna.Visible = false;
-            //        lblApplicant.Visible = false;
-            //        lblPhone.Visible = false;
-            //        lblDesigna.Visible = false;
-            //        lblAdded.Visible = false;
-            //        lblAplicantfirstName.Visible = false;
-            //        lblPhoneNo.Visible = false;
-            //        lblPhoneNo.Visible = false;
-            //        lblDesignation.Visible = false;
-            //        lblAddedBy.Visible = false;
-            //        lbtLastName.Visible = false;
-            //        Label2.Visible = true;
-            //        txtEventName.Visible = true;
-            //        Label2.Visible = true;
-            //        txtEventName.Visible = true;
-            //        Label3.Visible = true;
-            //        txtHolidayDate.Visible = true;
-            //        btnsave.Visible = true;
-            //        btnDelete.Visible = true;
+                if (strResult != "InterViewDetails")
+                {
+                    lblDesigna.Visible = false;
+                    lblApplicant.Visible = false;
+                    lblPhone.Visible = false;
+                    lblDesigna.Visible = false;
+                    lblAdded.Visible = false;
+                    lblAplicantfirstName.Visible = false;
+                    lblPhoneNo.Visible = false;
+                    lblPhoneNo.Visible = false;
+                    lblDesignation.Visible = false;
+                    lblAddedBy.Visible = false;
+                    lbtLastName.Visible = false;
+                    Label2.Visible = true;
+                    txtEventName.Visible = true;
+                    Label2.Visible = true;
+                    txtEventName.Visible = true;
+                    Label3.Visible = true;
+                    txtHolidayDate.Visible = true;
+                    btnsave.Visible = true;
+                    btnDelete.Visible = true;
 
-            //        //string query = "select * from tbl_AnnualEvents where DATEPART(yyyy,EventDate)='" + year + "'";// where id='" + ID + "'";
-            //        string query = "select * from tbl_AnnualEvents where id='" + ID + "'";
-            //        da = new SqlDataAdapter(query, con);
-            //        ds = new DataSet();
-            //        da.Fill(ds);
-            //        if (ds.Tables[0].Rows.Count > 0)
-            //        {
-            //            lbtCustomerID.Text = Convert.ToString(ds.Tables[0].Rows[0]["ID"]);
-            //            txtEventName.Text = Convert.ToString(ds.Tables[0].Rows[0]["EventName"]);
-            //            string EventDate = Convert.ToString(ds.Tables[0].Rows[0]["EventDate"]);
-            //            DateTime dat = Convert.ToDateTime(EventDate);
-            //            txtHolidayDate.Text = dat.ToString("MM/dd/yyyy"); ;
-            //            RadWindow2.VisibleOnPageLoad = true;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        lblAplicantfirstName.Visible = true;
-            //        lblPhoneNo.Visible = true;
-            //        lblPhoneNo.Visible = true;
-            //        lblDesignation.Visible = true;
-            //        lblAddedBy.Visible = true;
-            //        lbtLastName.Visible = true;
-            //        Label2.Visible = false;
-            //        txtEventName.Visible = false;
-            //        Label2.Visible = false;
-            //        txtEventName.Visible = false;
-            //        Label3.Visible = false;
-            //        txtHolidayDate.Visible = false;
-            //        lblDesigna.Visible = true;
-            //        lblApplicant.Visible = true;
-            //        lblPhone.Visible = true;
-            //        lblDesigna.Visible = true;
-            //        lblAdded.Visible = true;
-            //        btnsave.Visible = false;
-            //        btnDelete.Visible = false;
+                    //string query = "select * from tbl_AnnualEvents where DATEPART(yyyy,EventDate)='" + year + "'";// where id='" + ID + "'";
+                    string query = "select * from tbl_AnnualEvents where id='" + ID + "'";
+                    da = new SqlDataAdapter(query, con);
+                    ds = new DataSet();
+                    da.Fill(ds);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        lbtCustomerID.Text = Convert.ToString(ds.Tables[0].Rows[0]["ID"]);
+                        txtEventName.Text = Convert.ToString(ds.Tables[0].Rows[0]["EventName"]);
+                        string EventDate = Convert.ToString(ds.Tables[0].Rows[0]["EventDate"]);
+                        DateTime dat = Convert.ToDateTime(EventDate);
+                        txtHolidayDate.Text = dat.ToString("MM/dd/yyyy"); ;
+                        RadWindow2.VisibleOnPageLoad = true;
+                    }
+                }
+                else
+                {
+                    lblAplicantfirstName.Visible = true;
+                    lblPhoneNo.Visible = true;
+                    lblPhoneNo.Visible = true;
+                    lblDesignation.Visible = true;
+                    lblAddedBy.Visible = true;
+                    lbtLastName.Visible = true;
+                    Label2.Visible = false;
+                    txtEventName.Visible = false;
+                    Label2.Visible = false;
+                    txtEventName.Visible = false;
+                    Label3.Visible = false;
+                    txtHolidayDate.Visible = false;
+                    lblDesigna.Visible = true;
+                    lblApplicant.Visible = true;
+                    lblPhone.Visible = true;
+                    lblDesigna.Visible = true;
+                    lblAdded.Visible = true;
+                    btnsave.Visible = false;
+                    btnDelete.Visible = false;
 
-            //        int id = Convert.ToInt32(ViewState["ID"]);
-            //        DataSet ds = AdminBLL.Instance.GetInterviewDetails(id);
-            //        int applicantId = 0;
-            //        if (ds.Tables[0].Rows.Count > 0)
-            //        {
-            //            applicantId = Convert.ToInt32(ds.Tables[0].Rows[0]["ApplicantId"]);
-            //            ViewState["ApplicantId"] = applicantId;
-            //            lbtCustomerID.Text = Convert.ToString(ds.Tables[0].Rows[0]["ID"]);
-            //            lblAplicantfirstName.Text = Convert.ToString(ds.Tables[0].Rows[0]["FristName"]);
-            //            lblPhoneNo.Text = Convert.ToString(ds.Tables[0].Rows[0]["Phone"]);
-            //            lblDesignation.Text = Convert.ToString(ds.Tables[0].Rows[0]["Designation"]);
-            //            int a = Convert.ToInt32(ds.Tables[0].Rows[0]["EventAddedBy"]);
-            //            string query = "select * from tblUsers where id='" + a + "'";
-            //            da = new SqlDataAdapter(query, con);
-            //            DataSet dsid = new DataSet();
-            //            da.Fill(dsid);
+                    int id = Convert.ToInt32(ViewState["ID"]);
+                    DataSet ds = AdminBLL.Instance.GetInterviewDetails(id);
+                    int applicantId = 0;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        applicantId = Convert.ToInt32(ds.Tables[0].Rows[0]["ApplicantId"]);
+                        ViewState["ApplicantId"] = applicantId;
+                        lbtCustomerID.Text = Convert.ToString(ds.Tables[0].Rows[0]["ID"]);
+                        lblAplicantfirstName.Text = Convert.ToString(ds.Tables[0].Rows[0]["FristName"]);
+                        lblPhoneNo.Text = Convert.ToString(ds.Tables[0].Rows[0]["Phone"]);
+                        lblDesignation.Text = Convert.ToString(ds.Tables[0].Rows[0]["Designation"]);
+                        int a = Convert.ToInt32(ds.Tables[0].Rows[0]["EventAddedBy"]);
+                        string query = "select * from tblUsers where id='" + a + "'";
+                        da = new SqlDataAdapter(query, con);
+                        DataSet dsid = new DataSet();
+                        da.Fill(dsid);
 
-            //            if (dsid.Tables[0].Rows.Count > 0)
-            //            {
-            //                lblAddedBy.Text = Convert.ToString(dsid.Tables[0].Rows[0]["Username"]);
-            //            }
-            //            lbtLastName.Text = Convert.ToString(ds.Tables[0].Rows[0]["LastName"]);
+                        if (dsid.Tables[0].Rows.Count > 0)
+                        {
+                            lblAddedBy.Text = Convert.ToString(dsid.Tables[0].Rows[0]["Username"]);
+                        }
+                        lbtLastName.Text = Convert.ToString(ds.Tables[0].Rows[0]["LastName"]);
 
-            //            RadWindow2.VisibleOnPageLoad = true;
-            //        }
-            //    }
-            //}
+                        RadWindow2.VisibleOnPageLoad = true;
+                    }
+                }
+            }
 
-            //else
-            //{
-            //    RadWindow2.VisibleOnPageLoad = false;
-            //}
+            else
+            {
+                RadWindow2.VisibleOnPageLoad = false;
+            }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            //AnnualEvent a = new AnnualEvent();
-            //a.id = Convert.ToInt32(lbtCustomerID.Text);
-            //new_customerBLL.Instance.DeleteAnnualEvent(a);
-            //BindCalendar();
+            AnnualEvent a = new AnnualEvent();
+            a.id = Convert.ToInt32(lbtCustomerID.Text);
+            new_customerBLL.Instance.DeleteAnnualEvent(a);
+            BindCalendar();
 
-            //int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-            //ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Deleted Successfully');", true);
-            //RadWindow2.VisibleOnPageLoad = false;
+            int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "al", "alert('Event Deleted Successfully');", true);
+            RadWindow2.VisibleOnPageLoad = false;
             /*
             try
             {
@@ -679,7 +335,8 @@ namespace JG_Prospect.Sr_App
                 txtOfferConPassword.Attributes.Add("value", "jmgrove");
                 ViewState["Email"] = lnkEmail.Text;
 
-                if (selValue == "OfferMade")
+                //if (selValue == "OfferMade")
+                if (selValue == Convert.ToInt16(JGConstant.InstallUserStatus.OfferMade).ToString())
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Overlay", "OverlayPopupOfferMade();", true);
                     return;
@@ -692,13 +349,15 @@ namespace JG_Prospect.Sr_App
             string status = e.Appointment.Attributes["Status"];
             //string status = Convert.ToString(DataBinder.Eval(e.Appointment.DataItem, "Status"));
             DropDownList ddlStatus = (DropDownList)e.Container.FindControl("ddlStatus");
+            ddlStatus = JG_Prospect.Utilits.FullDropDown.FillUserStatus(ddlStatus, "", "", false);
             LinkButton lbtnReSchedule = (LinkButton)e.Container.FindControl("lbtnReSchedule");
-            
+
             if (ddlStatus != null && !string.IsNullOrEmpty(status) && ddlStatus.Items.FindByValue(status) != null)
             {
                 ddlStatus.SelectedValue = status;
 
-                if (ddlStatus.SelectedValue == "InterviewDate")
+                //if (ddlStatus.SelectedValue == "InterviewDate")
+                if (ddlStatus.SelectedValue == Convert.ToInt16(JGConstant.InstallUserStatus.InterviewDate).ToString())
                     lbtnReSchedule.Visible = true;
                 else
                     lbtnReSchedule.Visible = false;
@@ -958,6 +617,10 @@ namespace JG_Prospect.Sr_App
                 {
                     DataSet dsUser = TaskGeneratorBLL.Instance.GetInstallUserDetails(Convert.ToInt32(userID));
 
+                    DataSet dsTaskDetails = TaskGeneratorBLL.Instance.GetTaskDetails(Convert.ToInt32(strTaskId));
+                    DataTable dtTaskMasterDetails = dsTaskDetails.Tables[0];
+                    String Title = dtTaskMasterDetails.Rows[0]["Title"].ToString();
+
                     string emailId = dsUser.Tables[0].Rows[0]["Email"].ToString();
                     string FName = dsUser.Tables[0].Rows[0]["FristName"].ToString();
                     string LName = dsUser.Tables[0].Rows[0]["LastName"].ToString();
@@ -969,8 +632,8 @@ namespace JG_Prospect.Sr_App
                     string strsubject = dsEmailTemplate.Tables[0].Rows[0]["HTMLSubject"].ToString();
 
                     strBody = strBody.Replace("#Fname#", fullname);
-                    strBody = strBody.Replace("#TaskLink#", string.Format("{0}?TaskId={1}", Request.Url.ToString().Split('?')[0], strTaskId));
-
+                    strBody = strBody.Replace("#TaskLink#", string.Format("{0}?TaskId={1}", String.Concat(Request.Url.Scheme, Uri.SchemeDelimiter, Request.Url.Host.Split('?')[0], "/Sr_App/TaskGenerator.aspx"), strTaskId));
+                    strBody = strBody.Replace("#TaskTest#", string.Format("TaskID#:{0}-I:Title: {1}", strTaskId, Title));
                     strBody = strHeader + strBody + strFooter;
 
                     List<Attachment> lstAttachments = new List<Attachment>();
@@ -1086,25 +749,6 @@ namespace JG_Prospect.Sr_App
             }
             RadWindow2.VisibleOnPageLoad = false;
         }
-
-        //----------- Start DP ------------
-
-        public void BindEventByCalendar(int calid)
-        {
-            DataSet ds = AdminBLL.Instance.GetEventByCalendar(calid);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                rsAppointments.DataSource = ds.Tables[0];
-                rsAppointments.DataBind();
-            }
-            else
-            {
-                rsAppointments.Appointments.Clear();
-                rsAppointments.Rebind();
-            }
-            RadWindow2.VisibleOnPageLoad = false;
-        }
-        // ---------- End DP ------------
 
         public void BindHRCompanyCalendar()
         {
@@ -1230,118 +874,6 @@ namespace JG_Prospect.Sr_App
             {
                 UtilityBAL.AddException("CreateSalesUser-SendEmail", Session["loginid"] == null ? "" : Session["loginid"].ToString(), ex.Message, ex.StackTrace);
             }
-        }
-
-        private void FillMyCalendarDropDown()
-        {
-            //---------- start DP ------------
-            int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-     
-            if (userId == 0 )
-            {
-                Response.Redirect("../stafflogin.aspx");
-            }
-            else if (Session[JG_Prospect.Common.SessionKey.Key.Username.ToString()].ToString() == "")
-            {
-                Response.Redirect("../stafflogin.aspx");
-            }
-
-            string vUsername = Session[JG_Prospect.Common.SessionKey.Key.Username.ToString()].ToString();
-
-            DataSet result = new DataSet();
-            try
-            {
-                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
-                {
-                    DbCommand command = database.GetStoredProcCommand("GetAllEventCalendar");
-                    command.CommandType = CommandType.StoredProcedure;
-                    database.AddInParameter(command, "@UserId", DbType.Int32, userId);
-                    result = database.ExecuteDataSet(command);
-                }
-            }
-            catch (Exception ex)
-            {
-                //LogManager.Instance.WriteToFlatFile(ex);
-            }
-
-            if (result.Tables.Count > 0 && result.Tables[0].Rows.Count > 0)
-            {
-                drpMyCalendar.Items.Clear();
-                drpEventCalender.Items.Clear();
-
-                ListItem lstMyCal = new ListItem();
-                lstMyCal.Text = "My Calendar";
-                lstMyCal.Value = "";
-                drpMyCalendar.Items.Add(lstMyCal);
-                drpEventCalender.Items.Add(lstMyCal);
-
-
-                for (int i = 0; i < result.Tables[0].Rows.Count; i++)
-                {
-                    ListItem lst = new ListItem();
-                    lst.Text = result.Tables[0].Rows[i]["CalendarName"].ToString();
-                    lst.Value = result.Tables[0].Rows[i]["ID"].ToString();
-                    drpEventCalender.Items.Add(lst);
-                    drpMyCalendar.Items.Add(lst);
-                }
-            }
-            else
-            {
-                
-                EventCalendar a = new EventCalendar();
-                a.CalendarName = vUsername +" Calendar";
-                a.InsertionDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
-                //For checking duplicate calendar name....
-                a.UserId = userId;
-
-                
-                // -------- insert record  ----------
-                new_customerBLL.Instance.AddEventCalendar(a);
-                FillMyCalendarDropDown();
-            }
-            result.Dispose();
-            //------------ End DP ------------
-        }
-
-
-        private void FillInviteUserDropDown()
-        {
-            //---------- start DP ------------
-            int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-            DataSet result = new DataSet();
-            try
-            {
-                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
-                {
-                    DbCommand command = database.GetStoredProcCommand("GetInstallUsersByStatus");
-                    command.CommandType = CommandType.StoredProcedure;
-                    database.AddInParameter(command, "@Status", DbType.String, "1");
-                    result = database.ExecuteDataSet(command);
-                }
-            }
-            catch (Exception ex)
-            {
-                //LogManager.Instance.WriteToFlatFile(ex);
-            }
-
-            if (result.Tables[0].Rows.Count > 0)
-            {
-                drpInviteEmail.Items.Clear();
-            
-                ListItem lstMyCal = new ListItem();
-                lstMyCal.Text = "<--Select-->";
-                lstMyCal.Value = "";
-                drpInviteEmail.Items.Add(lstMyCal);
-                for (int i = 0; i < result.Tables[0].Rows.Count; i++)
-                {
-                    ListItem lst = new ListItem();
-                    lst.Text = result.Tables[0].Rows[i]["Email"].ToString();
-                    lst.Value = result.Tables[0].Rows[i]["ID"].ToString();
-                    drpInviteEmail.Items.Add(lst);
-               }
-            }
-            result.Dispose();
-            //------------ End DP ------------
         }
 
         #endregion

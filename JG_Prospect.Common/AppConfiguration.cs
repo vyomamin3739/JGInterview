@@ -20,5 +20,7 @@ namespace JG_Prospect.Common
                 return m_DomainName;
             }
         }
+
+       
     }
 }

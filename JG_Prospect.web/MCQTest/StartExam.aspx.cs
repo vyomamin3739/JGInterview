@@ -17,13 +17,13 @@ namespace JG_Prospect.MCQTest
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         override protected void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            
+
 
             Session.Timeout = 300;
             // check if every damn thing so far is all right
@@ -56,8 +56,8 @@ namespace JG_Prospect.MCQTest
         {
             string StudentName = (string)Session["student"];
             ExamID = (string)Session["exam_id"];
-            
-            
+
+
             if (Request.QueryString["id"] != null)
             {
                 currentQuestionId = Request.QueryString["id"];
@@ -78,19 +78,19 @@ namespace JG_Prospect.MCQTest
 
             this.currentExamTime.Value = (timeLeft).ToString();
             questionID = Request.QueryString["id"];
-            
+
             DataTable questionTable = AptitudeTestBLL.Instance.GetQuestionsForExamByID(ExamID);
 
 
 
             ArrayList al = (ArrayList)Session["questionList"];
-            if (Session["questionList"] == null)
-            {
-                al = GenerateArrayList(questionTable);
-                ShuffleList(al);
-                Session["questionList"] = al;
-            }
-            
+            //if (Session["questionList"] == null)
+            //{
+            al = GenerateArrayList(questionTable);
+            ShuffleList(al);
+            Session["questionList"] = al;
+            //}
+
             //////////List<string> lstquestion = new List<string>();
             //////////if (Session["questionList"] == null)
             //////////{
@@ -193,7 +193,7 @@ namespace JG_Prospect.MCQTest
                 }
 
                 //JG_Prospect.Common.modal.Aptitude.QuestionRow selectedQuestion = AptitudeTestBLL.Instance.GetQuestionsByID(Int32.Parse(questionID));
-                    
+
                 //QuestionType questionType = (QuestionType)selectedQuestion.QuestionType;
 
                 lblQuestion.Text = "<font color=black>Q" + dispQuestionId + "." + selectedQuestion.Question + "</font>";
@@ -223,14 +223,14 @@ namespace JG_Prospect.MCQTest
                         return;
                     }
 
-                    
+
                     DataTable optionData = AptitudeTestBLL.Instance.GetQuestionsoptionByQustionID(Int32.Parse(questionID));
                     foreach (DataRow OptionRow in optionData.Rows)
                     {
                         string item = OptionRow["OptionText"].ToString();
                         RadioButtonList1.Items.Add(new ListItem(item, item));
                     }
-                    
+
                     #endregion
                 }
                 //else if (questionType == QuestionType.MultiSelect)
@@ -271,7 +271,7 @@ namespace JG_Prospect.MCQTest
                     if (str != null)
                         txtAnswer.Text = str;
                 }
-            } 
+            }
         }
 
         private ArrayList GenerateArrayList(DataTable questionTable)
@@ -337,16 +337,16 @@ namespace JG_Prospect.MCQTest
                 gotoNextQuestion();
             }
         }
-        
+
         protected void btnPhrase_Click(object sender, System.EventArgs e)
         {
             Session[questionID + "MA"] = "Ahoy";
             string answerText = txtAnswer.Text;
             Response.Write(answerText);
             bool isCorrect = false;
-            
+
             DataTable correctAnswerData = AptitudeTestBLL.Instance.GetcorrectAnswerByQuestionID(Int32.Parse(questionID));
-            
+
             if (answerText.ToUpper().Equals(correctAnswerData.Rows[0]["AnswerText"].ToString().ToUpper()))
                 isCorrect = true;
 

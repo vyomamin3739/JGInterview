@@ -99,6 +99,8 @@ namespace JG_Prospect.Common
         JG_Personal_Company_EmailTemplate = 76,
         HR_Request_FormFill_EmailTemplate = 77,
         Verbal_Warning_AutoEmailTemplate = 78,
-        Written_Warning_AutoEmailTemplate = 79
+        Written_Warning_AutoEmailTemplate = 79,
+        Task_Accepted_Auto_Email = 80,
+        Task_Rejected_Auto_Email = 81
     }
 }

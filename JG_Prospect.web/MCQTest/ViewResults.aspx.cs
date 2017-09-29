@@ -1,4 +1,5 @@
 ﻿using JG_Prospect.BLL;
+using JG_Prospect.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,10 +48,26 @@ namespace JG_Prospect.MCQTest
 
             int InstallUserID = 0;
             int.TryParse(Session["ID"].ToString(), out InstallUserID);
-            AptitudeTestBLL.Instance.InsertPerformance(InstallUserID, int.Parse(ExamID), (int)marksEarned, (int)totalMarks, percentage, 1);
+           // AptitudeTestBLL.Instance.InsertPerformance(InstallUserID, int.Parse(ExamID), (int)marksEarned, (int)totalMarks, percentage, 1);
             //Session.RemoveAll();
             //Session.Abandon();
-           
+
+            if (percentage < 30)
+            {
+                int intUserID = Convert.ToInt32(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
+
+                JGSession.UserStatus = JGConstant.InstallUserStatus.Rejected;
+
+                InstallUserBLL.Instance.ChangeStatus(Convert.ToByte(JGConstant.InstallUserStatus.Rejected).ToString(), intUserID, DateTime.Today, DateTime.Now.ToShortTimeString(), intUserID, JGSession.IsInstallUser.Value, "Rejected: Failed apptitude test.");
+
+                pFail.Visible = true;
+                pPass.Visible = false;
+            }
+            else
+            {
+                pFail.Visible = false;
+                pPass.Visible = true;
+            }
         }
     }
 }

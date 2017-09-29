@@ -65,7 +65,10 @@ namespace JG_Prospect.Utilits
         /// </summary>
         /// <param name="ddlUserStatus"></param>
         /// <returns></returns>
-        public static DropDownList FillUserStatus(DropDownList ddlUserStatus, string FirstItem = "", string FirstItemValue = "")
+        /// <remarks>
+        /// Used with both JQuery Image msDropDown() and plain dropdown.
+        /// </remarks>
+        public static DropDownList FillUserStatus(DropDownList ddlUserStatus, string FirstItem = "", string FirstItemValue = "", Boolean Formatted = true)
         {
             List<UserStatus> lstUserStatus = new List<UserStatus>();
             UserStatus objUserStatus;
@@ -83,14 +86,16 @@ namespace JG_Prospect.Utilits
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.ReferralApplicant).ToString();
             lstUserStatus.Add(objUserStatus);
 
+            //Task ID - ID#: ITSN042 - Passing the Status Text with HTML elements
+            //for JQuery Image dropdown msDropDown()
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Applicant";
+            objUserStatus.Status = Formatted ? "Applicant <span class='ddlstatus-per-text' id='ddlstatusApplicant'><img src='../Sr_App/img/yellow-astrek.png' class='fnone'>Applicant Screened : 25%</span>" : "Applicant";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Applicant).ToString();
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Phone/Video Screened";
-            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Phone_VideoScreened).ToString();
+            objUserStatus.Status = Formatted ? "Interview Date <span class='ddlstatus-per-text' id='ddlstatusInterviewDate'><img src='../Sr_App/img/purple-astrek.png' class='fnone'>Applicant Screened : 20%</span>" : "Interview Date";
+            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InterviewDate).ToString();
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
@@ -99,12 +104,7 @@ namespace JG_Prospect.Utilits
             lstUserStatus.Add(objUserStatus);
 
             objUserStatus = new UserStatus();
-            objUserStatus.Status = "Interview Date";
-            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InterviewDate).ToString();
-            lstUserStatus.Add(objUserStatus);
-
-            objUserStatus = new UserStatus();
-            objUserStatus.Status = "Offer Made";
+            objUserStatus.Status = Formatted ? "Offer Made <span class='ddlstatus-per-text' id='ddlstatusOfferMade'><img src='../Sr_App/img/black-astrek.png' class='fnone'>New Hire : 80%</span>" : "Offer Made";
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.OfferMade).ToString();
             lstUserStatus.Add(objUserStatus);
 
@@ -118,17 +118,41 @@ namespace JG_Prospect.Utilits
             objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Deactive).ToString();
             lstUserStatus.Add(objUserStatus);
 
-            objUserStatus = new UserStatus();
-            objUserStatus.Status = "Install Prospect";
-            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InstallProspect).ToString();
-            lstUserStatus.Add(objUserStatus);
-
             ddlUserStatus.DataSource = lstUserStatus;
             ddlUserStatus.DataTextField = "Status";
             ddlUserStatus.DataValueField = "StatusValue";
             ddlUserStatus.DataBind();
 
             return ddlUserStatus;
+
+            #region Old code  removed for Task ID - ID#: ITSN042
+            /**             
+            objUserStatus = new UserStatus();
+            objUserStatus.Status = "Phone/Video Screened";
+            objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.Phone_VideoScreened).ToString();
+            lstUserStatus.Add(objUserStatus);
+
+            //objUserStatus = new UserStatus();
+            //objUserStatus.Status = "Install Prospect";
+            //objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.InstallProspect).ToString();
+            //lstUserStatus.Add(objUserStatus);
+
+            //objUserStatus = new UserStatus();
+            //objUserStatus.Status = "Applicant Screened : 20%";
+            //objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.ApplicantScreened_20).ToString();
+            //lstUserStatus.Add(objUserStatus);
+            
+            //objUserStatus = new UserStatus();
+            //objUserStatus.Status = "Applicant Screened : 25%";
+            //objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.ApplicantScreened_25).ToString();
+            //lstUserStatus.Add(objUserStatus);
+
+            //objUserStatus = new UserStatus();
+            //objUserStatus.Status = "New Hire : 80%";
+            //objUserStatus.StatusValue = Convert.ToByte(JGConstant.InstallUserStatus.NewHire_80).ToString();
+            //lstUserStatus.Add(objUserStatus);                           
+             * */
+            #endregion
         }
 
         /// <summary>
@@ -152,10 +176,6 @@ namespace JG_Prospect.Utilits
                         imageURL = "../Sr_App/img/dark-blue-astrek.png";
                         ddlstatus.Items[i].Attributes["data-image"] = imageURL;
                         break;
-                    case JGConstant.InstallUserStatus.PhoneScreened:
-                        imageURL = "../Sr_App/img/yellow-astrek.png";
-                        ddlstatus.Items[i].Attributes["data-image"] = imageURL;
-                        break;
                     case JGConstant.InstallUserStatus.Active:
                         imageURL = "../Sr_App/img/green-astrek.png";
                         ddlstatus.Items[i].Attributes["data-image"] = imageURL;
@@ -164,16 +184,38 @@ namespace JG_Prospect.Utilits
                         imageURL = "../Sr_App/img/Light-Blue-astrek.png"; //purple-astrek.png
                         ddlstatus.Items[i].Attributes["data-image"] = imageURL;
                         break;
+                    case JGConstant.InstallUserStatus.Deactive:
+                    case JGConstant.InstallUserStatus.Rejected:
+                        ddlstatus.Items[i].Attributes["data-image"] = "../Sr_App/img/white-astrek.png";
+                        break;
                     default:
-                        //ddlstatus.Items[i].Attributes["data-image"] = "../Sr_App/img/white-astrek.png";
                         break;
                 }
-                //System.Web.UI.WebControls.ListItem item = ddlCountry.Items[i];
-                //item.Attributes["data-image"] = imageURL;
             }
             return ddlstatus;
-        }
 
+            #region Old code  removed for Task ID - ID#: ITSN042
+            /**
+            case jgconstant.installuserstatus.phonescreened:
+                imageurl = "../sr_app/img/yellow-astrek.png";
+                ddlstatus.items[i].attributes["data-image"] = imageurl;
+                break;
+             
+            case jgconstant.installuserstatus.applicantscreened_20:
+                imageurl = "../sr_app/img/purple-astrek.png";
+                ddlstatus.items[i].attributes["data-image"] = imageurl;
+                break;
+            case jgconstant.installuserstatus.applicantscreened_25:
+                imageurl = "../sr_app/img/yellow-astrek.png";
+                ddlstatus.items[i].attributes["data-image"] = imageurl;
+                break;
+            case jgconstant.installuserstatus.newhire_80:
+                imageurl = "../sr_app/img/black-astrek.png";
+                ddlstatus.items[i].attributes["data-image"] = imageurl;
+                break;
+             * */
+            #endregion
+        }
 
         class UserStatus
         {

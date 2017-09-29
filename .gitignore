@@ -23,26 +23,16 @@ JG_Prospect.web/UploadedExcel/
 JG_Prospect.web/MCQTest_Old/
 JG_Prospect.web/Properties/PublishProfiles/LocalLive.pubxml.user
 JG_Prospect.web/Properties/PublishProfiles/LivePublish.pubxml.user
-<<<<<<< HEAD
-packages/Octokit.0.24.0/LICENSE.txt
-packages/Octokit.0.24.0/Octokit.0.24.0.nupkg
-packages/Octokit.0.24.0/README.md
-packages/Octokit.0.24.0/ReleaseNotes.md
-packages/Octokit.0.24.0/lib/net45/Octokit.XML
-packages/Octokit.0.24.0/lib/netcore451/Octokit.XML
-packages/Octokit.0.24.0/lib/portable-net45+wp80+win+wpa81/Octokit.XML
-packages/Octokit.0.24.0/linqpad-samples/1-introducing-octokit.linq
-packages/Octokit.0.24.0/linqpad-samples/10-search-issues.linq
-packages/Octokit.0.24.0/linqpad-samples/2-releases.linq
-packages/Octokit.0.24.0/linqpad-samples/3-browse-repositories.linq
-packages/Octokit.0.24.0/linqpad-samples/4-observable-browse-repositories.linq
-packages/Octokit.0.24.0/linqpad-samples/5-interact-with-git-database.linq
-packages/Octokit.0.24.0/linqpad-samples/6-create-repository.linq
-packages/Octokit.0.24.0/linqpad-samples/7-search-for-repos.linq
-packages/Octokit.0.24.0/linqpad-samples/8-gists.linq
-packages/Octokit.0.24.0/linqpad-samples/9-issues.linq
-=======
 packages/
->>>>>>> 23d4a5261243ac6f95f1eac347cc8d075a29944c
-/Credentials.txt
-/.vs/JG_Prospect/v15/.suo
+JGBulkEmailServices/
+JG_Prospect.web/Sr_App/Controls/ucSubTasks - Copy.ascx.designer.cs
+JG_Prospect.web/Sr_App/Controls/ucSubTasks - Copy.ascx.cs
+JG_Prospect.web/Sr_App/Controls/ucSubTasks - Copy.ascx
+/JG_Prospect.web/UploadeProfile
+/WeeklyTasks-07292017.xlsx
+/EditUser.aspx.designer.cs
+/EditUser.aspx.cs
+/EditUser.aspx
+/JG_Prospect.web/Sr_App/EditUser1.aspx.designer.cs
+/JG_Prospect.web/Sr_App/EditUser1.aspx.cs
+/JG_Prospect.web/Sr_App/EditUser1.aspx

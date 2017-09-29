@@ -315,6 +315,7 @@ namespace JG_Prospect.Sr_App
             if (ValidateTaskStatus())
             {
                 InsertUpdateTask();
+
                 RedirectToViewTasks();
             }
         }
@@ -1014,46 +1015,47 @@ namespace JG_Prospect.Sr_App
         {
             bool blResult = true;
 
-            string strStatus = string.Empty;
-            string strMessage = string.Empty;
+            // Validation removed from Parent Task as Now parent task is not assigned to anyone. 
+            //string strStatus = string.Empty;
+            //string strMessage = string.Empty;
 
-            if (this.IsAdminMode)
-            {
-                strStatus = cmbStatus.SelectedValue;
+            //if (this.IsAdminMode)
+            //{
+            //    strStatus = cmbStatus.SelectedValue;
 
-                if (!string.IsNullOrEmpty(strStatus))
-                {
-                    //if (
-                    //    strStatus != Convert.ToByte(JGConstant.TaskStatus.SpecsInProgress).ToString() && 
-                    //    !TaskGeneratorBLL.Instance.IsTaskWorkSpecificationApproved(Convert.ToInt32(hdnTaskId.Value))
-                    //   )
-                    //{
-                    //    blResult = false;
-                    //    strMessage = "Task work specifications must be approved, to change status from Specs In Progress.";
-                    //}
-                    //else 
-                    // if task is in assigned status. it should have assigned user selected there in dropdown. 
-                    if (strStatus == Convert.ToByte(JGConstant.TaskStatus.Assigned).ToString())
-                    {
-                        blResult = false;
-                        strMessage = "Task must be assigned to one or more users, to change status to assigned.";
+            //    if (!string.IsNullOrEmpty(strStatus))
+            //    {
+            //        //if (
+            //        //    strStatus != Convert.ToByte(JGConstant.TaskStatus.SpecsInProgress).ToString() && 
+            //        //    !TaskGeneratorBLL.Instance.IsTaskWorkSpecificationApproved(Convert.ToInt32(hdnTaskId.Value))
+            //        //   )
+            //        //{
+            //        //    blResult = false;
+            //        //    strMessage = "Task work specifications must be approved, to change status from Specs In Progress.";
+            //        //}
+            //        //else 
+            //        // if task is in assigned status. it should have assigned user selected there in dropdown. 
+            //        if (strStatus == Convert.ToByte(JGConstant.TaskStatus.Assigned).ToString())
+            //        {
+            //            blResult = false;
+            //            strMessage = "Task must be assigned to one or more users, to change status to assigned.";
 
-                        foreach (ListItem objItem in ddlAssignedUsers.Items)
-                        {
-                            if (objItem.Selected)
-                            {
-                                blResult = true;
-                                break;
-                            }
-                        }
-                    }
-                }
+            //            foreach (ListItem objItem in ddlAssignedUsers.Items)
+            //            {
+            //                if (objItem.Selected)
+            //                {
+            //                    blResult = true;
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //    }
 
-                if (!blResult)
-                {
-                    CommonFunction.ShowAlertFromUpdatePanel(this, strMessage);
-                }
-            }
+            //    if (!blResult)
+            //    {
+            //        CommonFunction.ShowAlertFromUpdatePanel(this, strMessage);
+            //    }
+            //}
 
             return blResult;
         }

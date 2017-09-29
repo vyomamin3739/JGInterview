@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InstallerHeader.ascx.cs" Inherits="JG_Prospect.Installer.InstallerHeader" %>
-<%@ Register Src="~/Sr_App/Controls/TaskGenerator.ascx" TagPrefix="uc1" TagName="TaskGenerator" %>
+<%@ Register Src="~/Controls/TaskGenerator.ascx" TagPrefix="uc1" TagName="TaskGenerator" %>
 
 <style>
     #divTask

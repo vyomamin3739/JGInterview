@@ -42,6 +42,7 @@ namespace JG_Prospect.Sr_App
                 }
                 AddUpdateUserAuditTrailRecord(Request.Url.ToString(), Session["loginid"].ToString());
 
+
                 // Code change by Deep
                 var page = HttpContext.Current.Handler as Page;
                 if (page is EditUser)
@@ -50,15 +51,11 @@ namespace JG_Prospect.Sr_App
                 }
 
             }
-
-
             else
             {
                 //Response.Redirect("~/login.aspx?returnurl=" + Request.Url.PathAndQuery);
                 //AddUpdateUserAuditTrailRecord("Session Expired", Session["loginid"].ToString());
             }
-
-
         }
 
        

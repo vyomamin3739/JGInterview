@@ -11,7 +11,7 @@
             <li><a href="Inventory.aspx">Inventory</a></li>
             <li><a href="Maintenace.aspx">Maintainance</a></li>
             <li><a href="email-template-maintainance.aspx">Maintainance New</a></li>
-            <li><a href="manage-aptitude-tests.aspx.aspx">Aptitude Tests</a></li>
+            <li><a href="manage-aptitude-tests.aspx">Aptitude Tests</a></li>
         </ul>
         <!-- appointment tabs section end -->
         <h1>Aptitude Test</h1>

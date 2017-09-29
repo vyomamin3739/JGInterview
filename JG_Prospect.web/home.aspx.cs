@@ -12,8 +12,7 @@ namespace JG_Prospect
 {
     public partial class home : System.Web.UI.Page
     {
-
-          StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         DataSet ds = new DataSet();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,5 +36,6 @@ namespace JG_Prospect
             }
        
         }
+
     }
 }

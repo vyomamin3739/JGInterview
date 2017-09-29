@@ -9,14 +9,14 @@
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    
+
 <head id="Head1" runat="server">
-   <%-- <script type="text/javascript" src="../js/jquery-latest.js"></script>--%>
-  <%--  <script type="text/javascript" src="../js/jquery.printElement.min.js"></script>--%>
+    <%-- <script type="text/javascript" src="../js/jquery-latest.js"></script>--%>
+    <%--  <script type="text/javascript" src="../js/jquery.printElement.min.js"></script>--%>
     <link href="../datetime/css/jquery-ui-1.7.1.custom.css" rel="stylesheet" type="text/css" />
     <link href="../datetime/css/stylesheet.css" rel="stylesheet" type="text/css" />
 
-     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script src="js/Custom/JgPopUp.js" type="text/javascript"></script>
@@ -27,41 +27,42 @@
     <title>JG Prospect</title>
     <link href="css/screen.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="css/jquery.ui.theme.css" rel="stylesheet" media="screen" type="text/css" />
-   
-<%--    <script type="text/javascript"  src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <%--    <script type="text/javascript"  src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="/js/jquery-latest.js"></script>--%>
     <!--accordion jquery-->
     <script type="text/javascript" src="/js/ddaccordion.js"></script>
- 
 
-   
+
+
     <script type="text/javascript">
-      $(function () {
-          $("#txtDateOfBith").datepicker({
+        $(function () {
+            $("#txtDateOfBith").datepicker({
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1950:2050',
                 maxDate: 'today'
-          });
-      });
+            });
+            checkandShowFailAlert();
+        });
 
 
-      function getUrlVars() {
-          
-          var vars = [], hash;
-          var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-          alert(hashes);
-          for (var i = 0; i < hashes.length; i++) {
-              hash = hashes[i].split('=');
-              vars.push(hash[0]);
-              vars[hash[0]] = hash[1];
-          }
-          return vars;
-      }
+        function getUrlVars() {
+
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            alert(hashes);
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
 
 
-          </script>
-   <%-- <script type="text/javascript">
+    </script>
+    <%-- <script type="text/javascript">
         $(function () {
             // Tabs
             $('#tabs').tabs();
@@ -69,7 +70,7 @@
     </script>--%>
 
 
-     
+
 
     <style type="text/css">
         .ui-widget-header {
@@ -81,37 +82,41 @@
         .auto-style1 {
             width: 100%;
         }
+
         input[type="radio"] {
             line-height: 20px !important;
-            height:20px;
-            float:left;
-            margin:0 5px 0 0 !important;
+            height: 20px;
+            float: left;
+            margin: 0 5px 0 0 !important;
         }
+
         input[type="checkbox"] {
             line-height: 20px !important;
-            height:20px;
-            float:left;
-            margin:0 5px 0 0 !important;
+            height: 20px;
+            float: left;
+            margin: 0 5px 0 0 !important;
         }
+
         label {
             float: left;
         }
-        .fg-urs  {
-    float: left;
-    margin: 0 0 0 11em;
-}
-          .fg-prs  {
-    float: left;
-    margin: 0 0 0 -1.4em;
-}
+
+        .fg-urs {
+            float: left;
+            margin: 0 0 0 11em;
+        }
+
+        .fg-prs {
+            float: left;
+            margin: 0 0 0 -1.4em;
+        }
     </style>
     <script type="text/javascript">
 
-        function SessionExpire()
-        {
+        function SessionExpire() {
             alert('Your session has expired,login to continue');
         }
-        
+
         function loginFailMessage() {
 
             var loginFailMsg = '';
@@ -122,19 +127,54 @@
             alert(loginFailMsg);
         }
 
-        function AutoLoginApplicant(email,pwd)
-        {
+        function checkandShowFailAlert() {
+
+            var UF = getUrlVars()["UF"];
+            if (UF) {
+                alert('Unfortunately you did NOT pass the apptitude test for the designation you applied for. If you feel you reached this message in error you will need to contact a JG MNGR represenative to unlock your account and allow you to take another test. Thank you for applying with JMG.');
+            }
+        }
+
+        // Read a page's GET URL variables and return them as an associative array.
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+
+        function AutoLoginApplicant(email, pwd) {
             $('#<%=txtloginid.ClientID%>').val(email);
             $('#<%=txtpassword.ClientID%>').val(pwd);
 
             $('#<%=btnsubmit.ClientID%>').click();
 
         }
+
+        function ShowForgotPasswordPopup() {
+
+            var dlg = $('#divForgotPassword').dialog({
+                width: 600,
+                height: 400,
+                show: 'slide',
+                hide: 'slide',
+                autoOpen: false,
+                modal: false
+            });
+
+            dlg.dialog('open');
+
+            $('#ifFPassword').attr("src", "ForgotPassword.aspx");
+        }
     </script>
-    
+
 </head>
 <body>
-   <form id="form1" runat="server" defaultbutton="btnsubmit">
+    <form id="form1" runat="server" defaultbutton="btnsubmit">
         <asp:ScriptManager ID="scriptmanager1" runat="server"></asp:ScriptManager>
         <div class="container">
             <!--header section-->
@@ -143,12 +183,13 @@
             </div>
             <div class="content_panel">
                 <table width="100%">
+
                     <tr>
-                        <td width="100%" align="center" >
-                            <div class="login_right_panel" style="min-height:407px !important;margin: 0 0 0 0 !important;">
-                                <h1 style="text-align:left;"><b>Staff Login</b></h1>
+                        <td width="100%" align="center">
+                            <div class="login_right_panel" style="min-height: 407px !important; margin: 0 0 0 0 !important;">
+                                <h1 style="text-align: left;"><b>Staff Login</b></h1>
                                 <div class="login_header" style="margin: -20px 0 0 0 !important;">
-                                    <table cellpadding="0" cellspacing="0" style="float:right;">
+                                    <table cellpadding="0" cellspacing="0" style="float: right;">
                                         <tr>
                                             <td style="padding-right: 0px; width: 300px;"></td>
                                             <td style="padding-right: 0px; width: 150px;">
@@ -186,7 +227,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-bottom:2px !important;background:none !important;">
+                                                        <td style="padding-bottom: 2px !important; background: none !important;">
                                                             <asp:CheckBox ID="chkRememberMe" Style="width: 4% !important; margin-left: -1px !important;" Text="  Remember Me" runat="server" />
                                                             <div class="btn_sec" style="width: 44% !important; float: left !important; margin-top: -2% !important; margin-left: -6% !important; height: 60px !important;">
                                                                 <asp:Button ID="btnsubmit" runat="server" Text="Login" OnClick="btnsubmit_Click" Style="width: 98% !important; height: 67% !important;" ValidationGroup="Login" TabIndex="3" />
@@ -194,10 +235,10 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding-top:0px !important;">
+                                                        <td style="padding-top: 0px !important;">
                                                             <label></label>
-                                                              <asp:LinkButton ID="lnkForgotUsername"  runat="server" OnClick="lblForgotUserId_Click" >Forgot Username</asp:LinkButton>
-                                                            &nbsp;<asp:LinkButton ID="lnkForgotPassword" runat="server" OnClick="lnkForgotPassword_Click" >Forgot Password</asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkForgotUsername" runat="server" OnClick="lblForgotUserId_Click">Forgot Username</asp:LinkButton>
+                                                            &nbsp;<asp:LinkButton ID="lnkForgotPassword" runat="server" OnClientClick="javascript:ShowForgotPasswordPopup(); return false;">Forgot Password</asp:LinkButton>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -269,7 +310,9 @@
                 <br />
             </asp:Panel>--%>
         </div>
-
+        <div id="divForgotPassword" class="modal" style="text-align:center;">
+            <iframe id="ifFPassword"   style="height:80%;width:90%;overflow:hidden;" ></iframe>-
+        </div>
         <!--footer section-->
         <div class="footer_panel">
             <ul>
@@ -281,7 +324,6 @@
         </div>
     </form>
 </body>
-    
+
 </html>
 
- 

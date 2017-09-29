@@ -777,7 +777,10 @@ namespace JG_Prospect.Sr_App
 
             if (DS != null)
             {
-                CustomerName = DS.Tables[0].Rows[0]["CustomerName"].ToString();
+                if (DS.Tables[0] != null && DS.Tables[0].Rows.Count > 0)
+                {
+                    CustomerName = DS.Tables[0].Rows[0]["CustomerName"].ToString();
+                }
             }
             literalbody2(CustomerName);
             //result = result.Replace("lblCustomerName", CustomerName);
@@ -888,11 +891,11 @@ namespace JG_Prospect.Sr_App
 
                 if (returnCode == 0)
                     return file;
-                
+
                 p.Close();
                 p.Dispose();
             }
-            catch 
+            catch
             {
                 // log.Error("Could not create PDF", ex);
             }
@@ -1303,7 +1306,7 @@ namespace JG_Prospect.Sr_App
                             m.To.Add(new MailAddress(lStrEmail, ""));
                         }
                     }
-                    
+
                     m.Bcc.Add(new MailAddress("shabbir.kanchwala@straitapps.com", "Shabbir Kanchwala"));
                     m.CC.Add(new MailAddress("jgrove.georgegrove@gmail.com", "Justin Grove"));
 
@@ -1467,7 +1470,7 @@ namespace JG_Prospect.Sr_App
         }
         protected void btnSold_Click(object sender, EventArgs e)
         {
-            
+
             if (ddlpaymode.SelectedIndex == 1)
             {
 
@@ -1542,7 +1545,7 @@ namespace JG_Prospect.Sr_App
                     if (stat)
                     {
                         int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-                        
+
                         string s1 = Session["EstID"].ToString();
                         string[] EstID = s1.Split(',');
                         int count = EstID.Count();
@@ -1615,7 +1618,7 @@ namespace JG_Prospect.Sr_App
                                 }
                             }
 
-                             GenerateWorkOrder(soldJobID);
+                            GenerateWorkOrder(soldJobID);
 
                             if (IsEmail)
                             {
@@ -1795,7 +1798,7 @@ namespace JG_Prospect.Sr_App
             DateTime followupdate = (txtfollowupdate.Text != "") ? Convert.ToDateTime(txtfollowupdate.Text, JGConstant.CULTURE) : Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"), JGConstant.CULTURE);
             string status = ddlstatus.SelectedValue;
             int userId = Convert.ToInt16(Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
-            new_customerBLL.Instance.AddCustomerFollowUp(Convert.ToInt32(Session["CustomerId"].ToString()), followupdate, status, userId, false, 0,"", estimateid, productId);
+            new_customerBLL.Instance.AddCustomerFollowUp(Convert.ToInt32(Session["CustomerId"].ToString()), followupdate, status, userId, false, 0, "", estimateid, productId);
 
 
 
@@ -1810,7 +1813,7 @@ namespace JG_Prospect.Sr_App
             string g = Guid.NewGuid().ToString().Substring(0, 5);
             string tempInvoiceFileName = "Proposal" + DateTime.Now.Ticks + ".pdf";
 
-            GeneratePDF(path, tempInvoiceFileName, false, createEstimate("ProposalNumber-" + Session["CustomerId"].ToString()+DateTime.Now.Ticks, Convert.ToInt32(Session["CustomerId"].ToString())), true);
+            GeneratePDF(path, tempInvoiceFileName, false, createEstimate("ProposalNumber-" + Session["CustomerId"].ToString() + DateTime.Now.Ticks, Convert.ToInt32(Session["CustomerId"].ToString())), true);
 
             if ((Session["FormDataObjects"] != null) || (productId > 0))
             {
@@ -2158,7 +2161,8 @@ namespace JG_Prospect.Sr_App
         {
             string[] Emails;
             int count = 0;
-            DataSet ds = shuttersBLL.Instance.GetEmails(Convert.ToInt32(Session["CustomerId"].ToString()));
+            int CustomerId = (Session["CustomerId"] == null) ? 0 : Convert.ToInt32(Session["CustomerId"]);
+            DataSet ds = shuttersBLL.Instance.GetEmails(CustomerId);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -2262,11 +2266,17 @@ namespace JG_Prospect.Sr_App
                 btnsavesold.Style.Add("display", "block");
                 txtAmount.Text = Convert.ToDecimal(Session["CCtxtAmount"]).ToString("N2");
                 hdnAmount.Value = txtAmount.Text;
-                txtEmailId.Text = ViewState["customeremail"].ToString();
-                
-                string[] FN = Session["Name"].ToString().Split(' ');
+                txtEmailId.Text = Convert.ToString(ViewState["customeremail"]);
+
+                string[] FN = Convert.ToString(Session["Name"]).Split(' ');
                 txtFirstName.Text = FN[0];
-                txtLastName.Text = FN[1];
+                if (FN.Count() > 1)
+                {
+                    txtLastName.Text = Convert.ToString(FN[1]);
+                }
+                else {
+                    txtLastName.Text = "";
+                }
 
 
                 PanelHide.Visible = true;
@@ -2330,14 +2340,14 @@ namespace JG_Prospect.Sr_App
             {
 
                 txtPwd.Visible = false;
-              //  amt = Convert.ToDecimal(txtccamount.Text);
+                //  amt = Convert.ToDecimal(txtccamount.Text);
                 Payline payline = new Payline();
                 payline = payline.Sale(txtFirstName.Text.ToString(), txtLastName.Text.ToString(), txtCardNumber.Text.ToString(), ccExpireMonth.Text.ToString(), ccExpireYear.Text.ToString(), txtSecurityCode.Text.ToString(), amt, ddlCurrency.SelectedValue.Trim(), txtAddress.InnerText.Trim(), Convert.ToInt32(txtZip.Text.Trim()), ddlCity.SelectedValue.Trim(), ddlState.SelectedValue.Trim(), ddlCountry.SelectedValue.Trim());
                 if (payline.IsApproved)
                 {
                     //AuthorizationCode, PaylineTransectionId
 
-                    
+
                     lblMsg.Text = "Success";
                     lblMsg.Visible = false;
                     SoldTasks(true);
@@ -2348,14 +2358,14 @@ namespace JG_Prospect.Sr_App
                 }
                 else
                 {
-                    bool res = ShutterPriceControlBLL.InsertTransaction(ShutterPriceControlBLL.Encode(txtCardNumber.Text.ToString()), ShutterPriceControlBLL.Encode(txtSecurityCode.Text.ToString()), txtFirstName.Text.ToString(), txtLastName.Text.ToString(), ccExpireMonth.Text.ToString() + ccExpireYear.Text.ToString(),amt, payline.IsApproved, payline.Message, payline.Response, payline.Request, customerId, productType, payline.AuthorizationCode, payline.AuthCaptureId, soldJobID);
+                    bool res = ShutterPriceControlBLL.InsertTransaction(ShutterPriceControlBLL.Encode(txtCardNumber.Text.ToString()), ShutterPriceControlBLL.Encode(txtSecurityCode.Text.ToString()), txtFirstName.Text.ToString(), txtLastName.Text.ToString(), ccExpireMonth.Text.ToString() + ccExpireYear.Text.ToString(), amt, payline.IsApproved, payline.Message, payline.Response, payline.Request, customerId, productType, payline.AuthorizationCode, payline.AuthCaptureId, soldJobID);
                     lblMsg.Text = "Error";
                     lblMsg.Visible = false;
                     txtPromotionalcode.Visible = false;
                     //ClientScript.RegisterStartupScript(this.GetType(), "On_Error", "", true);
                     ClientScript.RegisterStartupScript(this.GetType(), "On_Error", "alert('Transaction Failed. Possible reason is: " + payline.Message + "');", true);
                 }
-               // Response.Redirect("~/Sr_App/Customer_Profile.aspx");
+                // Response.Redirect("~/Sr_App/Customer_Profile.aspx");
             }
             else
             {

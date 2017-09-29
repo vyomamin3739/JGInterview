@@ -52,11 +52,18 @@ namespace JG_Prospect.Utilits
             //req.Proxy = new System.Net.WebProxy(ProxyString, true); //true means no proxy
 
             req.Headers.Add("PddToken", "NZD67PSLWTTG7UM7ALB2OZ2ZYBEQ2CATCT25RRSEWS4GB4IT6NMQ");
-            System.Net.WebResponse resp = req.GetResponse();
-            
+            try
+            {
+                System.Net.WebResponse resp = req.GetResponse();
 
-            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-             return sr.ReadToEnd().Trim();
+
+                System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                return sr.ReadToEnd().Trim();
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;                
+            }
         }
 
         public static string HttpPost(string URI, string Parameters)

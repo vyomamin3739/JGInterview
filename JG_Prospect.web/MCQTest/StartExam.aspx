@@ -79,8 +79,7 @@
 <body style="background:none;" class="tblStartExamMai">
 
     <form id="form1" runat="server">
-        <HR width="100%" SIZE="1">
-			
+      
 		<table id="Table2" cellSpacing="1" cellPadding="1" border="1">
 								<tr>
 									<td style="HEIGHT: 39px">
@@ -99,8 +98,7 @@
                                                     <br />
                                                     <br />
                                                     <asp:Label ID="Label2" CssClass="lblQuestion" runat="server" BackColor="White"></asp:Label>
-                                                    <hr style="width:100%"  />
-                                                    
+                                                    <hr style="width:100%"  />                                                    
 
                                                 </td>
                                                 <td>

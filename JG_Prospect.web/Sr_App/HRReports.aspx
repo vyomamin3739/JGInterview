@@ -16,6 +16,11 @@
         });
     </script>
     <style type="text/css">
+        .ddlstatus-per-text {
+        float: right;
+        padding-right: 25px;
+        }
+
         .ddChild li 
         {
             width:150px !important;
@@ -262,9 +267,17 @@
                                 <tr>
                                     <td>Status:
                                     </td>
-                                    <td>
-                                        <asp:DropDownList ID="ddlStatus" Width="150" CssClass="ddlStatus-main" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlStatus_PreRender">                                            
-                                        </asp:DropDownList>
+                                <td class="style1">
+                                    <style>
+                                        /*.form_panel_custom ul li {
+                                        width: 90% !important;
+                                        }*/
+                                        .dd .ddChild li {
+                                        width: 95% !important;
+                                        }
+                                    </style>
+                                    <asp:DropDownList ID="ddlStatus" Width="349px" CssClass="ddlStatus-main" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" runat="server" OnPreRender="ddlStatus_PreRender">                                            
+                                    </asp:DropDownList>
                                     </td>
                                     <td>User:
                                     </td>
@@ -318,7 +331,9 @@
                             <div>
                                 <div class="form_panel" style="padding-bottom: 0px; min-height: 100px;">
                                     <div class="grid">
-                                        <asp:GridView ID="grdFilterHrData" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" DataKeyNames="Id" Width="1000px">
+                                        <%--<asp:GridView ID="grdFilterHrData" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" DataKeyNames="Id" Width="1000px">--%>
+                                        <asp:GridView ID="grdFilterHrData" Width="80%" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" DataKeyNames="Id" >
+                                             
                                             <EmptyDataTemplate>
                                                 No data to display
                                             </EmptyDataTemplate>
@@ -355,7 +370,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Status" ItemStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
-                                                        <asp:Label ID="lblStatus" runat="server" Text='<%# ((JG_Prospect.Common.JGConstant.InstallUserStatus)Convert.ToInt32(Eval("Status"))).ToString()%>'></asp:Label>
+                                                        <%--<asp:Label ID="lblStatus" runat="server" Text='<%# ((JG_Prospect.Common.JGConstant.InstallUserStatus)Convert.ToInt32(Eval("Status"))).ToString()%>'></asp:Label>--%>
+                                                        <asp:Label ID="lblStatus" runat="server" Text='<%#Eval("Status")%>'></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                                 </asp:TemplateField>
@@ -580,12 +596,26 @@
             </div>
         </div>
     </div>
-    <script src="../js/jquery.dd.min.js"></script>
-    <script>
-        try {
-            $("#<%=ddlStatus.ClientID%>").msDropDown();
-        } catch (e) {
-            alert(e.message);
+
+    <script src="../js/jquery.dd.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var prmTaskGenerator = Sys.WebForms.PageRequestManager.getInstance();
+
+        prmTaskGenerator.add_endRequest(function () {
+            HRReport_Initialize();
+        });
+
+        $(document).ready(function () {
+            HRReport_Initialize();
+        });
+
+        function HRReport_Initialize() {
+
+            try {
+                $("#<%=ddlStatus.ClientID%>").msDropDown();
+            } catch (e) {
+                alert(e.message);
+            }
         }
     </script>
 </asp:Content>

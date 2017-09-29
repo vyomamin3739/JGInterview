@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace JG_Prospect.Common.modal
 {
+    [Serializable]
     public class Designation
     {
         public int ID { get; set; }

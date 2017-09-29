@@ -14,12 +14,14 @@ using System.Web.UI.WebControls;
 using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
+using JG_Prospect.Common.modal;
+using System.Collections.Specialized;
+using System.Globalization;
 
 namespace JG_Prospect.App_Code
 {
     public static class CommonFunction
     {
-
         public static String PreConfiguredAdminUserId
         {
             get { return ConfigurationManager.AppSettings["AdminUserId"].ToString(); }
@@ -30,23 +32,90 @@ namespace JG_Prospect.App_Code
         /// Add a GitHub user as Collaborator in repo        
         /// </summary>
         /// <param name="gitUserName"></param>
-        public static async void AddUserAsGitcollaborator(string gitUserName)
+        /// <param name="repo"></param>
+        public static void AddUserAsGitcollaborator(string gitUserName, JGConstant.GitRepo repo)
         {
             try
             {
-                String reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
-                String adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
-                String adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
-                String adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
-                Octokit.GitHubClient client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(ConfigurationManager.AppSettings["GitAppName"].ToString()));
-                Octokit.Credentials basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
-                client.Credentials = basicAuth;
-                await client.Repository.Collaborator.Add(adminname, reponame, gitUserName);
+                PerformGitAction(repo, JGConstant.GitActions.AddUser, gitUserName);
+                
             }
             catch (Exception ex)
             {
                 //Log exception 
                 Console.WriteLine("{0} Exception caught.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Add a GitHub user as Collaborator in repo        
+        /// </summary>
+        /// <param name="gitUserName"></param>
+        /// <param name="repo"></param>
+        public static void DeleteUserFromGit(string gitUserName, JGConstant.GitRepo repo)
+        {
+            try
+            {
+                PerformGitAction(repo, JGConstant.GitActions.DeleteUser, gitUserName);
+            }
+            catch (Exception ex)
+            {
+                //Log exception 
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Performs GitHub Actions
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="action"></param>
+        /// <param name="UserName"></param>
+        private static void PerformGitAction(JGConstant.GitRepo repo, JGConstant.GitActions action, String UserName)
+        {
+            Octokit.GitHubClient client = null;
+            String reponame = string.Empty;
+            String adminname = string.Empty;
+            switch (repo)
+            {
+                case JGConstant.GitRepo.Interview:
+                    {
+                        reponame = ConfigurationManager.AppSettings["GitRepoName"].ToString();
+                        adminname = ConfigurationManager.AppSettings["GitRepoAdminName"].ToString();
+                        String adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginId"].ToString();
+                        String adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPassword"].ToString();
+                        client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(ConfigurationManager.AppSettings["GitAppName"].ToString()));
+                        Octokit.Credentials basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
+                        client.Credentials = basicAuth;
+                        break;
+                    }
+                case JGConstant.GitRepo.Live:
+                    {
+                        reponame = ConfigurationManager.AppSettings["GitRepoNameLive"].ToString();
+                        adminname = ConfigurationManager.AppSettings["GitRepoAdminNameLive"].ToString();
+                        String adminloginId = ConfigurationManager.AppSettings["GitRepoAdminLoginIdLive"].ToString();
+                        String adminpassword = ConfigurationManager.AppSettings["GitRepoAdminPasswordLive"].ToString();
+                        client = new Octokit.GitHubClient(new Octokit.ProductHeaderValue(ConfigurationManager.AppSettings["GitAppNameLive"].ToString()));
+                        Octokit.Credentials basicAuth = new Octokit.Credentials(adminloginId, adminpassword);
+                        client.Credentials = basicAuth;
+                        break;
+                    }
+            }            
+
+
+            //Perform Actions       
+            switch (action)
+            {
+                case JGConstant.GitActions.AddUser:
+                    {
+                        client.Repository.Collaborator.Add(adminname, reponame, UserName);
+                        break;
+                    }
+                case JGConstant.GitActions.DeleteUser:
+                    {
+                        client.Repository.Collaborator.Delete(adminname, reponame, UserName);
+                        break;
+                    }
             }
         }
 
@@ -185,77 +254,92 @@ namespace JG_Prospect.App_Code
         public static bool SendEmail(string strEmailTemplate, string strToAddress, string strSubject, string strBody, List<Attachment> lstAttachments, List<AlternateView> lstAlternateView = null)
         {
             bool retValue = false;
-            try
+            if (!InstallUserBLL.Instance.CheckUnsubscribedEmail(strToAddress))
             {
-                /* Sample HTML Template
-                 * *****************************************************************************
-                 * Hi #lblFName#,
-                 * <br/>
-                 * <br/>
-                 * You are requested to appear for an interview on #lblDate# - #lblTime#.
-                 * <br/>
-                 * <br/>
-                 * Regards,
-                 * <br/>
-                */
-
-                string userName = ConfigurationManager.AppSettings["VendorCategoryUserName"].ToString();
-                string password = ConfigurationManager.AppSettings["VendorCategoryPassword"].ToString();
-
-                MailMessage Msg = new MailMessage();
-                Msg.From = new MailAddress(userName, "JGrove Construction");
-                Msg.To.Add(strToAddress);
-                Msg.CC.Add(new MailAddress("jgrove.georgegrove@gmail.com", "Justin Grove"));
-                Msg.Subject = strSubject;// "JG Prospect Notification";
-                Msg.Body = strBody;
-                Msg.IsBodyHtml = true;
-
-                //ds = AdminBLL.Instance.GetEmailTemplate('');
-                //// your remote SMTP server IP.
-                if (lstAttachments != null)
-                {
-                    foreach (Attachment objAttachment in lstAttachments)
-                    {
-                        Msg.Attachments.Add(objAttachment);
-                    }
-                }
-
-                if (lstAlternateView != null)
-                {
-                    foreach (AlternateView objAlternateView in lstAlternateView)
-                    {
-                        Msg.AlternateViews.Add(objAlternateView);
-                    }
-                }
-
-                SmtpClient sc = new SmtpClient(
-                                                ConfigurationManager.AppSettings["smtpHost"].ToString(),
-                                                Convert.ToInt32(ConfigurationManager.AppSettings["smtpPort"].ToString())
-                                              );
-                NetworkCredential ntw = new NetworkCredential(userName, password);
-                sc.UseDefaultCredentials = false;
-                sc.Credentials = ntw;
-                sc.DeliveryMethod = SmtpDeliveryMethod.Network;
-                sc.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["enableSSL"].ToString()); // runtime encrypt the SMTP communications using SSL
                 try
                 {
-                    sc.Send(Msg);
-                    retValue = true;
+                    /* Sample HTML Template
+                     * *****************************************************************************
+                     * Hi #lblFName#,
+                     * <br/>
+                     * <br/>
+                     * You are requested to appear for an interview on #lblDate# - #lblTime#.
+                     * <br/>
+                     * <br/>
+                     * Regards,
+                     * <br/>
+                    */
+
+                    string defaultEmailFrom = ConfigurationManager.AppSettings["defaultEmailFrom"].ToString();
+                    string userName = ConfigurationManager.AppSettings["smtpUName"].ToString();
+                    string password = ConfigurationManager.AppSettings["smtpPwd"].ToString();
+
+                    if (JGApplicationInfo.GetApplicationEnvironment() == "1" || JGApplicationInfo.GetApplicationEnvironment() == "2")
+                    {
+                        strBody = String.Concat(strBody, "<br/><br/><h1>Email is intended for Email Address: " + strToAddress + "</h1><br/><br/>");
+                        strToAddress = "error@kerconsultancy.com";
+
+                    }
+
+                    MailMessage Msg = new MailMessage();
+                    Msg.From = new MailAddress(defaultEmailFrom, "JGrove Construction");
+                    Msg.To.Add(strToAddress);
+                    Msg.Bcc.Add(JGApplicationInfo.GetDefaultBCCEmail());
+                    Msg.Subject = strSubject;// "JG Prospect Notification";
+                    Msg.Body = strBody.Replace("#UNSEMAIL#", HttpContext.Current.Server.UrlEncode(strToAddress));
+                    Msg.IsBodyHtml = true;
+
+                    //ds = AdminBLL.Instance.GetEmailTemplate('');
+                    //// your remote SMTP server IP.
+                    if (lstAttachments != null)
+                    {
+                        foreach (Attachment objAttachment in lstAttachments)
+                        {
+                            Msg.Attachments.Add(objAttachment);
+                        }
+                    }
+
+                    if (lstAlternateView != null)
+                    {
+                        foreach (AlternateView objAlternateView in lstAlternateView)
+                        {
+                            Msg.AlternateViews.Add(objAlternateView);
+                        }
+                    }
+
+                    SmtpClient sc = new SmtpClient(
+                                                    ConfigurationManager.AppSettings["smtpHost"].ToString(),
+                                                    Convert.ToInt32(ConfigurationManager.AppSettings["smtpPort"].ToString())
+                                                  );
+                    NetworkCredential ntw = new NetworkCredential(userName, password);
+                    sc.UseDefaultCredentials = false;
+                    sc.Credentials = ntw;
+                    sc.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    sc.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["enableSSL"].ToString()); // runtime encrypt the SMTP communications using SSL
+                    try
+                    {
+                        sc.Send(Msg);
+                        retValue = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        // throw will call application error event, which will log error details.
+                        throw ex;
+                    }
+
+                    Msg = null;
+                    sc.Dispose();
+                    sc = null;
                 }
                 catch (Exception ex)
                 {
-                    // throw will call application error event, which will log error details.
-                    throw ex;
-                }
+                    CommonFunction.UpdateEmailStatistics(ex.Message);
 
-                Msg = null;
-                sc.Dispose();
-                sc = null;
-            }
-            catch (Exception ex)
-            {
-                // throw will call application error event, which will log error details.
-                throw ex;
+                    if (JGApplicationInfo.IsSendEmailExceptionOn())
+                    {
+                        CommonFunction.SendExceptionEmail(ex);
+                    }
+                }
             }
             return retValue;
         }
@@ -659,6 +743,9 @@ namespace JG_Prospect.App_Code
                 case JGConstant.DesignationType.IT_PHP_Developer:
                     strCode = "ITPH";
                     break;
+                case JGConstant.DesignationType.IT_Jr_PHP_Developer:
+                    strCode = "ITJP";
+                    break;
                 case JGConstant.DesignationType.IT_SEO_OR_BackLinking:
                     strCode = "ITSB";
                     break;
@@ -911,8 +998,23 @@ namespace JG_Prospect.App_Code
                 lstbUsersMaster.DataTextField = "FristName";
                 lstbUsersMaster.DataValueField = "Id";
                 lstbUsersMaster.DataBind();
-                
+
             }
+        }
+
+        internal static string GetStandardDateTimeString(DateTime interviewDate)
+        {
+            return interviewDate.ToString("MM/dd/yyyy h:mm tt", CultureInfo.InvariantCulture);
+        }
+
+        internal static string GetStandardDateString(DateTime interviewDate)
+        {
+            return interviewDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+        }
+
+        internal static string GetStandardTimeString(DateTime interviewDate)
+        {
+            return interviewDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
         }
 
         internal static void ApplyColorCodeToAssignUserDropdown(DataTable dataSource, ListBox lstAssignUser)
@@ -932,10 +1034,10 @@ namespace JG_Prospect.App_Code
                     switch (Userstatus)
                     {
                         case JGConstant.InstallUserStatus.Active:
+                        case JGConstant.InstallUserStatus.OfferMade:
                             item.Attributes.Add("class", "activeUser");
                             break;
                         case JGConstant.InstallUserStatus.InterviewDate:
-                        case JGConstant.InstallUserStatus.OfferMade:
                             item.Attributes.Add("class", "IOUser");
                             break;
                         default:
@@ -944,6 +1046,361 @@ namespace JG_Prospect.App_Code
 
                 }
             }
+        }
+
+        internal static DataTable ApplyColorCodeToAssignUserDataTable(DataTable dataSource)
+        {
+
+            DataColumn dcColorClass = new DataColumn("CssClass", System.Type.GetType("System.String"));
+
+             dataSource.Columns.Add(dcColorClass);
+            dataSource.AcceptChanges();
+
+            // For all active user set font in red and for all InterviewDate and OfferMade set blue.
+            foreach (DataRow row in dataSource.Rows)
+            {
+                
+                    JGConstant.InstallUserStatus Userstatus;
+                  Enum.TryParse(Convert.ToString(row["Status"]), out Userstatus);
+
+                    switch (Userstatus)
+                    {
+                        case JGConstant.InstallUserStatus.Active:
+                        case JGConstant.InstallUserStatus.OfferMade:
+                        row["CssClass"] = "activeUser";
+                            break;
+                        case JGConstant.InstallUserStatus.InterviewDate:
+                        row["CssClass"] = "IOUser";                        
+                            break;
+                        default:
+                            break;
+                    }
+                                
+            }
+
+            return dataSource;
+        }
+
+        internal static int GetNextWeekdayDifference(DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            return daysToAdd;
+        }
+
+        internal static void BulkEmail(HTMLTemplates objHTMLTemplateType, Int32 DesignationId)
+        {
+            DesignationHTMLTemplate objHTMLTemplate = HTMLTemplateBLL.Instance.GetDesignationHTMLTemplate(objHTMLTemplateType, DesignationId.ToString());
+
+            // Get all install users with statuses, Applicant, Refferal Applcant, InterviewDate
+            DataSet dsUser = InstallUserBLL.Instance.GetInstallUsersForBulkEmail(DesignationId);
+
+            if (dsUser != null && dsUser.Tables.Count > 0)
+            {
+                foreach (DataRow installUser in dsUser.Tables[0].Rows)
+                {
+                    // Send email to each user.
+                    string emailId = String.Empty;
+                    string strBody = String.Empty;
+
+                    if (JGApplicationInfo.GetApplicationEnvironment() == "1")
+                    {
+                        emailId = "error@kerconsultancy.com";
+                        strBody = "<h1>Email is intended for Email Address: " + installUser["Email"].ToString() + "</h1><br/><br/>";
+                    }
+                    else
+                    {
+                        emailId = installUser["Email"].ToString();
+                    }
+
+                    string FName = installUser["FristName"].ToString();
+                    string LName = installUser["LastName"].ToString();
+                    string Designation = installUser["Designation"].ToString();
+                    string fullname = FName + " " + LName;
+
+                    string userName = ConfigurationManager.AppSettings["VendorCategoryUserName"].ToString();
+                    string password = ConfigurationManager.AppSettings["VendorCategoryPassword"].ToString();
+
+
+                    string strHeader = objHTMLTemplate.Header;
+                    strBody = String.Concat(strBody, objHTMLTemplate.Body);
+                    string strFooter = objHTMLTemplate.Footer;
+                    string strsubject = objHTMLTemplate.Subject;
+
+                    strBody = strBody.Replace("#name#", fullname).Replace("#Email#", installUser["Email"].ToString()).Replace("#Phone number#", installUser["Phone"].ToString());
+
+                    strFooter = strFooter.Replace("#Designation#", Designation);
+
+                    strBody = strHeader + strBody + strFooter;
+
+                    List<Attachment> lstAttachments = objHTMLTemplate.Attachments;
+
+
+                    //if (Attachments != null)
+                    //{
+                    //    lstAttachments.AddRange(Attachments);
+                    //}
+
+                    try
+                    {
+                        SendEmail(Designation, emailId, strsubject, strBody, lstAttachments);
+
+                        CommonFunction.UpdateEmailStatistics(emailId);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+
+        }
+
+        private static void UpdateEmailStatistics(string emailId)
+        {
+            string logDirectoryPath = HttpContext.Current.Server.MapPath(@"~\EmailStatistics");
+
+            if (!Directory.Exists(logDirectoryPath))
+            {
+                Directory.CreateDirectory(logDirectoryPath);
+            }
+
+            string path = String.Concat(logDirectoryPath, "\\statistics.txt");
+
+            if (!File.Exists(path))
+            {
+
+                using (TextWriter tw = File.CreateText(path))
+                {
+                    tw.WriteLine(emailId + "  - " + DateTime.Now);
+                    tw.Close();
+                }
+
+
+            }
+            else if (File.Exists(path))
+            {
+                using (var tw = new StreamWriter(path, true))
+                {
+                    tw.WriteLine(emailId + "  - " + DateTime.Now);
+                    tw.Close();
+                }
+            }
+        }
+
+        internal static DataSet GetDesignations()
+        {
+            DataSet dsDesignation = new DataSet();
+            dsDesignation = DesignationBLL.Instance.GetAllDesignationsForHumanResource();
+            return dsDesignation;
+        }
+
+        internal static void SendExceptionEmail(Exception Error)
+        {
+            // Code that runs when an unhandled error occurs
+            if (!string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["ErrorNotificationEmailId"]))
+            {
+                Exception objException = Error;
+
+                if (objException != null)
+                {
+                    string strSubject, strBody;
+
+                    // inner exception is the actual exception. 
+                    // so, if inner exception is available, send it in email.
+                    if (objException.InnerException != null)
+                    {
+                        strSubject = "Exception - " + objException.InnerException.Message;
+
+                        strBody = GetExceptionHtml(objException.InnerException);
+                    }
+                    // send base exception details, when inner exception is not available.
+                    else
+                    {
+                        strSubject = "Exception - " + objException.Message;
+
+                        strBody = GetExceptionHtml(objException);
+                    }
+
+                    if (!string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["ApplicationEnvironment"]))
+                    {
+                        switch ((JG_Prospect.Common.JGConstant.ApplicationEnvironment)Convert.ToByte(System.Configuration.ConfigurationManager.AppSettings["ApplicationEnvironment"]))
+                        {
+                            case JG_Prospect.Common.JGConstant.ApplicationEnvironment.Local:
+                                strSubject = "Local " + strSubject;
+                                break;
+                            case JG_Prospect.Common.JGConstant.ApplicationEnvironment.Staging:
+                                strSubject = "Staging " + strSubject;
+                                break;
+                            case JG_Prospect.Common.JGConstant.ApplicationEnvironment.Live:
+                                strSubject = "Live " + strSubject;
+                                break;
+                        }
+                    }
+
+
+                    if (HttpContext.Current.Request != null && HttpContext.Current.Request.Url != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Url.ToString()))
+                    {
+                        strBody = "<p style='padding:5px;margin:5px;'>" + HttpContext.Current.Request.Url.ToString() + "</p>" + strBody;
+                    }
+
+                    // append all contents to a main table 
+                    // to center align the contents and 
+                    // to keep all the contents in one parent table.
+                    strBody = "<table width='100%'><tr><td align='center' valign='top'>" + strBody + "</td></tr></table>";
+
+                    JG_Prospect.App_Code.CommonFunction.SendEmailInternal
+                                                            (
+                                                                System.Configuration.ConfigurationManager.AppSettings["ErrorNotificationEmailId"],
+                                                                strSubject,
+                                                                strBody
+                                                            );
+                }
+            }
+        }
+
+        internal static string GetInstallIDPrefixFromDesignationID(string DesignID)
+        {
+            string prefix = "";
+            switch (DesignID)
+            {
+                case "1":
+                    prefix = "ADM";
+                    break;
+                case "2":
+                    prefix = "JSL";
+                    break;
+                case "3":
+                    prefix = "JPM";
+                    break;
+                case "4":
+                    prefix = "OFM";
+                    break;
+                case "5":
+                    prefix = "REC";
+                    break;
+                case "6":
+                    prefix = "SLM";
+                    break;
+                case "7":
+                    prefix = "SSL";
+                    break;
+                case "8":
+                    prefix = "ITNA";
+                    break;
+                case "9":
+                    prefix = "ITJN";
+                    break;
+                case "10":
+                    prefix = "ITSN";
+                    break;
+                case "11":
+                    prefix = "ITAD";
+                    break;
+                case "12":
+                    prefix = "ITPH";
+                    break;
+                case "13":
+                    prefix = "ITSB";
+                    break;
+                case "14":
+                    prefix = "INH";
+                    break;
+                case "15":
+                    prefix = "INJ";
+                    break;
+                case "16":
+                    prefix = "INM";
+                    break;
+                case "17":
+                    prefix = "INLM";
+                    break;
+                case "18":
+                    prefix = "INF";
+                    break;
+                case "19":
+                    prefix = "COM";
+                    break;
+                case "20":
+                    prefix = "SBC";
+                    break;
+                case "24":
+                    prefix = "ITSQA";
+                    break;
+                case "25":
+                    prefix = "ITJQA";
+                    break;
+                case "26":
+                    prefix = "ITJPH";
+                    break;
+                default:
+                    prefix = "TSK";
+                    break;
+            }
+
+            return prefix;
+        }
+
+        internal static string GetExceptionHtml(Exception objException)
+        {
+            string strHtml = "";
+
+            strHtml += "<table width='700' cellpadding='5' border='0'>";
+            strHtml += "<tr>";
+            strHtml += "<td valign='top'>Type:</td>";
+            strHtml += "<td valign='top'>" + objException.GetType().FullName + "</td>";
+            strHtml += "</tr>";
+            strHtml += "<tr>";
+            strHtml += "<td valign='top'>Message:</td>";
+            strHtml += "<td valign='top'>" + objException.Message + "</td>";
+            strHtml += "</tr>";
+            strHtml += "<tr>";
+            strHtml += "<td valign='top'>StackTrace:</td>";
+            strHtml += "<td valign='top'>" + objException.StackTrace + "</td>";
+            strHtml += "</tr>";
+            strHtml += "</table>";
+
+            return strHtml;
+        }
+
+        internal static void SendHRFormFillupRequestEmail(string email, Int32 DesignationId, String FirstName)
+        {
+            DesignationHTMLTemplate objHTMLTemplate = HTMLTemplateBLL.Instance.GetDesignationHTMLTemplate(HTMLTemplates.HR_Request_FormFill_EmailTemplate, DesignationId.ToString());
+
+            // Send email to each user.
+            string emailId = String.Empty;
+            string strBody = String.Empty;
+
+            if (JGApplicationInfo.GetApplicationEnvironment() == "1")
+            {
+                emailId = "error@kerconsultancy.com";
+                strBody = "<h1>Email is intended for Email Address: " + email + "</h1><br/><br/>";
+            }
+            else
+            {
+                emailId = email;
+            }
+
+            string strHeader = objHTMLTemplate.Header;
+            strBody = String.Concat(strBody, objHTMLTemplate.Body);
+            string strFooter = objHTMLTemplate.Footer;
+            string strsubject = objHTMLTemplate.Subject;
+
+            strBody = strBody.Replace("#name#", FirstName);
+
+            strBody = strHeader + strBody + strFooter;
+
+            List<Attachment> lstAttachments = objHTMLTemplate.Attachments;
+
+            try
+            {
+                SendEmail(String.Empty, emailId, strsubject, strBody, lstAttachments);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
     }
 }
@@ -1041,6 +1498,22 @@ namespace JG_Prospect
             set
             {
                 HttpContext.Current.Session["Username"] = value;
+            }
+        }
+
+        public static string LastName
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Lastname"] == null)
+                {
+                    return null;
+                }
+                return Convert.ToString(HttpContext.Current.Session["Lastname"]);
+            }
+            set
+            {
+                HttpContext.Current.Session["Lastname"] = value;
             }
         }
 
@@ -1266,5 +1739,64 @@ namespace JG_Prospect
                 HttpContext.Current.Session["microsoft"] = value;
             }
         }
+        public static DateTime? ExamTimerSetTime
+        {
+            get
+            {
+                if (HttpContext.Current.Session["estime"] == null)
+                    return null;
+                return Convert.ToDateTime(HttpContext.Current.Session["estime"]);
+            }
+            set
+            {
+                HttpContext.Current.Session["estime"] = value;
+            }
+        }
+        public static Int32 CurrentExamTime
+        {
+            get
+            {
+                if (HttpContext.Current.Session["cextime"] == null)
+                    return 0;
+                return Convert.ToInt32(HttpContext.Current.Session["cextime"]);
+            }
+            set
+            {
+                HttpContext.Current.Session["cextime"] = value;
+            }
+        }
+    }
+}
+
+namespace JG_Prospect
+{
+    public static class JGSMSHelper
+    {
+
+        /// <summary>
+        /// Send text SMS to given mobile number
+        /// </summary>
+        /// <param name="MobileNumber">Mobile message number with international dialing code. for ex. +91</param>
+        /// <param name="MSGText"></param>
+        /// <returns></returns>
+        internal static bool SendSMS(String MobileNumber, String MSGText)
+        {
+
+            //using (WebClient client = new WebClient())
+            //{
+            //    byte[] response = client.UploadValues("http://textbelt.com/text", new NameValueCollection() { { "phone", MobileNumber }, { "message", MSGText }, { "key", "b6c82eaecce10df0c4fa006c8a3093438bd5850fZ6ZspSTasK3XtwO9OyoBUwS9r" } });
+            //    string result = System.Text.Encoding.UTF8.GetString(response);
+            //}
+
+            return true;
+
+        }
+
+        internal static string[] GetFromatedMobileNumber(String MobileNumber)
+        {
+            return new string[] { "", "" };
+
+        }
+
     }
 }

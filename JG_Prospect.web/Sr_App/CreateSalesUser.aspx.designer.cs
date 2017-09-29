@@ -220,94 +220,103 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.TextBox txtlastname;
         
         /// <summary>
-        /// chkPrimaryPhoneMain control.
+        /// chkEmailPrimary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkPrimaryPhoneMain;
+        protected global::System.Web.UI.WebControls.CheckBox chkEmailPrimary;
         
         /// <summary>
-        /// lblPhoneReq control.
+        /// ddlEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPhoneReq;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmail;
         
         /// <summary>
-        /// rqPhone control.
+        /// chkPhonePrimary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqPhone;
+        protected global::System.Web.UI.WebControls.CheckBox chkPhonePrimary;
         
         /// <summary>
-        /// txtPhone control.
+        /// ddlPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPhone;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPhone;
         
         /// <summary>
-        /// txtPhoneExt control.
+        /// ddlPhoneTypeDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPhoneExt;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPhoneTypeDisplay;
         
         /// <summary>
-        /// phoneTypeDropDownList control.
+        /// ddlPhoneType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList phoneTypeDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPhoneType;
         
         /// <summary>
-        /// chkPrimaryEmailMain control.
+        /// chkPrimary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkPrimaryEmailMain;
+        protected global::System.Web.UI.WebControls.CheckBox chkPrimary;
         
         /// <summary>
-        /// lblReqEmail control.
+        /// txtContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReqEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtContact;
         
         /// <summary>
-        /// txtemail control.
+        /// btnAddContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtemail;
+        protected global::System.Web.UI.WebControls.Button btnAddContact;
         
         /// <summary>
-        /// rqEmail control.
+        /// RequiredFieldValidator11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqEmail;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator11;
+        
+        /// <summary>
+        /// rePhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator rePhone;
         
         /// <summary>
         /// reEmail control.
@@ -319,13 +328,40 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator reEmail;
         
         /// <summary>
-        /// ddlPhontType control.
+        /// lblExt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPhontType;
+        protected global::System.Web.UI.WebControls.Label lblExt;
+        
+        /// <summary>
+        /// txtExt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExt;
+        
+        /// <summary>
+        /// txtemail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtemail;
+        
+        /// <summary>
+        /// txtPhone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPhone;
         
         /// <summary>
         /// ContactPreferenceChkEmail control.
@@ -517,13 +553,13 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.Label lblReqZip;
         
         /// <summary>
-        /// txtZip control.
+        /// txtZipHomeAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtZip;
+        protected global::System.Web.UI.WebControls.TextBox txtZipHomeAdd;
         
         /// <summary>
         /// AutoCompleteExtender1 control.
@@ -544,6 +580,15 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqZip;
         
         /// <summary>
+        /// upNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upNotes;
+        
+        /// <summary>
         /// gvTouchPointLog control.
         /// </summary>
         /// <remarks>
@@ -553,15 +598,6 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.GridView gvTouchPointLog;
         
         /// <summary>
-        /// txtTouchPointLogNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTouchPointLogNote;
-        
-        /// <summary>
         /// btnAddNote control.
         /// </summary>
         /// <remarks>
@@ -569,6 +605,15 @@ namespace JG_Prospect.Sr_App {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddNote;
+        
+        /// <summary>
+        /// txtTouchPointLogNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTouchPointLogNote;
         
         /// <summary>
         /// lbtnAptTestLink control.
@@ -1705,13 +1750,13 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
         
         /// <summary>
-        /// txtZipHomeAdd control.
+        /// txtZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtZipHomeAdd;
+        protected global::System.Web.UI.WebControls.TextBox txtZip;
         
         /// <summary>
         /// lblStateReq control.
@@ -2110,15 +2155,6 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
-        /// lblNotesReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNotesReq;
-        
-        /// <summary>
         /// txtNotes control.
         /// </summary>
         /// <remarks>
@@ -2126,15 +2162,6 @@ namespace JG_Prospect.Sr_App {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNotes;
-        
-        /// <summary>
-        /// rqNotes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqNotes;
         
         /// <summary>
         /// chkMaddAdd control.

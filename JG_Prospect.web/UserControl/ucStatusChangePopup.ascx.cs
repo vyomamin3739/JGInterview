@@ -43,5 +43,20 @@ namespace JG_Prospect.UserControl
 
             lblMsg.Text = "<h2 style='margin - top:35px'><i>" + ucPopUpMsg + "</i></h2>";
         }
+
+        public void changeText(String Message)
+        {
+            if (!String.IsNullOrEmpty(Message))
+            {
+                ucPopUpMsg = Message; 
+            }
+
+            if (ucPopUpHeader == null || ucPopUpHeader == string.Empty)
+            {
+                lblHeader.Text = "<h1>Information</h1>";
+            }
+
+            lblMsg.Text = "<h2 style='margin - top:35px'><i>" + ucPopUpMsg + "</i></h2>";
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace JG_Prospect.Sr_App {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::JG_Prospect.Sr_App.Header Header1;
+        protected global::JG_Prospect.Sr_App.SRAppHeader Header1;
         
         /// <summary>
         /// qfront control.

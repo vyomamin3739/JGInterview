@@ -21,6 +21,7 @@ using DotNetOpenAuth.AspNet.Clients;
 using JG_Prospect.Common;
 using System.Web.Services;
 using JG_Prospect.Common.modal;
+using System.Collections.Specialized;
 
 namespace JG_Prospect
 {
@@ -864,6 +865,7 @@ namespace JG_Prospect
 
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
+           
             try
             {
                 JGSession.DesignationId = 0;
@@ -878,11 +880,14 @@ namespace JG_Prospect
                     ds = InstallUserBLL.Instance.getInstallerUserDetailsByLoginId(txtloginid.Text.Trim());
                     if (ds.Tables[0].Rows.Count > 0)
                     {
+                        #region 'Active User Found'
+
                         if (ds.Tables[0].Rows.Count > 0)
                         {
                             Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()] = ds.Tables[0].Rows[0]["Id"].ToString().Trim();
 
                             JGSession.Username = ds.Tables[0].Rows[0]["FristName"].ToString().Trim();
+                            JGSession.LastName = ds.Tables[0].Rows[0]["LastName"].ToString().Trim();
                             JGSession.UserProfileImg = ds.Tables[0].Rows[0]["Picture"].ToString();
                             JGSession.LoginUserID = ds.Tables[0].Rows[0]["Id"].ToString();
                             JGSession.Designation = ds.Tables[0].Rows[0]["Designation"].ToString().Trim();
@@ -917,6 +922,11 @@ namespace JG_Prospect
                             if (JGSession.UserStatus.HasValue && JGSession.UserStatus.Value == JGConstant.InstallUserStatus.Applicant)
                             {
                                 strRedirectUrl = "~/ViewApplicantUser.aspx?Id=" + JGSession.LoginUserID;
+                            }
+                            // if user has passed exam and didn't assigned sequence he should be redirect to view applicant page for auto sequence assignment.
+                            else if (JGSession.UserStatus.HasValue && JGSession.UserStatus.Value == JGConstant.InstallUserStatus.InterviewDate && ds.Tables[0].Rows[0]["AssignedSequence"].ToString() == "0")
+                            {
+                                Response.Redirect("~/ViewApplicantUser.aspx?Id=" + JGSession.LoginUserID + "&IE=1");
                             }
                             else
                             {
@@ -1007,7 +1017,24 @@ namespace JG_Prospect
                             JGSession.GuIdAtLogin = null;
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "AlertBox", "loginFailMessage();", true);
                         }
+
+                        #endregion
                     }
+                    else
+                    {
+                        DataSet ds1 = InstallUserBLL.Instance.getInstallerUserDetailsByLoginId(txtloginid.Text.Trim(), true);
+
+                        if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0 &&
+                            Convert.ToInt32(ds1.Tables[0].Rows[0]["Status"]) == Convert.ToInt32(JGConstant.InstallUserStatus.Rejected))
+                        {
+                            string strMessage = "Unfortunately you did NOT pass the apptitude test for the designation you applied for. ";
+                            strMessage += "If you feel you reached this message in error you will need to contact a JG MNGR represenative to unlock your account and allow you to take another test.  ";
+                            strMessage += "Thank you for applying with JMG.";
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "alert('" + strMessage + "');", true);
+                            return;
+                        }
+                    }
+
                     #endregion
 
                     // redirects user to the last accessed page.
@@ -1076,7 +1103,7 @@ namespace JG_Prospect
             }
         }
 
-        protected void lblForgotUserId_Click(object sender, EventArgs e)
+           protected void lblForgotUserId_Click(object sender, EventArgs e)
         {
             Response.Redirect("ForgotuserId.aspx");
         }

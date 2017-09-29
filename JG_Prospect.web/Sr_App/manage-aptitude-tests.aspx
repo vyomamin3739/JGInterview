@@ -1,9 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Sr_App/SR_app.Master" AutoEventWireup="true" CodeBehind="manage-aptitude-tests.aspx.cs"
     Inherits="JG_Prospect.Sr_App.manage_aptitude_tests" %>
 
+<%@ Register TagPrefix="asp" Namespace="Saplin.Controls" Assembly="DropDownCheckBoxes" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="../css/chosen.css" rel="stylesheet" />
     <div class="right_panel">
         <!-- appointment tabs section start -->
         <ul class="appointment_tab">
@@ -11,7 +14,7 @@
             <li><a href="Inventory.aspx">Inventory</a></li>
             <li><a href="Maintenace.aspx">Maintainance</a></li>
             <li><a href="email-template-maintainance.aspx">Maintainance New</a></li>
-            <li><a href="manage-aptitude-tests.aspx.aspx">Aptitude Tests</a></li>
+            <li><a href="manage-aptitude-tests.aspx">Aptitude Tests</a></li>
         </ul>
         <!-- appointment tabs section end -->
         <h1>Aptitude Tests</h1>
@@ -20,8 +23,16 @@
                 <ContentTemplate>
                     <table width="100%">
                         <tr>
-                            <td>Designation:
-                        <asp:DropDownList ID="ddlDesignation" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" />
+                            <td>Filter Tests by Designation:
+                        <%--<asp:DropDownList ID="ddlDesignation" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" />--%>
+                                <asp:UpdatePanel ID="upnlDesignationFrozen" runat="server" RenderMode="Inline">
+                                    <ContentTemplate>
+                                        <asp:DropDownCheckBoxes ID="ddlDesigAptitude" runat="server" UseSelectAllNode="false" AutoPostBack="true" OnSelectedIndexChanged="ddlDesigAptitude_SelectedIndexChanged">
+                                            <Style SelectBoxWidth="195" DropDownBoxBoxWidth="120" DropDownBoxBoxHeight="150" />
+                                        </asp:DropDownCheckBoxes>
+                                        <asp:CustomValidator ID="cvalidatorddlDesigAptitude" runat="server" ValidationGroup="Submit" ErrorMessage="Please Select Designation" Display="None" ClientValidationFunction="checkddlDesigAptitude"></asp:CustomValidator>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </td>
                         </tr>
                         <tr>
@@ -32,7 +43,7 @@
                         <tr>
                             <td>
                                 <asp:GridView ID="grdExams" runat="server" AutoGenerateColumns="false" DataKeyNames="ExamId"
-                                    CssClass="table" Width="100%" CellSpacing="0" CellPadding="0" GridLines="Vertical">
+                                    CssClass="table" Width="100%" CellSpacing="0" CellPadding="0" GridLines="Vertical" OnRowDataBound="grdExams_RowDataBound">
                                     <EmptyDataRowStyle ForeColor="White" HorizontalAlign="Center" BackColor="Black" Height="30" VerticalAlign="Middle" />
                                     <HeaderStyle CssClass="trHeader " />
                                     <RowStyle CssClass="FirstRow" BorderStyle="Solid" />
@@ -63,12 +74,14 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Active">
                                             <ItemTemplate>
-                                                <img src='<%# Convert.ToBoolean(Eval("IsActive")) ? Page.ResolveUrl("~/img/success.png") : "javascript:void(0);" %>' />
+                                                <img src='<%# Convert.ToBoolean(Eval("IsActive")) ? Page.ResolveUrl("~/img/success.png") : Page.ResolveUrl("~/img/error.png") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Designation">
                                             <ItemTemplate>
-                                                <%# Eval("DesignationName") %>
+                                                <asp:ListBox ID="ddcbDesig" runat="server" Width="150" ClientIDMode="AutoID" SelectionMode="Multiple"
+                                                    CssClass="chosen-select" data-placeholder="Select"
+                                                    AutoPostBack="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
@@ -90,4 +103,58 @@
             </asp:UpdatePanel>
         </div>
     </div>
+    
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/js/chosen.jquery.js")%>"></script>
+    <script type="text/javascript">
+        // check if user has selected any designations or not.
+        function checkddlDesigAptitude(oSrc, args) {
+            args.IsValid = ($("#<%= ddlDesigAptitude.ClientID%> input:checked").length > 0);
+        }
+
+        $(document).ready(function () {
+            Intialize();
+        });
+
+        function Intialize() {
+            ChosenDropDown();
+        }
+        function ChosenDropDown(options) {
+            var _options = options || {};
+            $('.chosen-select').chosen(_options);
+        }
+        function EditTestsDesignations(sender) {
+
+            ShowAjaxLoader();
+
+            var $sender = $(sender);
+            var intExamID = parseInt($sender.attr('data-examid'));            
+            //var arrAllDesignations = [];
+            var arrAssignedDesign = [];
+
+            $sender.find('option').each(function (index, item) {
+                var intDesignId = parseInt($(item).attr('value'));
+
+                if (intDesignId > 0) {
+                    if ($.inArray(intDesignId.toString(), $sender.val()) != -1) {
+                        arrAssignedDesign.push(intDesignId);
+                    }                    
+                }
+            });
+
+            var postData = {
+                "intExamId": intExamID,
+                "Designations": arrAssignedDesign.join()              
+            };
+
+             CallJGWebServiceCommon('SaveExamDesignation', postData, function (data) { OnExamSaveDesignationsSuccess(data, sender) });
+
+            function OnExamSaveDesignationsSuccess(data, sender) {
+                HideAjaxLoader();
+                alert("Designation saved successfully.");
+
+            }
+
+        }
+
+    </script>
 </asp:Content>

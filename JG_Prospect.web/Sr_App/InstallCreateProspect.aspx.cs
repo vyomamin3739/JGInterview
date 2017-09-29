@@ -294,7 +294,7 @@ namespace JG_Prospect.Sr_App
                 //{
                 //    objprospect.attachements = strFileName;
                 //}
-                objuser.status = "Install Prospect";
+                objuser.status = Convert.ToInt32(JGConstant.InstallUserStatus.InstallProspect).ToString();
 
                 lblException.Text = Convert.ToString(err.Append(" Before  CheckInstallUser "));
                 DataSet dsCheckDuplicate = InstallUserBLL.Instance.CheckInstallUser(txtemail.Text, txtPhone.Text);
@@ -337,10 +337,13 @@ namespace JG_Prospect.Sr_App
                     Session["ProspectAttachment"] = null;
                     CheckUserType();
 
+                    //Send Request email to fill out HR form to Newly added client.
+                    CommonFunction.SendHRFormFillupRequestEmail(objuser.email, objuser.DesignationID, objuser.fristname);
+
                     if (isInstallUser)
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Prospect has been created successfully');window.location ='EditInstallUser.aspx';", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Prospect successfully saved and auto-email/sms sent for request for applicant to fill out Hr form http://www.jmgroveconstruction.com/employment.php');window.location ='EditInstallUser.aspx';", true);
                     else
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Sales has been created successfully');window.location ='EditUser.aspx';", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Sales successfully saved and auto-email/sms sent for request for applicant to fill out Hr form http://www.jmgroveconstruction.com/employment.php');window.location ='EditUser.aspx';", true);
                     //Response.Redirect("EditInstallUser.aspx");
                     clearcontrols();
                 }

@@ -66,7 +66,7 @@ namespace JG_Prospect.Controls
         protected void btnlogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
-            Response.Redirect("~/login.aspx");
+            Response.Redirect("~/stafflogin.aspx");
         }
 
         public bool ShowTaskList

@@ -34,12 +34,21 @@ namespace JG_Prospect.BLL
             return AptitudeTestDAL.Instance.GetExamByExamID(ExamType,userID);
         }
 
+        public DataTable GetExamsByUserID(int userID)
+        {
+            return AptitudeTestDAL.Instance.GetExamsByUserID(userID);
+        }
+
+        public Double GetExamsResultByUserID(int userID, ref bool isAllExamGiven)
+        {
+            return AptitudeTestDAL.Instance.GetExamsResultByUserID(userID, ref isAllExamGiven);
+        }
         public string GetExamNameByExamID(string ExamId)
         {
             return AptitudeTestDAL.Instance.GetExamNameByExamID(ExamId);
         }
 
-        public DataTable GetMCQ_Exams(int? intDesignationID)
+        public DataTable GetMCQ_Exams(string intDesignationID)
         {
             return AptitudeTestDAL.Instance.GetMCQ_Exams(intDesignationID);
         }
@@ -74,9 +83,9 @@ namespace JG_Prospect.BLL
             return AptitudeTestDAL.Instance.GetQuestionsoptionByQustionID(questionID);
         }
 
-        public bool InsertPerformance(int InstallUserID, int ExamID, int marksEarned, int totalMarks, float percentage, int Status)
+        public bool InsertPerformance(int InstallUserID, int ExamID, int marksEarned)
         {
-            return AptitudeTestDAL.Instance.InsertPerformance(InstallUserID, ExamID, marksEarned, totalMarks, percentage, Status);
+            return AptitudeTestDAL.Instance.InsertPerformance(InstallUserID, ExamID, marksEarned);
         }
 
 
@@ -124,5 +133,11 @@ namespace JG_Prospect.BLL
         {
             AptitudeTestDAL.Instance.UpdateMCQ_CorrectAnswer(objMCQ_Option);
         }
+
+        public void UpdateMCQ_ExamDesignations(Int64 intExamId, string Designations)
+        {
+            AptitudeTestDAL.Instance.UpdateMCQ_ExamDesignations(intExamId,Designations);
+        }
+
     }
 }

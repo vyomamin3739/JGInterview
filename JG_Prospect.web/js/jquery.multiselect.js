@@ -1,4 +1,4 @@
-/**
+/*
  * Display a nice easy to use multiselect list
  * @Version: 2.3.6
  * @Author: Patrick Springstubbe

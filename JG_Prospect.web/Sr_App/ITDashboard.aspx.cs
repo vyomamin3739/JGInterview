@@ -383,7 +383,7 @@ namespace JG_Prospect.Sr_App
             //mpNewFrozenTask.Show();
         }
 
-        private void LoadFilterUsersByDesgination(string designation, Saplin.Controls.DropDownCheckBoxes drp)
+        private void LoadFilterUsersByDesgination(string designation, ListBox drp)
         {
             DataSet dsUsers;
             // DropDownCheckBoxes ddlAssign = (FindControl("ddcbAssigned") as DropDownCheckBoxes);
@@ -399,6 +399,24 @@ namespace JG_Prospect.Sr_App
             drp.Items.Insert(0, new ListItem("--All--", "0"));
             drp.SelectedIndex = 0;
 
+            HighlightInterviewUsers(dsUsers.Tables[0], drp, null);
+        }
+
+        private void LoadFilterUsersByDesgination(string designation, Saplin.Controls.DropDownCheckBoxes drp)
+        {
+            DataSet dsUsers;
+            // DropDownCheckBoxes ddlAssign = (FindControl("ddcbAssigned") as DropDownCheckBoxes);
+            // DropDownList ddlDesignation = (DropDownList)sender;
+            dsUsers = TaskGeneratorBLL.Instance.GetInstallUsers(2, designation);
+            //drpUsersInProgress.Items.Clear();
+
+            drp.Items.Clear();
+            drp.DataSource = dsUsers;
+            drp.DataTextField = "FristName";
+            drp.DataValueField = "Id";
+            drp.DataBind();
+            drp.Items.Insert(0, new ListItem("--All--", "0"));
+            drp.SelectedIndex = 0;
             HighlightInterviewUsers(dsUsers.Tables[0], drp, null);
         }
 
@@ -489,6 +507,45 @@ namespace JG_Prospect.Sr_App
                         item.Attributes.Add("style", "color:blue;");
                     }
                 }
+            }
+        }
+
+        private void HighlightInterviewUsers(DataTable dtUsers, ListBox ddlUsers, DropDownList ddlFilterUsers)
+        {
+            #region Commented
+            //if (dtUsers.Rows.Count > 0)
+            //{
+            //    var rows = dtUsers.AsEnumerable();
+
+            //    //get all users comma seperated ids with interviewdate status
+            //    String InterviewDateUsers = String.Join(",", (from r in rows where (r.Field<string>("Status") == "InterviewDate" || r.Field<string>("Status") == "Interview Date") select r.Field<Int32>("Id").ToString()));
+
+            //    // for each userid find it into user dropdown list and apply red color to it.
+            //    foreach (String user in InterviewDateUsers.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            //    {
+            //        ListItem item;
+
+            //        if (ddlUsers != null)
+            //        {
+            //            item = ddlUsers.Items.FindByValue(user);
+            //        }
+            //        else
+            //        {
+            //            item = ddlFilterUsers.Items.FindByValue(user);
+            //        }
+
+            //        if (item != null)
+            //        {
+            //            item.Attributes.Add("style", "color:red;");
+            //        }
+            //    }
+
+            //} 
+            #endregion
+
+            if (dtUsers != null && dtUsers.Rows.Count > 0)
+            {
+                CommonFunction.ApplyColorCodeToAssignUserDropdown(dtUsers, ddlUsers);
             }
         }
 
@@ -782,6 +839,14 @@ namespace JG_Prospect.Sr_App
                 grdTaskPending.DataBind();
 
             }
+
+            DataSet dsUsers = TaskGeneratorBLL.Instance.GetInstallUsers(2, desigID);
+
+            if (dsUsers != null && dsUsers.Tables.Count > 0)
+            {
+                HighlightInterviewUsers(dsUsers.Tables[0], ddlInProgressAssignedUsers, null); 
+            }
+
         }
 
         private void BindTaskClosedGrid()
@@ -1565,16 +1630,16 @@ namespace JG_Prospect.Sr_App
         {
             BindTaskInProgressGrid();
 
-            ddlInProgressAssignedUsers.Texts.SelectBoxCaption = "--All--";
+            //ddlInProgressAssignedUsers.Texts.SelectBoxCaption = "--All--";
 
-            foreach (ListItem item in ddlInProgressAssignedUsers.Items)
-            {
-                if (item.Selected)
-                {
-                    ddlInProgressAssignedUsers.Texts.SelectBoxCaption = item.Text;
-                    break;
-                }
-            }
+            //foreach (ListItem item in ddlInProgressAssignedUsers.Items)
+            //{
+            //    if (item.Selected)
+            //    {
+            //        ddlInProgressAssignedUsers.Texts.SelectBoxCaption = item.Text;
+            //        break;
+            //    }
+            //}
         }
 
         protected void ddlClosedAssignedUsers_SelectedIndexChanged(object sender, EventArgs e)
@@ -1591,6 +1656,27 @@ namespace JG_Prospect.Sr_App
                     break;
                 }
             }
+        }
+
+        private string GetSelectedDesignationsString(ListBox drpChkBoxes)
+        {
+            String returnVal = string.Empty;
+            StringBuilder sbDesignations = new StringBuilder();
+
+            foreach (ListItem item in drpChkBoxes.Items)
+            {
+                if (item.Selected)
+                {
+                    sbDesignations.Append(String.Concat(item.Value, ","));
+                }
+            }
+
+            if (sbDesignations.Length > 0)
+            {
+                returnVal = sbDesignations.ToString().Substring(0, sbDesignations.ToString().Length - 1);
+            }
+
+            return returnVal;
         }
 
 
@@ -1635,6 +1721,12 @@ namespace JG_Prospect.Sr_App
             }
             return objListItemCollection;
         }
+        
+        protected void searchUsers_Click(object sender, EventArgs e)
+        {
+            BindTaskInProgressGrid();
+        }
+
     }
 
 }

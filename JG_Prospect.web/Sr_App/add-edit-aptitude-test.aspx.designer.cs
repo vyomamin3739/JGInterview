@@ -22,6 +22,15 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.Literal ltrlPageHeader;
         
         /// <summary>
+        /// upnlEditTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upnlEditTest;
+        
+        /// <summary>
         /// vsExam control.
         /// </summary>
         /// <remarks>
@@ -112,22 +121,22 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassPercentage;
         
         /// <summary>
-        /// ddlDesignation control.
+        /// ddlDesigAptitude control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
+        protected global::System.Web.UI.WebControls.ListBox ddlDesigAptitude;
         
         /// <summary>
-        /// rfvDesignation control.
+        /// cvalidatorDesignationAptitude control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDesignation;
+        protected global::System.Web.UI.WebControls.CustomValidator cvalidatorDesignationAptitude;
         
         /// <summary>
         /// upQuestions control.

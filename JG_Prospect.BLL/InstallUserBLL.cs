@@ -21,8 +21,39 @@ namespace JG_Prospect.BLL
         public static InstallUserBLL Instance
         {
             get { return m_InstallUserBLL; }
-            private set { ; }
+            private set {; }
         }
+
+        public void AddUserNotes(string Notes, int UserID, int AddedByID)
+        {
+            InstallUserDAL.Instance.AddUserNotes(Notes, UserID, AddedByID);
+        }
+        public DataSet GetUserEmailAndPhone(int UserID)
+        { return InstallUserDAL.Instance.GetUserEmailAndPhone(UserID); }
+
+        public void SetPrimaryContactOfUser(int DataID, int UserID, int DataType, bool IsPrimary)
+        {
+            InstallUserDAL.Instance.SetPrimaryContactOfUser(DataID, UserID, DataType, IsPrimary);
+        }
+        public string AddUserEmailOrPhone(int UserID, string DataForValidation, int DataType, string PhoneTypeID, string PhoneExt, bool IsPrimary)
+        {
+            return InstallUserDAL.Instance.AddUserEmailOrPhone(UserID, DataForValidation, DataType, PhoneTypeID, PhoneExt, IsPrimary);
+        }
+        public void UpdateGithubUserName(int UserId, String GithubUsername)
+        {
+            InstallUserDAL.Instance.UpdateGithubUserName(UserId, GithubUsername);
+        }
+
+        public string GetUserGithubUserName(int id)
+        {
+            return InstallUserDAL.Instance.GetUserGitUserName(id);
+        }
+
+        public string GetUserDesignationCode(int UserId)
+        {
+            return InstallUserDAL.Instance.GetUserDesignationCode(UserId);
+        }
+
         public string AddHoursToAvailability(DateTime dt)
         {
             int month = dt.Month;
@@ -71,6 +102,12 @@ namespace JG_Prospect.BLL
         {
             return InstallUserDAL.Instance.GetSalesTouchPointLogData(CustomerId, userid);
         }
+
+        public DataSet GetInstallUsersForBulkEmail(Int32 DesignationId)
+        {
+            return InstallUserDAL.Instance.GetInstallUsersForBulkEmail(DesignationId);
+        }
+
         public void UpdateProspect(user objuser)
         {
             InstallUserDAL.Instance.UpdateProspect(objuser);
@@ -178,6 +215,12 @@ namespace JG_Prospect.BLL
         {
             return InstallUserDAL.Instance.GetInstallerAvailability(referenceId, installerId);
         }
+
+        public bool UpdateConfirmInstallUser(user objuser)
+        {
+            return InstallUserDAL.Instance.UpdateConfirmInstallUser(objuser);
+        }
+
         public bool UpdateInstallUser(user objuser, int id)
         {
             return InstallUserDAL.Instance.UpdateInstallUser(objuser, id);
@@ -195,6 +238,12 @@ namespace JG_Prospect.BLL
             }
             return ds;
         }
+
+        public bool CheckUnsubscribedEmail(string strToAddress)
+        {
+            return InstallUserDAL.Instance.CheckUnsubscribedEmail(strToAddress);
+        }
+
         public DataSet getUser(string loginid)
         {
             return UserDAL.Instance.getUser(loginid);
@@ -299,9 +348,9 @@ namespace JG_Prospect.BLL
             return UserDAL.Instance.getperioddetails(periodId);
         }
 
-        public DataSet getInstallerUserDetailsByLoginId(string loginid)
+        public DataSet getInstallerUserDetailsByLoginId(string loginid, bool blIncludeRejected = false)
         {
-            return InstallUserDAL.Instance.getInstallerUserDetailsByLoginId(loginid);
+            return InstallUserDAL.Instance.getInstallerUserDetailsByLoginId(loginid, blIncludeRejected);
         }
 
         public DataSet getCustomerUserDetails(string Email, string Password)
@@ -454,11 +503,23 @@ namespace JG_Prospect.BLL
             return InstallUserDAL.Instance.UpdateInstallUserStatus(Status, StatusId);
         }
 
+        public DataSet ChangeDesignition(int EditId, int DesignitionID)
+        {
+
+            return InstallUserDAL.Instance.ChangeDesignition(EditId, DesignitionID);
+        }
+
         public DataSet ChangeStatus(string Status, int StatusId, DateTime RejectionDate, string RejectionTime, int RejectedUserId, bool IsInstallUser, string StatusReason = "", string UserIds = "")
         {
 
             return InstallUserDAL.Instance.ChangeSatatus(Status, StatusId, RejectionDate, RejectionTime, RejectedUserId, IsInstallUser, StatusReason, UserIds);
         }
+
+        public DataSet ChangeUserStatusToReject(int StatusId, DateTime RejectionDate, string RejectionTime, int RejectedUserId, Int64 UserId, string StatusReason = "")
+        {
+            return InstallUserDAL.Instance.ChangeUserStatusToReject(StatusId, RejectionDate, RejectionTime, RejectedUserId, UserId, StatusReason);
+        }
+
 
         public DataSet GetAllInterivewUserByPastDate()
         {
@@ -481,6 +542,7 @@ namespace JG_Prospect.BLL
             return InstallUserDAL.Instance.UpdateOfferMade(Id, Email, password);
         }
 
+
         public string AddNewEmailForUser(string EmailID, bool IsPrimary, int UserID)
         {
             return InstallUserDAL.Instance.AddNewEmailForUser(EmailID, IsPrimary, UserID);
@@ -501,6 +563,17 @@ namespace JG_Prospect.BLL
         {
             return InstallUserDAL.Instance.GetTaskUsers(searchTerm);
         }
+
+        public string GetStarBookMarkUsers(int bookmarkingUser, int bookmarkedUser, int isdelete)
+        {
+            return InstallUserDAL.Instance.GetStarBookMarkUsers(bookmarkingUser, bookmarkedUser, isdelete);
+        }
+
+        public DataSet GetBookMarkingUserDetails(int bookmarkedUser)
+        {
+            return InstallUserDAL.Instance.GetBookMarkingUserDetails(bookmarkedUser);
+        }
+
         //--------- end DP ----------
 
         public DataSet GetSalesUsersStaticticsAndData(string strSearchTerm, string strStatus, Int32 intDesignationId, Int32 intSourceId, DateTime? fromdate, DateTime? todate, int userid, int intPageIndex, int intPageSize, string strSortExpression)
@@ -557,6 +630,12 @@ namespace JG_Prospect.BLL
         {
             return InstallUserDAL.Instance.GetUsersNDesignationForSalesFilter();
         }
+
+        public DataSet GeAddedBytUsers()
+        {
+            return InstallUserDAL.Instance.GeAddedBytUsers();
+        }
+
         public string AddUserEmails(string hidExtEmail, int UserId)
         {
             return InstallUserDAL.Instance.AddUserEmails(hidExtEmail, UserId);
@@ -609,9 +688,32 @@ namespace JG_Prospect.BLL
             return InstallUserDAL.Instance.InsertUserOTP(userID, userType, OTP);
         }
 
-        public void BookmarkUnStarInstallUser(int UserId, int BookmarkById, string action)
+        public bool ChangeUserStatusToRejectByEmail(int StatusId, DateTime RejectionDate, string RejectionTime, int RejectedUserId, String UserEmail, string StatusReason = "")
         {
-            InstallUserDAL.Instance.BookmarkUnStarInstallUser(UserId, BookmarkById, action);
+            return InstallUserDAL.Instance.ChangeUserStatusToRejectByEmail(StatusId, RejectionDate, RejectionTime, RejectedUserId, UserEmail, StatusReason);
+        }
+
+        public bool ChangeUserStatusToRejectByMobile(int StatusId, DateTime RejectionDate, string RejectionTime, int RejectedUserId, String UserMobile, string StatusReason = "")
+        {
+            return InstallUserDAL.Instance.ChangeUserStatusToRejectByMobile(StatusId, RejectionDate, RejectionTime, RejectedUserId, UserMobile, StatusReason);
+
+        }
+
+        public DataSet ChangeUserSatatus(Int32 UserId, int StatusId, DateTime RejectionDate, string RejectionTime, int RejectedUserId, bool IsInstallUser, string StatusReason = "", string UserIds = "")
+        {
+
+            return InstallUserDAL.Instance.ChangeUserSatatus(UserId, StatusId, RejectionDate, RejectionTime, RejectedUserId, IsInstallUser, StatusReason, UserIds);
+        }
+
+        public void UpdateEmpType(int ID, string EmpType)
+        {
+            InstallUserDAL.Instance.UpdateEmpType(ID, EmpType);
+        }
+
+        public DataSet GetPopupEditUsers(String UserIds, String Status, int DesignationId, int PageIndex, int PageSize, String SortExpression)
+        {
+            return InstallUserDAL.Instance.GetPopupEditUsers(UserIds, Status, DesignationId, PageIndex, PageSize, SortExpression);
+
         }
 
     }

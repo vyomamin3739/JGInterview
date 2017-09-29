@@ -365,9 +365,19 @@ namespace JG_Prospect.Sr_App
                     DataRow dr = ds.Tables[0].Rows[i];
                     drpPayPeriod.Items.Add(new ListItem(dr["Periodname"].ToString(), dr["Id"].ToString()));
                 }
-                drpPayPeriod.SelectedValue = dsCurrentPeriod.Tables[0].Rows[0]["Id"].ToString();
-                txtDtFrom.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["FromDate"].ToString()).ToString("MM/dd/yyyy");
-                txtDtTo.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["ToDate"].ToString()).ToString("MM/dd/yyyy");
+                if (dsCurrentPeriod.Tables[0].Rows.Count > 0)
+                {
+                    ListItem lstSelected = drpPayPeriod.Items.FindByValue(dsCurrentPeriod.Tables[0].Rows[0]["Id"].ToString());
+
+                    if (lstSelected != null)
+                    {
+                        drpPayPeriod.SelectedIndex = drpPayPeriod.Items.IndexOf(lstSelected);
+                    }
+                    txtDtFrom.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["FromDate"].ToString()).ToString("MM/dd/yyyy");
+                    txtDtTo.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["ToDate"].ToString()).ToString("MM/dd/yyyy");
+
+                }
+
 
                 // Filter Drop down for Pay Period
 
@@ -377,9 +387,13 @@ namespace JG_Prospect.Sr_App
                     DataRow dr = ds.Tables[0].Rows[i];
                     ddlPayPeriodFilter.Items.Add(new ListItem(dr["Periodname"].ToString(), dr["Id"].ToString()));
                 }
-                ddlPayPeriodFilter.SelectedValue = dsCurrentPeriod.Tables[0].Rows[0]["Id"].ToString();
-                txtDtFromfilter.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["FromDate"].ToString()).ToString("MM/dd/yyyy");
-                txtDtToFilter.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["ToDate"].ToString()).ToString("MM/dd/yyyy");
+
+                if (dsCurrentPeriod.Tables[0].Rows.Count > 0)
+                {
+                    ddlPayPeriodFilter.SelectedValue = dsCurrentPeriod.Tables[0].Rows[0]["Id"].ToString();
+                    txtDtFromfilter.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["FromDate"].ToString()).ToString("MM/dd/yyyy");
+                    txtDtToFilter.Text = Convert.ToDateTime(dsCurrentPeriod.Tables[0].Rows[0]["ToDate"].ToString()).ToString("MM/dd/yyyy"); 
+                }
             }
             else
             {

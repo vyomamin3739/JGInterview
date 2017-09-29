@@ -22,13 +22,31 @@ namespace JG_Prospect.Sr_App {
         protected global::System.Web.UI.UpdatePanel upExams;
         
         /// <summary>
-        /// ddlDesignation control.
+        /// upnlDesignationFrozen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
+        protected global::System.Web.UI.UpdatePanel upnlDesignationFrozen;
+        
+        /// <summary>
+        /// ddlDesigAptitude control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Saplin.Controls.DropDownCheckBoxes ddlDesigAptitude;
+        
+        /// <summary>
+        /// cvalidatorddlDesigAptitude control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvalidatorddlDesigAptitude;
         
         /// <summary>
         /// grdExams control.

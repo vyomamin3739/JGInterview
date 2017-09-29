@@ -26,7 +26,8 @@ namespace JG_Prospect.Sr_App
 
         private void FillHtmlTemplates()
         {
-            DataSet dsHtmlTemplates = HTMLTemplateBLL.Instance.GetHTMLTemplateMasters();
+            // Bind html templates
+            DataSet dsHtmlTemplates = HTMLTemplateBLL.Instance.GetHTMLTemplateMasters(1);
             if (dsHtmlTemplates != null && dsHtmlTemplates.Tables.Count > 0)
             {
                 DataView dvHtmlTemplates = dsHtmlTemplates.Tables[0].DefaultView;
@@ -48,6 +49,18 @@ namespace JG_Prospect.Sr_App
                 dvHtmlTemplates.RowFilter = string.Format("[Type] = {0}", Convert.ToByte(Common.HTMLTemplateTypes.Template));
                 repTemplates_Template.DataSource = dvHtmlTemplates.ToTable();
                 repTemplates_Template.DataBind();
+            }
+
+            // Bind SMS templates
+            DataSet dsSMSTemplates = HTMLTemplateBLL.Instance.GetSMSTemplateMasters(2);
+            if (dsSMSTemplates != null && dsSMSTemplates.Tables.Count > 0)
+            {
+                DataView dvSMSTemplates = dsSMSTemplates.Tables[0].DefaultView;
+
+                dvSMSTemplates.RowFilter = string.Format("[Type] = {0} AND [Category] = {1}", Convert.ToByte(Common.HTMLTemplateTypes.AutoEmailTemplate), Convert.ToByte(Common.HTMLTemplateCategories.HRAutoEmail));
+                gvSMSTemplates.DataSource = dvSMSTemplates.ToTable();
+                gvSMSTemplates.DataBind();
+                
             }
         }
 

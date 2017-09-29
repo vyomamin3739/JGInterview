@@ -31,6 +31,15 @@ namespace JG_Prospect {
         protected global::System.Web.UI.ScriptManager scriptmanager1;
         
         /// <summary>
+        /// upnlForgotPWD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upnlForgotPWD;
+        
+        /// <summary>
         /// rdCustomer control.
         /// </summary>
         /// <remarks>

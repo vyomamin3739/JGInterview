@@ -9,12 +9,12 @@
 .borderRadiusBtm ul li:first-child{-moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0 ;border-bottom:1 solid #c3c3c3; }
 
 .ddcommon .disabled img, .ddcommon .disabled span, .ddcommon.disabledAll{
-opacity: .5; /* standard: ff gt 1.5, opera, safari */
--ms-filter:"alpha(opacity=50)"; /* ie 8 */
-filter:alpha(opacity=50); /* ie lt 7 */
--khtml-opacity:.5; /* safari 1.x */
--moz-opacity:.5; /* ff lt 1.5, netscape */
-color:#999999;
+/*opacity: .5;
+-ms-filter:"alpha(opacity=50)";
+filter:alpha(opacity=50);
+-khtml-opacity:.5;
+-moz-opacity:.5;
+color:#999999;*/
 }
 .ddcommon .clear{clear:both}
 .ddcommon .shadow{-moz-box-shadow:5px 5px 5px -5px #888888;-webkit-box-shadow:5px 5px 5px -5px #888888;box-shadow: 5px 5px 5px -5px #888888;}
@@ -45,13 +45,17 @@ img.fnone{float:none !important}
 /*************** default theme **********************/
 .dd{border:1px solid #c3c3c3;}
 .dd .divider{border-left:1px solid #c3c3c3; border-right:1px solid #fff;; right:24px;}
+.disabledAll .divider{border:none!important; right:0px;display:none;}
 .dd .ddArrow{width:16px;height:16px; margin-top:-8px; background:url(../css/msdropdown/dd_arrow.gif) no-repeat;}
 .dd .ddArrow:hover{background-position:0 100%;}
+.disabledAll .ddArrow{display:none;}
 .dd .ddTitle{color:#000;background:#e2e2e4 url(../css/msdropdown/title-bg.gif) repeat-x left top;}
 .dd .ddTitle .ddTitleText{padding:5px 20px 5px 5px;}
 .dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
 .dd .ddTitle .description{font-size:12px; color:#666}
 .dd .ddTitle .ddTitleText img{padding-right:5px;}
+.disabledAll .ddTitle .ddTitleText img{padding:0px;}
+.disabledAll .ddTitle .ddTitleText {padding: 3px !important;}
 .dd .ddChild{border:1px solid #c3c3c3; background-color:#fff; left:-1px;}
 .dd .ddChild li{padding:5px; background-color:#fff; border-bottom:1px solid #c3c3c3;}
 .dd .ddChild li .description{color:#666;}

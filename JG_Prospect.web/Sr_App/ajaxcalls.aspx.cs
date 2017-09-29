@@ -10,6 +10,9 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+
 
 namespace JG_Prospect.Sr_App
 {
@@ -65,8 +68,13 @@ namespace JG_Prospect.Sr_App
         [WebMethod]
         public static string GetEmailCounters()
         {
+            String Result = String.Empty;
             YandexEmailCountersResponse EmailCounters = YandexManager.GetUnreadEmailCount(AppSettingsValues.GetDomainActiveUserEmailCreation, "jgrove@jmgroveconstruction.com");
-            return JsonConvert.SerializeObject(EmailCounters.counters, Formatting.Indented);
+            if (EmailCounters != null)
+            {
+               Result =  JsonConvert.SerializeObject(EmailCounters.counters, Formatting.Indented);
+            }
+            return Result;
 
         }
 
@@ -86,6 +94,55 @@ namespace JG_Prospect.Sr_App
             }
 
             return SearchSuggestions;
+        }
+
+        [WebMethod]
+        public static string StarBookMarkUsers(int bookmarkedUser,   int isdelete)
+        {
+            string strReturn = "true";
+            try
+            {
+                int userId = Convert.ToInt16(HttpContext.Current.Session[JG_Prospect.Common.SessionKey.Key.UserId.ToString()]);
+                strReturn = InstallUserBLL.Instance.GetStarBookMarkUsers(userId, bookmarkedUser, isdelete);
+            }
+            catch(Exception ex)
+            {
+                strReturn = "false";
+            }
+            return strReturn;
+        }
+
+
+        [WebMethod]
+
+        public static string GetBookMarkingUserDetails(int bookmarkedUser)
+        {
+            DataSet dsBook = new DataSet();
+            try
+            {
+                dsBook = InstallUserBLL.Instance.GetBookMarkingUserDetails(bookmarkedUser);
+            }
+            catch (Exception ex)
+            {
+                dsBook = null;
+            }
+
+            List<object> listdata = new List<object>();
+            for (int i = 0; i < dsBook.Tables[0].Rows.Count;i++ )
+            {
+                listdata.Add(new
+                {
+                    Id = dsBook.Tables[0].Rows[i]["Id"],
+                    FristName = dsBook.Tables[0].Rows[i]["FristName"],
+                    LastName = dsBook.Tables[0].Rows[i]["LastName"],
+                    Designation = dsBook.Tables[0].Rows[i]["Designation"],
+                    Email = dsBook.Tables[0].Rows[i]["Email"],
+                    UserInstallId = dsBook.Tables[0].Rows[i]["UserInstallId"],
+                    createdDateTime = dsBook.Tables[0].Rows[i]["createdDateTime"]
+                });
+            }
+
+            return new JavaScriptSerializer().Serialize(listdata); 
         }
 
         //---------- End DP ---------

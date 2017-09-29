@@ -63,6 +63,7 @@ namespace JG_Prospect.Common.modal
         public int SecondoryTradeId;
         public string Notes;
         public string Source;
+        public int    SourceId;
         public string Reason;
         public string GeneralLiability;
         public string PqLicense;
@@ -192,6 +193,7 @@ namespace JG_Prospect.Common.modal
         public bool IsTextContactPreference;
         public bool IsMailContactPreference;
 
+        public string GitUserName;
     }
 
     public class user1
@@ -238,7 +240,8 @@ namespace JG_Prospect.Common.modal
         public string SuiteAptRoom2;
         public string SalesExperience;
         public string UserType;
-        
+        public string Password;
+
     }
 
     public class LoginUser

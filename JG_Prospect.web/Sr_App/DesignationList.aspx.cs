@@ -86,15 +86,18 @@ namespace JG_Prospect.Sr_App
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DataRowView lDrRowData = (DataRowView)e.Row.DataItem;
+                //DataRowView lDrRowData = (DataRowView)e.Row.DataItem;
+                Designation lDrRowData = e.Row.DataItem as Designation;
+
                 DropDownList ddlactive = (DropDownList)e.Row.FindControl("ddlactive");
                 if (ddlactive != null)
                 {
-                    ddlactive.SelectedValue = lDrRowData["IsActive"].ToString() == "False" ? "0" : "1";
+                   // ddlactive.SelectedValue = lDrRowData["IsActive"].ToString() == "False" ? "0" : "1";
+                    ddlactive.SelectedValue = lDrRowData.IsActive ? "1" : "0";
                 }
 
                 HtmlAnchor editDesignation = (HtmlAnchor)e.Row.FindControl("editDesignation");
-                editDesignation.HRef= "DesignationAddEdit.aspx?DesignationId="+ lDrRowData["ID"].ToString() + "&DepartmentId=" + lDrRowData["DepartmentID"].ToString();
+                editDesignation.HRef= "DesignationAddEdit.aspx?DesignationId="+ lDrRowData.ID + "&DepartmentId=" + lDrRowData.DepartmentID;
 
             }
         }
