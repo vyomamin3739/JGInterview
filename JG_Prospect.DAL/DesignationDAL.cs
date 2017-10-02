@@ -43,6 +43,27 @@ namespace JG_Prospect.DAL
             }
         }
 
+        public string GetDesignationCode(JGConstant.DesignationType objDesignationType)
+        {
+            try
+            {
+                SqlDatabase database = MSSQLDataBase.Instance.GetDefaultDatabase();
+                {                    
+                    DbCommand command = database.GetStoredProcCommand("UDP_GetDesignationCode");
+                    database.AddInParameter(command, "@DesignationID", DbType.Int32, objDesignationType);
+                    command.CommandType = CommandType.StoredProcedure;
+                    string returnValue = string.Empty;
+                    returnValue = Convert.ToString(database.ExecuteScalar(command));
+                    return returnValue;
+                }
+            }              
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         public List<Designation> GetDesignationByFilter(int? DesignationID, int? DepartmentID)
         {
             try
